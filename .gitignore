@@ -10,6 +10,7 @@ Library/expandedItems
 Library/assetDatabase3
 Library/CurrentLayout.dwlt
 Library/ScriptMapper
+Library/EditorInstance.json
 Temp
 obj
 Logs
@@ -19,4 +20,3 @@ ProjectSettings
 *.csproj
 *.sln
 UIElementsSchema
-
