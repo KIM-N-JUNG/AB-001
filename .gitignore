@@ -1,6 +1,22 @@
+.vs
+Library/LastBuild.buildreport
+Library/metadata
+Library/ScriptAssemblies
+Library/EditorOnlyScriptingUserSettings.json
+Library/*Cache
+Library/*.log
+Library/*.db
+Library/expandedItems
+Library/assetDatabase3
+Library/CurrentLayout.dwlt
+Library/ScriptMapper
+Temp
+obj
+Logs
+*.log
+*.swp
+ProjectSettings
+*.csproj
+*.sln
+UIElementsSchema
 
-.vs/AB-001/v15/Server/sqlite3/db.lock
-.vs/AB-001/v15/Server/sqlite3/storage.ide
-.vs/AB-001/v15/Server/sqlite3/storage.ide-shm
-.vs/AB-001/v15/Server/sqlite3/storage.ide-wal
-Temp/
