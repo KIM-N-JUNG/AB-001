@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class make_bullets : MonoBehaviour {
 
@@ -28,6 +29,13 @@ public class make_bullets : MonoBehaviour {
 
     void Start()
     {
+        Debug.Log("ActiveScene : " + (SceneManager.GetActiveScene().buildIndex == 0 ? "Main Menu" : "Play Mode"));
+
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            return;
+        }
+
         // 처음에 미사일을 발사할 수 있도록 제어변수를 true로 설정
         FireState = true;
 
@@ -97,7 +105,7 @@ public class make_bullets : MonoBehaviour {
         for (int i = 0; i < MissileMaxPool; i++)
         {
             // 만약 미사일[i]가 활성화 되어있다면
-            if (MissileArray[i])
+            if (MissileArray != null && MissileArray[i])
             {
                 // 미사일[i]의 Collider2D가 비활성 되었다면
                 if (MissileArray[i].GetComponent<Collider2D>().enabled == false)
