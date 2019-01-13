@@ -18,6 +18,10 @@ public class PlayerHealth : MonoBehaviour {
     public void TakeDamage(float damage)
     {
         //Debug.Log("TakeDamage");
+        Handheld.Vibrate();
+
+        SoundManager.instance.playSound();
+
         _currentHealth -= damage;
         HealthBar.value = _currentHealth;
 
