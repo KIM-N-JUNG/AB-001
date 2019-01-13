@@ -24,7 +24,10 @@ public class make_bullets : MonoBehaviour {
     private void OnApplicationQuit()
     {
         // 메모리 풀을 비웁니다.
-        MPool.Dispose();
+        if (MPool != null)
+        {
+            MPool.Dispose();
+        }
     }
 
     void Start()
