@@ -71,7 +71,37 @@ public class plane_move : MonoBehaviour {
 
     public void Move()
     {
-        _transform.Translate(_moveVector * MoveSpeed * Time.deltaTime);
+        Vector3 tmp = _moveVector * MoveSpeed * Time.deltaTime;
+        Vector3 curr = _transform.position;
+        _transform.Translate(tmp);
+        curr = _transform.position;
+
+        // TODO: Needs to find rect of airplane
+        //float myHeight = _transform.GetComponent<RectTransform>().rect.height;
+        //Debug.Log("myHeight : " + myHeight);
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(curr);
+        int width = Screen.width;
+        int height = Screen.height;
+        if (screenPos.x < 0.0f)
+        {
+            screenPos.x = 0.0f;
+        }
+        else if (screenPos.x > width)
+        {
+            screenPos.x = width;
+        }
+        if (screenPos.y < 300.0f)
+        {
+            screenPos.y = 300.0f;
+        }
+        else if (screenPos.y > height)
+        {
+            screenPos.y = height;
+        }
+
+        Vector3 finalPos = Camera.main.ScreenToWorldPoint(screenPos);
+        transform.SetPositionAndRotation(finalPos, new Quaternion());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
