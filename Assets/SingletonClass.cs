@@ -32,7 +32,8 @@ public class SingletonClass : MonoBehaviour
     public int typeJoystick = 1;
 
     // 사운드
-    public bool bSound = true;
+    public bool bBGSound = true;
+    public bool bEffectSound = true;
 
     // 진동
     public bool bVibrate = true;
