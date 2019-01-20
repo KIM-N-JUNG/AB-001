@@ -8,6 +8,10 @@ public class plane_move : MonoBehaviour {
     public Joystick joystick;   //조이스틱 스크립트
     public float MoveSpeed;     //플레이어 이동속도
 
+    public GameObject shuttle;
+    public Mesh shuttleMesh;
+    private BoxCollider2D shuttleBox;
+
     private Vector3 _moveVector; //플레이어 이동벡터
     private Transform _transform;
 
@@ -15,6 +19,7 @@ public class plane_move : MonoBehaviour {
     {
         _transform = transform;      //Transform 캐싱
         _moveVector = Vector3.zero;  //플레이어 이동벡터 초기화
+        shuttleBox = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -97,28 +102,30 @@ public class plane_move : MonoBehaviour {
         _transform.Translate(tmp);
         curr = _transform.position;
 
-        // TODO: Needs to find rect of airplane
-        //float myHeight = _transform.GetComponent<RectTransform>().rect.height;
-        //Debug.Log("myHeight : " + myHeight);
+        Vector3 shuttleMin = Camera.main.WorldToScreenPoint(shuttleBox.bounds.min);
+        Vector3 shuttleMax = Camera.main.WorldToScreenPoint(shuttleBox.bounds.max);
+
+        float shuttleWidth  = shuttleMax.x - shuttleMin.x;
+        float shuttleHeight = shuttleMax.y - shuttleMin.y;
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(curr);
         int width = Screen.width;
         int height = Screen.height;
-        if (screenPos.x < 0.0f)
+        if (screenPos.x < shuttleWidth / 2)
         {
-            screenPos.x = 0.0f;
+            screenPos.x = shuttleWidth / 2;
         }
-        else if (screenPos.x > width)
+        else if (screenPos.x > width - (shuttleWidth / 2))
         {
-            screenPos.x = width;
+            screenPos.x = width - (shuttleWidth / 2);
         }
-        if (screenPos.y < 300.0f)
+        if (screenPos.y < 300.0f) // TODO: Needs to adjust with resolution 
         {
             screenPos.y = 300.0f;
         }
-        else if (screenPos.y > height)
+        else if (screenPos.y > height - (shuttleHeight))
         {
-            screenPos.y = height;
+            screenPos.y = height - (shuttleHeight);
         }
 
         Vector3 finalPos = Camera.main.ScreenToWorldPoint(screenPos);
