@@ -32,22 +32,26 @@ public class PauseMenu : MonoBehaviour {
 
     public void Pause()
     {
+        Debug.Log("Pause");
         paused = true;
     }
 
     public void Resume()
     {
+        Debug.Log("Resume");
         paused = false;
     }
 
     public void Restart()
     {
+        Debug.Log("Restart");
         SceneManager.LoadScene("AvoidBullets");
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(1);
+        Debug.Log("MainMenu");
+        SceneManager.LoadScene(0);
     }
 
     public void End()
@@ -56,11 +60,13 @@ public class PauseMenu : MonoBehaviour {
 
         float time = timer.GetTime();
         float t = Mathf.Round(time / .01f) * .01f;
-        PanelText.text = "Game Over \r\n\r\n Your Time : " + t;
+        PanelText.text = "Game Over \r\n\r\n Your Time : " + t + "'";
     }
 
     public void Quit()
     {
-        Application.Quit();
+        Debug.Log("Quit");
+        MainMenu();
+        //Application.Quit();
     }
 }
