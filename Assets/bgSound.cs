@@ -12,11 +12,12 @@ public class bgSound : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
+        // TODO
         bPlay = true;
 
         bool flag = SingletonClass.Instance.bBGSound;
@@ -30,4 +31,16 @@ public class bgSound : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        bool flag = SingletonClass.Instance.bBGSound;
+
+        if (flag)
+        {
+            myAudio = GetComponent<AudioSource>();
+            myAudio.Stop();
+
+            SingletonClass.Instance.bBGSound = false;
+        }
+    }
 }
