@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -23,7 +24,13 @@ public class SoundManager : MonoBehaviour
     }
     public void playSound()
     {
-        myAudio.PlayOneShot(soundExplosion);
+        bool flag = SingletonClass.Instance.bBGSound;
+
+        if (SceneManager.GetActiveScene().buildIndex == 1
+            && flag)
+        {
+            myAudio.PlayOneShot(soundExplosion);
+        }
     }
     // Update is called once per frame
     void Update()
