@@ -7,8 +7,6 @@ public class bgSound : MonoBehaviour
 {
     public AudioClip sound;
     private AudioSource myAudio;
-    private bool bPlay;
-
 
     private void Awake()
     {
@@ -17,9 +15,6 @@ public class bgSound : MonoBehaviour
 
     void Start()
     {
-        // TODO
-        bPlay = true;
-
         bool flag = SingletonClass.Instance.bBGSound;
 
         if (SceneManager.GetActiveScene().buildIndex == 1 

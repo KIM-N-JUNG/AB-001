@@ -7,14 +7,17 @@ using UnityEngine.EventSystems;
 public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
 
-    private Image bgImg;
+    //private Image bgImg;
+    private RawImage bgImg;
     private Image joystickImg;
     private Vector3 inputVector;
 
     // Use this for initialization
     void Start()
     {
-        bgImg = GetComponent<Image>();
+        //bgImg = GetComponent<Image>();
+        bgImg = GetComponent<RawImage>();
+        
         joystickImg = transform.GetChild(0).GetComponent<Image>();
     }
 
@@ -41,8 +44,8 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
             // Move Joystick Image
             joystickImg.rectTransform.anchoredPosition
-                    = new Vector3(inputVector.x * (bgImg.rectTransform.sizeDelta.x / 3),
-                                  inputVector.y * (bgImg.rectTransform.sizeDelta.y / 3));
+                    = new Vector3(inputVector.x * (bgImg.rectTransform.sizeDelta.x / 2),
+                                  inputVector.y * (bgImg.rectTransform.sizeDelta.y / 2));
         }
     }
 
