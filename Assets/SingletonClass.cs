@@ -22,6 +22,15 @@ public class SingletonClass : MonoBehaviour
         }
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        Screen.orientation = ScreenOrientation.AutoRotation;
+        Screen.autorotateToPortrait = true;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = false;
+        Screen.autorotateToLandscapeRight = false;
+    }
+
     // ACCELERATION
     public bool acceleration = true;
 
