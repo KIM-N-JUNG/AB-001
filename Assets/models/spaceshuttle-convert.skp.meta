@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: d6d5c7104256545aaa35283c49b30b5a
+guid: f422f6cf5e1e0429eb39971270f46527
 SketchUpImporter:
   generateBackFace: 0
   mergeCoplanarFaces: 0
-  selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000
+  selectedNodes: 00000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
   assetHash:
     serializedVersion: 2
-    Hash: 71b8be933f570dd937d95d00afabb11c
+    Hash: cbda26f383b66577a02a53842a3b0262
   longitude: -105.242139
   latitude: 40.018309
   northCorrection: -0
   fileUnit: 0
   sketchUpImportData:
     defaultCamera:
-      position: {x: -0.060794484, y: 8.444295, z: -41.26271}
-      lookAt: {x: 1189.4733, y: -859.8791, z: 3235.7314}
-      up: {x: 0.08246707, y: 0.97035366, z: 0.22718483}
-      fov: 35
+      position: {x: 3.0370643, y: 12.135256, z: -9.689942}
+      lookAt: {x: -11.275091, y: -39.983532, z: 29.020771}
+      up: {x: -0.27186224, y: 0.6208051, z: 0.7353177}
+      fov: 29.061573
       aspectRatio: 0
       orthoSize: 1
       isPerspective: 1

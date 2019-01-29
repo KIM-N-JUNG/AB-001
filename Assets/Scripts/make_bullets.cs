@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class make_bullets : MonoBehaviour {
+public class make_bullets : MonoBehaviour
+{
 
     public GameObject PlayerMissile;    // 복제할 미사일 오브젝트
     //public Transform MissileLocation;   // 미사일이 발사될 위치
@@ -51,11 +52,11 @@ public class make_bullets : MonoBehaviour {
         MissileArray = new GameObject[MissileMaxPool];
 
         firePosition = new Vector3[firePositionCount];
-        for(int i = 0; i < firePositionCount; i++)
+        for (int i = 0; i < firePositionCount; i++)
         {
             firePosition[i].x = Random.Range(-40.0f, 40.0f);
             firePosition[i].y = Random.Range(0, 2) * 11;
-            if (firePosition[i].y == 0) firePosition[i].y = -11;
+            if (System.Math.Abs(firePosition[i].y) < 0.01f) firePosition[i].y = -11.0f;
 
             firePosition[i].z = 0;
         }
@@ -94,7 +95,6 @@ public class make_bullets : MonoBehaviour {
                         // 해당 미사일의 위치를 미사일 발사지점으로 맞춘다.
                         //MissileArray[i].transform.position = MissileLocation.transform.position;
                         MissileArray[i].transform.position = firePosition[indexPosition];
-
                         // 발사 후에 for문을 바로 빠져나간다.
                         //break;
                         if (tCount++ > concurrencyCount)

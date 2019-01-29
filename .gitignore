@@ -13,6 +13,7 @@ Library/ScriptMapper
 Library/EditorInstance.json
 Library/EditorUserBuildSettings.asset
 Library/CurrentMaximizeLayout.dwlt
+Library/ProjectSettings.asset
 EditorUserSettings.asset    
 InspectorExpandedItems.asset
 Temp
@@ -24,3 +25,8 @@ ProjectSettings
 *.csproj
 *.sln
 UIElementsSchema
+Assets/Colors.meta
+Assets/Scenes/AvoidBullets.unity.orig
+Assets/Scenes/AvoidBullets.unity.orig.meta
+Assets/Scenes/MainMenu.unity.orig
+Assets/Scenes/MainMenu.unity.orig.meta
