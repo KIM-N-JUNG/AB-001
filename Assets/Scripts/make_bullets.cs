@@ -81,6 +81,7 @@ public class make_bullets : MonoBehaviour
                 StartCoroutine(FireCycleControl());
 
                 int indexPosition = Random.Range(0, firePositionCount);
+                float randomScale = Random.Range(3.0f, 6.0f);
 
                 int tCount = 0;
                 // 미사일 풀에서 발사되지 않은 미사일을 찾아서 발사합니다.
@@ -95,6 +96,8 @@ public class make_bullets : MonoBehaviour
                         // 해당 미사일의 위치를 미사일 발사지점으로 맞춘다.
                         //MissileArray[i].transform.position = MissileLocation.transform.position;
                         MissileArray[i].transform.position = firePosition[indexPosition];
+                        MissileArray[i].transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+
                         // 발사 후에 for문을 바로 빠져나간다.
                         //break;
                         if (tCount++ > concurrencyCount)

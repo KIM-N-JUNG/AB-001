@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
     }
     public void playSound()
     {
-        bool flag = SingletonClass.Instance.bBGSound;
+        bool flag = SingletonClass.Instance.bEffectSound;
 
         if (SceneManager.GetActiveScene().buildIndex == 1
             && flag)
