@@ -34,6 +34,14 @@ public class PauseMenu : MonoBehaviour {
     public void Pause()
     {
         Debug.Log("Pause");
+
+        float time = timer.GetTime();
+        int score = (int)(time * 150);
+
+        GameObject meshText = PauseUI.transform.Find("ScoreMeshText").gameObject;
+        TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
+        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, score);
+
         paused = true;
     }
 
