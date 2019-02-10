@@ -38,7 +38,7 @@ public class Timer : MonoBehaviour
             return;
         }
 
-        float t = Mathf.Round(time / .01f) * .01f;
+        float t = (float)System.Math.Truncate(time * 100.0f) / 100.0f;
         uiText.text = "Time : " + t.ToString();
     }
 
