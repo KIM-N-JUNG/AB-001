@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -56,11 +57,21 @@ public class PauseMenu : MonoBehaviour {
 
     public void End()
     {
-        paused = true;
-
         float time = timer.GetTime();
-        float t = Mathf.Round(time / .01f) * .01f;
-        PanelText.text = "Game Over \r\n\r\n Your Time : " + t + "'";
+        int score = (int)(time * 150);
+
+        GameObject obj = PauseUI.transform.Find("PauseText").gameObject;
+        TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
+        pauseText.SetText("Game Over");
+
+        GameObject btnResume = PauseUI.transform.Find("ResumeButton").gameObject;
+        btnResume.SetActive(false);
+
+        GameObject meshText = PauseUI.transform.Find("ScoreMeshText").gameObject;
+        TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
+        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, score);
+
+        paused = true;
     }
 
     public void Quit()
