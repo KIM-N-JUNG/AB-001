@@ -936,6 +936,8 @@ MonoBehaviour:
   FireDelay: 0.001
   firePositionCount: 30
   concurrencyCount: 2
+  timeTick: 10
+  timer: {fileID: 1630832486}
   MissileMaxPool: 500
 --- !u!4 &694840416
 Transform:
@@ -2795,7 +2797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.71500003, y: 0.5}
   m_AnchorMax: {x: 0.71500003, y: 0.5}
-  m_AnchoredPosition: {x: -0.9449768, y: 1.1627198}
+  m_AnchoredPosition: {x: -0.9449463, y: 1.1627198}
   m_SizeDelta: {x: 720, y: 1280}
   m_Pivot: {x: 0.72090983, y: 0.08450202}
 --- !u!1 &1781411907

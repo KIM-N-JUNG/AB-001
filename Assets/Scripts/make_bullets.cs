@@ -12,14 +12,17 @@ public class make_bullets : MonoBehaviour
     public float FireDelay;             // 미사일 발사 속도(미사일이 날라가는 속도x)
     public int firePositionCount;       // 미사일 발사 위치 개수
     public int concurrencyCount;        // 
-
+    public int timeTick;                // 미사일 증가 틱 초수
+    public Timer timer;
 
     private bool FireState;             // 미사일 발사 속도를 제어할 변수
 
 
-    public int MissileMaxPool;          // 메모리 풀에 저장할 미사일 개수
+    public int MissileMaxPool;          // 메모리 풀에 저장할 총 미사일 개수
     private MemoryPool MPool;           // 메모리 풀
     private GameObject[] MissileArray;  // 메모리 풀과 연동하여 사용할 미사일 배열
+    private int MissileArraySize;       // 난이도에 따라 조절되는 미사일 배열의 길이
+    private static float timeIter;
 
     // 게임이 종료되면 자동으로 호출되는 함수
     private void OnApplicationQuit()
@@ -33,6 +36,29 @@ public class make_bullets : MonoBehaviour
 
     void Start()
     {
+        timeIter = 0.0f;
+        var ins = SingletonClass.Instance;
+        MissileArraySize = MissileMaxPool;
+        switch (ins.level)
+        {
+            case 0: // Easy
+                MissileArraySize /= 5;
+                break;
+            case 1: // Normal
+                MissileArraySize /= 4;
+                break;
+            case 2: // Hard
+                MissileArraySize /= 3;
+                break;
+            case 3: // Crazy
+                MissileArraySize /= 2;
+                break;
+            default:
+                Debug.Log("Invalid level! - " + ins.level);
+                break;
+        }
+        Debug.Log("Level - " + ins.level);
+        Debug.Log("Missile array size - " + MissileArraySize);
         Debug.Log("ActiveScene : " + (SceneManager.GetActiveScene().buildIndex == 0 ? "Main Menu" : "Play Mode"));
 
         if (SceneManager.GetActiveScene().buildIndex != 1)
@@ -85,7 +111,15 @@ public class make_bullets : MonoBehaviour
 
                 int tCount = 0;
                 // 미사일 풀에서 발사되지 않은 미사일을 찾아서 발사합니다.
-                for (int i = 0; i < MissileMaxPool; i++)
+                float time = timer.GetTime();
+                if ((time / timeIter) > 1.0f) {
+                    timeIter += timeTick;
+                    MissileArraySize += 10;
+                    MissileArraySize = MissileArraySize >= 500 ? 499 : MissileArraySize;
+                    Debug.Log("Increases missile - " + MissileArraySize);
+                }
+
+                for (int i = 0; i < MissileArraySize; i++)
                 {
                     // 만약 미사일배열[i]가 비어있다면
                     if (MissileArray[i] == null)
@@ -108,7 +142,7 @@ public class make_bullets : MonoBehaviour
         }
 
         // 미사일이 발사될때마다 미사일을 메모리풀로 돌려보내는 것을 체크한다.
-        for (int i = 0; i < MissileMaxPool; i++)
+        for (int i = 0; i < MissileArraySize; i++)
         {
             // 만약 미사일[i]가 활성화 되어있다면
             if (MissileArray != null && MissileArray[i])

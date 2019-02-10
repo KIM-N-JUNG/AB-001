@@ -9,6 +9,7 @@ public class OptionScript : MonoBehaviour
     public Toggle toggle_acc;
     public Toggle toggle_BGSound;
     public Toggle toggle_effectSound;
+    public Slider slider_difficult;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class OptionScript : MonoBehaviour
         toggle_acc.isOn = ins.acceleration ? true : false;
         toggle_BGSound.isOn = ins.bBGSound ? true : false;
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
+        slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
     }
 
     public void SetAcceleration(bool flag)
@@ -25,15 +27,21 @@ public class OptionScript : MonoBehaviour
         Debug.Log("acceleration : " + flag);
     }
 
-    public void setBGSound(bool flag)
+    public void SetBGSound(bool flag)
     {
         SingletonClass.Instance.bBGSound = flag;
         Debug.Log("bBGSound : " + flag);
     }
 
-    public void setEffectSound(bool flag)
+    public void SetEffectSound(bool flag)
     {
         SingletonClass.Instance.bEffectSound = flag;
         Debug.Log("bEffectSound : " + flag);
     }
+
+    public void OnDifficultLevelChange()
+    {
+        SingletonClass.Instance.level = (int)slider_difficult.value;
+        Debug.Log("Difficult Level : " + slider_difficult.value);
     }
+}
