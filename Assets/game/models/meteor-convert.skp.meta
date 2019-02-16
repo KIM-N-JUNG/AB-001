@@ -3,10 +3,10 @@ guid: fc86d3ed57c91445a85e95739496acda
 SketchUpImporter:
   generateBackFace: 0
   mergeCoplanarFaces: 0
-  selectedNodes: 000000000100000002000000
+  selectedNodes: 0000000001000000020000000300000004000000
   assetHash:
     serializedVersion: 2
-    Hash: 9c1963838fc644b2c8a5fcf977283dff
+    Hash: 3c4bfd3962ff799c9debde9fac92b1cb
   longitude: -105.242139
   latitude: 40.018309
   northCorrection: -0
@@ -25,13 +25,24 @@ SketchUpImporter:
   fileIDToRecycleName:
     100000: convexhull
     100002: //RootNode
+    100004: Chris
     400000: convexhull
     400002: //RootNode
+    400004: Chris
     2100000: _6
     2100002: _5
+    2100004: '[Chris_Shirt]'
+    2100006: '[Chris_Shoe]'
+    2100008: '[Chris_Skin]'
+    2100010: '[Chris_Shoe_Sole]'
+    2100012: '[Chris_Hair]'
+    2100014: '[Chris_Pants]'
     2300000: convexhull
+    2300002: Chris
     3300000: convexhull
+    3300002: Chris
     4300000: Mesh convexhull
+    4300002: Mesh Chris
   externalObjects: {}
   materials:
     importMaterials: 1
