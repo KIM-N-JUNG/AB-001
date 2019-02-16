@@ -1,7 +1,7 @@
 sceneSetups:
-- path: Assets/Scenes/MainMenu.unity
+- path: Assets/game/Scenes/MainMenu.unity
   isLoaded: 1
   isActive: 1
-- path: Assets/Scenes/AvoidBullets.unity
+- path: Assets/game/Scenes/AvoidBullets.unity
   isLoaded: 1
   isActive: 0
