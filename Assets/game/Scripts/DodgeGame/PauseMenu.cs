@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour {
 
     public GameObject PauseUI;
     public Timer timer;
+    public Score score;
     public Text PanelText;
 
     private bool paused = false;
@@ -35,12 +36,15 @@ public class PauseMenu : MonoBehaviour {
     {
         Debug.Log("Pause");
 
+        timer.Pause();
+        score.Pause();
+
         float time = timer.GetTime();
-        int score = (int)(time * 150);
+        int s = score.GetScore();
 
         GameObject meshText = PauseUI.transform.Find("ScoreMeshText").gameObject;
         TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
-        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, score);
+        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
 
         paused = true;
     }
@@ -49,6 +53,8 @@ public class PauseMenu : MonoBehaviour {
     {
         Debug.Log("Resume");
         paused = false;
+        timer.Resume();
+        score.Resume();
     }
 
     public void Restart()
@@ -66,7 +72,7 @@ public class PauseMenu : MonoBehaviour {
     public void End()
     {
         float time = timer.GetTime();
-        int score = (int)(time * 150);
+        int s = score.GetScore();
 
         GameObject obj = PauseUI.transform.Find("PauseText").gameObject;
         TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
@@ -77,7 +83,7 @@ public class PauseMenu : MonoBehaviour {
 
         GameObject meshText = PauseUI.transform.Find("ScoreMeshText").gameObject;
         TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
-        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, score);
+        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
 
         paused = true;
     }

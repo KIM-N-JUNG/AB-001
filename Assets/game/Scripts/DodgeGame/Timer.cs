@@ -7,9 +7,22 @@ public class Timer : MonoBehaviour
 {
 
     public static float time;
-    public string status; // play, pause, end 
+    private bool bPause; // play, pause, end 
 
     private Text uiText;
+
+    public void Pause()
+    {
+        bPause = true;
+    }
+    public void Resume()
+    {
+        bPause = false;
+    }
+    public void Reset()
+    {
+        time = 0.0f;
+    }
 
     // Use this for initialization
     void Start()
@@ -18,25 +31,18 @@ public class Timer : MonoBehaviour
 
         time = 0.00f;
         uiText.text = "Time : " + time.ToString();
-
-        status = "play";
+        bPause = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (status == "play")
-        {
-            time += Time.deltaTime;
-        }
-        else if (status == "pause")
+        if (bPause == true)
         {
             return;
         }
-        else
-        {
-            return;
-        }
+
+        time += Time.deltaTime;
 
         float t = (float)System.Math.Truncate(time * 100.0f) / 100.0f;
         uiText.text = "Time : " + t.ToString();
