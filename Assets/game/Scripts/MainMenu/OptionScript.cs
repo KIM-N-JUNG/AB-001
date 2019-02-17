@@ -28,6 +28,7 @@ public class OptionScript : MonoBehaviour
         toggle_BGSound.isOn = ins.bBGSound ? true : false;
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
+        slider_difficult.value = ins.level;
     }
 
     public void SetAcceleration(bool flag)

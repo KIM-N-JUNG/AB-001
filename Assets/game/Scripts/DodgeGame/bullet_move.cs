@@ -5,8 +5,19 @@ using UnityEngine;
 public class bullet_move : MonoBehaviour {
 
     private float MoveSpeed;     // 미사일이 날라가는 속도
-    public float MinSpeed = 0.3f;     // 미사일이 날라가는 속도
-    public float MaxSpeed = 1.0f;     // 미사일이 날라가는 속도
+    public readonly float[] MinSpeed = {
+        0.3f,
+        0.35f,
+        0.37f,
+        0.5f
+    };
+    public readonly float[] MaxSpeed = {
+        1.0f,
+        1.25f,
+        1.3f,
+        1.5f
+    };
+  
     public GameObject _player;
 
     public float DestroyXPos;   // 미사일이 사라지는 지점
@@ -19,7 +30,9 @@ public class bullet_move : MonoBehaviour {
         dir.x = Random.Range(-5.0f, 5.0f);
         dir.y = Random.Range(-5.0f, 5.0f);
 
-        MoveSpeed = Random.Range(MinSpeed, MaxSpeed);
+        var ins = SingletonClass.Instance;
+
+        MoveSpeed = Random.Range(MinSpeed[ins.level], MaxSpeed[ins.level]);
     }
 
     void Update()
