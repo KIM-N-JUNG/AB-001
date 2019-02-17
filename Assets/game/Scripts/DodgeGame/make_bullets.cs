@@ -42,16 +42,16 @@ public class make_bullets : MonoBehaviour
         switch (ins.level)
         {
             case 0: // Easy
-                MissileArraySize /= 5;
-                break;
-            case 1: // Normal
                 MissileArraySize /= 4;
                 break;
-            case 2: // Hard
+            case 1: // Normal
                 MissileArraySize /= 3;
                 break;
-            case 3: // Crazy
+            case 2: // Hard
                 MissileArraySize /= 2;
+                break;
+            case 3: // Crazy
+                MissileArraySize = 500;
                 break;
             default:
                 Debug.Log("Invalid level! - " + ins.level);
@@ -115,7 +115,7 @@ public class make_bullets : MonoBehaviour
                 if ((time / timeIter) > 1.0f) {
                     timeIter += timeTick;
                     MissileArraySize += 10;
-                    MissileArraySize = MissileArraySize >= 500 ? 499 : MissileArraySize;
+                    MissileArraySize = MissileArraySize >= MissileMaxPool ? (MissileMaxPool-1) : MissileArraySize;
                     Debug.Log("Increases missile - " + MissileArraySize);
                 }
 
