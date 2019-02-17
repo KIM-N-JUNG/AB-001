@@ -11,7 +11,7 @@ public class OptionScript : MonoBehaviour
     public Toggle toggle_BGSound;
     public Toggle toggle_effectSound;
     public Slider slider_difficult;
-    public GameObject OptionUI;
+    public GameObject DifficultyUI;
 
     protected readonly string[] DifficultyName = {
         "EASY",
@@ -52,8 +52,8 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.level = (int)slider_difficult.value;
         Debug.Log("Difficult Level : " + slider_difficult.value);
-        Debug.Log("OptionUI : " + OptionUI.transform);
-        GameObject obj = OptionUI.transform.Find("DifficultyName").gameObject;
+        Debug.Log("OptionUI : " + DifficultyUI.transform);
+        GameObject obj = DifficultyUI.transform.Find("DifficultyName").gameObject;
         TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
         pauseText.SetText(DifficultyName[SingletonClass.Instance.level]);
     }
