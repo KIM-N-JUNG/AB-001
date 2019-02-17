@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
+    private static readonly int BASIC_RATIO = 150;
+    protected readonly float [] scoreRatios = {
+        BASIC_RATIO * 0.7f, 
+        BASIC_RATIO * 1.0f, 
+        BASIC_RATIO * 1.3f,
+        BASIC_RATIO * 2.0f
+    };
+
     private bool bPause;
     private Text uiText;
     public Timer timer;
@@ -42,10 +50,11 @@ public class Score : MonoBehaviour
             return;
         }
 
+        var ins = SingletonClass.Instance;         
         float time = timer.GetTime();
-        score = (int)(time * 150);
+        score = (int)(time * scoreRatios[ins.level]);
 
-        uiText.text = score.ToString();
+        uiText.text = "Score : " + score.ToString();
     }
 
     public int GetScore()

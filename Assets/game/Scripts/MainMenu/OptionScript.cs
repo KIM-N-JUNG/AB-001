@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,14 @@ public class OptionScript : MonoBehaviour
     public Toggle toggle_BGSound;
     public Toggle toggle_effectSound;
     public Slider slider_difficult;
+    public GameObject OptionUI;
+
+    protected readonly string[] DifficultyName = {
+        "EASY",
+        "NORMAL",
+        "HARD",
+        "CRAZY"
+    };
 
     void Start()
     {
@@ -43,5 +52,9 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.level = (int)slider_difficult.value;
         Debug.Log("Difficult Level : " + slider_difficult.value);
+        Debug.Log("OptionUI : " + OptionUI.transform);
+        GameObject obj = OptionUI.transform.Find("DifficultyName").gameObject;
+        TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
+        pauseText.SetText(DifficultyName[SingletonClass.Instance.level]);
     }
 }
