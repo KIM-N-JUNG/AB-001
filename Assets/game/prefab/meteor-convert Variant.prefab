@@ -47,11 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bfeb26871a76f4ba8ad4c7a2dc20a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinSpeed: 0.3
-  MaxSpeed: 1
   _player: {fileID: 0}
-  DestroyXPos: 41
-  DestroyYPos: 11
+  DestroyXPos: 40
+  DestroyYPos: 15
 --- !u!58 &646316459865176796
 CircleCollider2D:
   m_ObjectHideFlags: 0

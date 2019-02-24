@@ -138,9 +138,10 @@ public class plane_move : MonoBehaviour {
         if (collision.CompareTag("Bullets"))
         {
             //Debug.Log("총알 충돌");
+            bullet_move bullet = collision.GetComponent<bullet_move>();
+            Vector3 position = collision.transform.position;
+            GetComponent<PlayerHealth>().TakeDamage(10, position);
             collision.enabled = false;
-
-            GetComponent<PlayerHealth>().TakeDamage(10);
         }
     }
 

@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class make_bullets : MonoBehaviour
 {
@@ -80,8 +83,8 @@ public class make_bullets : MonoBehaviour
         firePosition = new Vector3[firePositionCount];
         for (int i = 0; i < firePositionCount; i++)
         {
-            firePosition[i].x = Random.Range(-40.0f, 40.0f);
-            firePosition[i].y = Random.Range(0, 2) * 11;
+            firePosition[i].x = UnityEngine.Random.Range(-40.0f, 40.0f);
+            firePosition[i].y = UnityEngine.Random.Range(0, 2) * 11;
             if (System.Math.Abs(firePosition[i].y) < 0.01f) firePosition[i].y = -11.0f;
 
             firePosition[i].z = 0;
