@@ -8,12 +8,12 @@ public class GunAim:MonoBehaviour
 	public int borderTop;
 	public int borderBottom;
 
-	private Camera parentCamera;
+	private UnityEngine.Camera parentCamera;
 	private bool isOutOfBounds;
 
 	void Start () 
 	{
-		parentCamera = GetComponentInParent<Camera>();
+        parentCamera = GetComponentInParent<UnityEngine.Camera>();
 	}
 
 	void Update()
