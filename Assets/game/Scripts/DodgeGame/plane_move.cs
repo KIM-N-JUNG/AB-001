@@ -8,8 +8,8 @@ public class plane_move : MonoBehaviour {
     public Joystick joystick;   //조이스틱 스크립트
     public float MoveSpeed;     //플레이어 이동속도
 
-    public GameObject shuttle;
-    public Mesh shuttleMesh;
+    public Canvas controlPanel;
+
     private BoxCollider2D shuttleBox;
 
     private Vector3 _moveVector; //플레이어 이동벡터
@@ -119,9 +119,10 @@ public class plane_move : MonoBehaviour {
         {
             screenPos.x = width - (shuttleWidth / 2);
         }
-        if (screenPos.y < 300.0f) // TODO: Needs to adjust with resolution 
+
+        if (screenPos.y < controlPanel.transform.position.y * 2.2f)
         {
-            screenPos.y = 300.0f;
+            screenPos.y = controlPanel.transform.position.y * 2.2f;
         }
         else if (screenPos.y > height - (shuttleHeight))
         {
