@@ -35,12 +35,33 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.acceleration = flag;
         Debug.Log("acceleration : " + flag);
+
+        //if (!flag)
+        //{
+        //    Debug.Log("InitializeGPGS");
+        //    GPGSManager.GetInstance.InitializeGPGS(); // 초기화
+        //} else
+        //{
+        //    Debug.Log("InitializeGPGS");
+        //    GPGSManager.GetInstance.InitializeGPGS(); // 초기화
+        //}
     }
 
     public void SetBGSound(bool flag)
     {
         SingletonClass.Instance.bBGSound = flag;
         Debug.Log("bBGSound : " + flag);
+
+        //if (!flag)
+        //{
+        //    Debug.Log("LoginGPGS");
+        //    GPGSManager.GetInstance.LoginGPGS(); // 로그인
+        //}
+        //else
+        //{
+        //    Debug.Log("LogoutGPGS");
+        //    GPGSManager.GetInstance.LogoutGPGS();
+        //}
     }
 
     public void SetEffectSound(bool flag)
