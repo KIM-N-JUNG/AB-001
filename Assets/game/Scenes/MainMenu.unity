@@ -2599,6 +2599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511696422}
   - component: {fileID: 1511696423}
+  - component: {fileID: 1511696424}
   m_Layer: 5
   m_Name: OptionsMenu
   m_TagString: Untagged
@@ -2647,6 +2648,18 @@ MonoBehaviour:
   toggle_effectSound: {fileID: 21752970}
   slider_difficult: {fileID: 1781707463}
   DifficultyUI: {fileID: 1130741710}
+--- !u!114 &1511696424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511696421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5964a99db2cf7a2459b58fd440285e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1515739472
 GameObject:
   m_ObjectHideFlags: 0
