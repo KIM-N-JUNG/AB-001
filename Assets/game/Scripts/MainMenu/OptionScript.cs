@@ -35,6 +35,8 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.acceleration = flag;
         Debug.Log("acceleration : " + flag);
+        PlayerPrefs.SetInt("acceleration", flag ? 1 : 0);
+        PlayerPrefs.Save();
 
         //if (!flag)
         //{
@@ -51,7 +53,8 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.bBGSound = flag;
         Debug.Log("bBGSound : " + flag);
-
+        PlayerPrefs.SetInt("bgSound", flag ? 1 : 0);
+        PlayerPrefs.Save();
         //if (!flag)
         //{
         //    Debug.Log("LoginGPGS");
@@ -68,6 +71,8 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.bEffectSound = flag;
         Debug.Log("bEffectSound : " + flag);
+        PlayerPrefs.SetInt("effectSound", flag ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     public void OnDifficultLevelChange()
@@ -78,5 +83,8 @@ public class OptionScript : MonoBehaviour
         GameObject obj = DifficultyUI.transform.Find("DifficultyName").gameObject;
         TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
         pauseText.SetText(DifficultyName[SingletonClass.Instance.level]);
+
+        PlayerPrefs.SetInt("level", SingletonClass.Instance.level);
+        PlayerPrefs.Save();
     }
 }
