@@ -5050,8 +5050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
   MoveSpeed: 5
-  shuttle: {fileID: 1390948951680577227}
-  shuttleMesh: {fileID: 0}
+  controlPanel: {fileID: 0}
 --- !u!60 &1390948951194118799
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5134,6 +5133,8 @@ MonoBehaviour:
   particle: {fileID: 0}
   smallExplosionParticle: {fileID: 0}
   bigExplosionParticle: {fileID: 0}
+  timer: {fileID: 0}
+  score: {fileID: 0}
 --- !u!1 &1390948951680577229
 GameObject:
   m_ObjectHideFlags: 0
@@ -19262,22 +19263,22 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198000010687303002, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    - target: {fileID: 198000012569031976, guid: ecdd96beb7f93494880c052dfccf9dc1,
         type: 3}
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198000010687303002, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    - target: {fileID: 198000012569031976, guid: ecdd96beb7f93494880c052dfccf9dc1,
         type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198000012569031976, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    - target: {fileID: 198000010687303002, guid: ecdd96beb7f93494880c052dfccf9dc1,
         type: 3}
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198000012569031976, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    - target: {fileID: 198000010687303002, guid: ecdd96beb7f93494880c052dfccf9dc1,
         type: 3}
       propertyPath: playOnAwake
       value: 0
