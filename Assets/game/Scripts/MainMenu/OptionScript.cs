@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class OptionScript : MonoBehaviour
 {
     GameObject toggleBackgroundSoundToggle;
+    public Toggle toggle_login;
     public Toggle toggle_acc;
     public Toggle toggle_BGSound;
     public Toggle toggle_effectSound;
@@ -24,11 +25,21 @@ public class OptionScript : MonoBehaviour
     {
         var ins = SingletonClass.Instance;
 
+        toggle_login.isOn = ins.bLogin ? true : false;
         toggle_acc.isOn = ins.acceleration ? true : false;
         toggle_BGSound.isOn = ins.bBGSound ? true : false;
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
         slider_difficult.value = ins.level;
+    }
+
+    public void Login(bool flag)
+    {
+        Debug.Log("Login - " + flag);
+        SingletonClass.Instance.bLogin = flag;
+        Debug.Log("bLogin : " + flag);
+        PlayerPrefs.SetInt("login", flag ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     public void SetAcceleration(bool flag)
@@ -37,16 +48,6 @@ public class OptionScript : MonoBehaviour
         Debug.Log("acceleration : " + flag);
         PlayerPrefs.SetInt("acceleration", flag ? 1 : 0);
         PlayerPrefs.Save();
-
-        //if (!flag)
-        //{
-        //    Debug.Log("InitializeGPGS");
-        //    GPGSManager.GetInstance.InitializeGPGS(); // 초기화
-        //} else
-        //{
-        //    Debug.Log("InitializeGPGS");
-        //    GPGSManager.GetInstance.InitializeGPGS(); // 초기화
-        //}
     }
 
     public void SetBGSound(bool flag)
@@ -55,16 +56,6 @@ public class OptionScript : MonoBehaviour
         Debug.Log("bBGSound : " + flag);
         PlayerPrefs.SetInt("bgSound", flag ? 1 : 0);
         PlayerPrefs.Save();
-        //if (!flag)
-        //{
-        //    Debug.Log("LoginGPGS");
-        //    GPGSManager.GetInstance.LoginGPGS(); // 로그인
-        //}
-        //else
-        //{
-        //    Debug.Log("LogoutGPGS");
-        //    GPGSManager.GetInstance.LogoutGPGS();
-        //}
     }
 
     public void SetEffectSound(bool flag)
