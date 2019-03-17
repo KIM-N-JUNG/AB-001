@@ -24,6 +24,10 @@ public class SingletonClass : MonoBehaviour
 
     public void Awake()
     {
+        // LOGIN
+        if (PlayerPrefs.HasKey("login"))
+            bLogin = PlayerPrefs.GetInt("login") == 1 ? true : false;
+
         // ACCELERATION
         if (PlayerPrefs.HasKey("acceleration"))
             acceleration = PlayerPrefs.GetInt("acceleration") == 1 ? true : false;
@@ -58,6 +62,9 @@ public class SingletonClass : MonoBehaviour
 
     // ACCELERATION
     public bool acceleration = true;
+
+    // login
+    public bool bLogin = false;
 
     // 난이도
     public int level = 0;
