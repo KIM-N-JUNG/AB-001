@@ -5246,18 +5246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74119a54067c84342822dbec9894ef07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ui: {fileID: 121240608}
-  shuttle: {fileID: 134681463}
 --- !u!4 &442431418
 Transform:
   m_ObjectHideFlags: 0
@@ -5281,7 +5269,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 442431416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937f6e56d694844cfa6a07d99a1f5c88, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d654cbe31d0fef47be6590d35f5d40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 121240608}
