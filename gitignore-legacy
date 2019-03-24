@@ -1,0 +1,43 @@
+.vs
+*.apk
+Library/LastBuild.buildreport
+Library/metadata
+Library/ScriptAssemblies
+Library/EditorOnlyScriptingUserSettings.json
+Library/*Cache
+Library/*.log
+Library/*.db
+Library/expandedItems
+Library/assetDatabase3
+Library/CurrentLayout.dwlt
+Library/ScriptMapper
+Library/EditorInstance.json
+Library/EditorUserBuildSettings.asset
+Library/CurrentMaximizeLayout.dwlt
+Library/ProjectSettings.asset
+EditorUserSettings.asset    
+InspectorExpandedItems.asset
+Temp
+obj
+Logs
+*.log
+*.swp
+ProjectSettings
+*.csproj
+*.sln
+UIElementsSchema
+Assets/Colors.meta
+Assets/Scenes/AvoidBullets.unity.orig
+Assets/Scenes/AvoidBullets.unity.orig.meta
+Assets/Scenes/MainMenu.unity.orig
+Assets/Scenes/MainMenu.unity.orig.meta
+.DS_Store
+Assets/game/Sprite/Dynamic Space Background.meta
+Assets/game/Sprite/Dynamic Space Background/Nebula Aqua-Pink.png.meta
+Assets/game/Sprite/Dynamic Space Background/Nebula Blue.png.meta
+Assets/game/Sprite/Dynamic Space Background/Nebula Red.png.meta
+Assets/game/Sprite/Dynamic Space Background/Stars Small_1.png.meta
+Assets/game/Sprite/Dynamic Space Background/Stars-Big_1.png.meta
+Assets/game/Sprite/Materials.meta
+*.meta
+Library/CrashedAssetImports.txt
