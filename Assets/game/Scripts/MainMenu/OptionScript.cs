@@ -21,6 +21,8 @@ public class OptionScript : MonoBehaviour
         "CRAZY"
     };
 
+    private const string leaderboard_id = "1018295262979";
+
     void Start()
     {
         var ins = SingletonClass.Instance;
@@ -31,12 +33,27 @@ public class OptionScript : MonoBehaviour
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
         slider_difficult.value = ins.level;
+
+        Debug.Log("InitializeGPGS");
+        GPGSManager.GetInstance.InitializeGPGS();
     }
 
     public void Login(bool flag)
     {
         Debug.Log("Login - " + flag);
         SingletonClass.Instance.bLogin = flag;
+
+        if (flag)
+        {
+            Debug.Log("LoginGPGS");
+            GPGSManager.GetInstance.LoginGPGS();
+        }
+        else
+        {
+            Debug.Log("LogoutGPGS");
+            GPGSManager.GetInstance.LogoutGPGS(false);
+        }
+
         Debug.Log("bLogin : " + flag);
         PlayerPrefs.SetInt("login", flag ? 1 : 0);
         PlayerPrefs.Save();
@@ -64,6 +81,8 @@ public class OptionScript : MonoBehaviour
         Debug.Log("bEffectSound : " + flag);
         PlayerPrefs.SetInt("effectSound", flag ? 1 : 0);
         PlayerPrefs.Save();
+
+        Social.ShowLeaderboardUI();
     }
 
     public void OnDifficultLevelChange()
