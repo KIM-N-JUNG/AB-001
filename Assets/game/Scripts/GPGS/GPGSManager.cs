@@ -25,7 +25,7 @@ public class GPGSManager : Singleton<GPGSManager>
     {
         bLogin = false;
 
-        PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.Activate();
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public class GPGSManager : Singleton<GPGSManager>
         // 로그인이 되어 있으면
         if (Social.localUser.authenticated)
         {
-            ((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
+            //(GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
             bLogin = false;
         }
     }
