@@ -129,13 +129,13 @@ a3a5fd7886ff7fd779b7ae740520a1f2 Assembly-CSharp.dll:.make_bullets
 547a85d00266dd47b8c0358714703b75 Assembly-CSharp.dll:.plane_move
 738c23b7b3b2a8414d48e37a088fd920 Assembly-CSharp.dll:.bgSound
 78b4051b11eaad3272f0138c2f2b7a07 Assembly-CSharp.dll:.Score
-6609370178852e100e9b6e315340ecba Assembly-CSharp.dll:.OptionScript
-6f1e8bca2466a4b4c8b8dcba12c2ca8f Assembly-CSharp.dll:.PauseMenu
+1a4893e749903a08079c32dcb43d80e8 Assembly-CSharp.dll:.OptionScript
+694602307cbc61bb4772b56fd3558397 Assembly-CSharp.dll:.PauseMenu
 ce73454ab956a54c0686103f37a6bad0 Assembly-CSharp.dll:.bullet_move
 8429f5e2e74458d387d20325476dffbf Assembly-CSharp.dll:.GunAim
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Joystick_org
-4ffcb1a2ac09d7243caeb25bb9996930 Assembly-CSharp.dll:.SingletonClass
+ce682f24053e56398a8d83a1f8f0dbbf Assembly-CSharp.dll:.SingletonClass
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 76821636e7cad9b267e0058faedd3ca3 Assembly-CSharp.dll:.CameraFollower
@@ -157,7 +157,6 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 510fefd6a544e16a3ffefa557ddcba39 Unity.TextMeshPro.dll:TMPro.PackageResourceImporterWindow
-3e3c90933c2c4f042c5b03dd9f13027e Assembly-CSharp.dll:.ScrollingTexture1
 aa82b3ce4c0c9b227036c0337315c5d3 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e51c09a4cc447f11db225afcd8e3e490 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
@@ -186,5 +185,6 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GooglePlayGames.OurUtils.PlayGamesHelperObject
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GPGSManager
-6997df898643e267e779915a2f21dd21 Assembly-CSharp.dll:.GameConstructor
+b01b9fb8973721c87adf3451608bcca1 Assembly-CSharp.dll:.GameConstructor
 868819e6ba195fd28ce71a01d85d44b5 Assembly-CSharp.dll:.MainMenuConstructor
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.privacy

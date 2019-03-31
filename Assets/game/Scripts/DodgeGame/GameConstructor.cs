@@ -7,6 +7,8 @@ public class GameConstructor : MonoBehaviour
 {
     public GameObject ui;
     public GameObject shuttle;
+    public GameObject starField;
+    public GameObject plane;
 
     private void Awake()
     {
@@ -14,6 +16,8 @@ public class GameConstructor : MonoBehaviour
         {
             ui.SetActive(true);
             shuttle.SetActive(true);
+            starField.SetActive(true);
+            plane.SetActive(true);
         }
     }
 }

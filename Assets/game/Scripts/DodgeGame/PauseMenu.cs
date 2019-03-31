@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour {
     public Timer timer;
     public Score score;
     public Text PanelText;
+    public GameObject starField;
+    public GameObject plane;
 
     private bool paused = false;
 
@@ -91,7 +93,9 @@ public class PauseMenu : MonoBehaviour {
     public void Quit()
     {
         Debug.Log("Quit");
+        paused = false;
+        starField.SetActive(false);
+        plane.SetActive(false);
         MainMenu();
-        //Application.Quit();
     }
 }
