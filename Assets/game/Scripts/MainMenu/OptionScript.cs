@@ -12,7 +12,9 @@ public class OptionScript : MonoBehaviour
     public Toggle toggle_BGSound;
     public Toggle toggle_effectSound;
     public Slider slider_difficult;
-    public GameObject DifficultyUI;
+    public GameObject difficultyUI;
+    public GameObject optionMenuUI;
+    public GameObject privacyBoardUI;
 
     protected readonly string[] DifficultyName = {
         "EASY",
@@ -38,24 +40,72 @@ public class OptionScript : MonoBehaviour
         GPGSManager.GetInstance.InitializeGPGS();
     }
 
-    public void Login(bool flag)
+    private bool IsAgreePrivacy()
     {
-        Debug.Log("Login - " + flag);
-        SingletonClass.Instance.bLogin = flag;
+        bool isAgree = SingletonClass.Instance.bPrivacyAgreement && SingletonClass.Instance.bServiceAgreement;
+        Debug.Log("IsAgreePrivacy? : " + isAgree);
+        return isAgree;
+    }
 
-        if (flag)
+    private void ShowPrivacyBoard(bool toogleShow)
+    {
+        Debug.Log("ShowPrivacyBoard()");
+        optionMenuUI.SetActive(!toogleShow);
+        privacyBoardUI.SetActive(toogleShow);
+        //toggle_login.isOn = false;
+        Login(!toogleShow);
+    }
+
+    public void AgreePrivacy(bool agree)
+    {
+        Debug.Log("AgreePrivacy(" + agree + ")");
+        SingletonClass.Instance.bPrivacyAgreement = agree;
+        PlayerPrefs.SetInt("privacy", agree ? 1 : 0);
+        PlayerPrefs.Save();
+        if (IsAgreePrivacy())
         {
-            Debug.Log("LoginGPGS");
-            GPGSManager.GetInstance.LoginGPGS();
+            ShowPrivacyBoard(false);
+        }
+    }
+
+    public void AgreeService(bool agree)
+    {
+        Debug.Log("AgreeService(" + agree + ")");
+        SingletonClass.Instance.bServiceAgreement = agree;
+        PlayerPrefs.SetInt("service", agree ? 1 : 0);
+        PlayerPrefs.Save();
+        if (IsAgreePrivacy())
+        {
+            ShowPrivacyBoard(false);
+        }
+    }
+
+    public void Login(bool bLogin)
+    {
+        if (bLogin)
+        {
+            if (IsAgreePrivacy())
+            {
+                Debug.Log("LoginGPGS");
+                GPGSManager.GetInstance.LoginGPGS();
+            }
+            else
+            {
+                ShowPrivacyBoard(true);
+                return;
+            }
         }
         else
         {
             Debug.Log("LogoutGPGS");
+            AgreePrivacy(false);
+            AgreeService(false);
             GPGSManager.GetInstance.LogoutGPGS(false);
         }
 
-        Debug.Log("bLogin : " + flag);
-        PlayerPrefs.SetInt("login", flag ? 1 : 0);
+        Debug.Log("Login - " + bLogin);
+        SingletonClass.Instance.bLogin = bLogin;
+        PlayerPrefs.SetInt("login", bLogin ? 1 : 0);
         PlayerPrefs.Save();
     }
 
@@ -89,8 +139,8 @@ public class OptionScript : MonoBehaviour
     {
         SingletonClass.Instance.level = (int)slider_difficult.value;
         Debug.Log("Difficult Level : " + slider_difficult.value);
-        Debug.Log("OptionUI : " + DifficultyUI.transform);
-        GameObject obj = DifficultyUI.transform.Find("DifficultyName").gameObject;
+        Debug.Log("OptionUI : " + difficultyUI.transform);
+        GameObject obj = difficultyUI.transform.Find("DifficultyName").gameObject;
         TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
         pauseText.SetText(DifficultyName[SingletonClass.Instance.level]);
 

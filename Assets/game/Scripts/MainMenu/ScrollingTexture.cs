@@ -20,20 +20,17 @@ public class ScrollingTexture : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    void FixedUpdate()
-    {
+        Time.timeScale = 1f;
         var offset = Time.time * scrollSpeed;
         var offset2 = Time.time * scrollSpeed2;
         if (offset > 1.0f) offset -= 1.0f;
         if (offset2 > 1.0f) offset2 -= 1.0f;
 
-        //rend.material.mainTextureOffset = new Vector2(offset2, -offset);
         rend.sharedMaterial.SetTextureOffset("_MainTex", new Vector2(offset2, -offset));
-        //rend.material.SetTextureOffset("_MainTex", new Vector2(offset2, -offset));
-        //Offset += Scroll * Time.deltaTime;
-        //rend.material.SetTextureOffset("_MainTex", Offset);
+    }
+
+    void FixedUpdate()
+    {
+
     }
 }

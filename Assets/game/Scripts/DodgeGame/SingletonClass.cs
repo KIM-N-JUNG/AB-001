@@ -24,6 +24,14 @@ public class SingletonClass : MonoBehaviour
 
     public void Awake()
     {
+        // PRIVACY AGREEMENT
+        if (PlayerPrefs.HasKey("privacy"))
+            bPrivacyAgreement = PlayerPrefs.GetInt("privacy") == 1 ? true : false;
+
+        // SERVICE AGREEMENT
+        if (PlayerPrefs.HasKey("service"))
+            bServiceAgreement = PlayerPrefs.GetInt("service") == 1 ? true : false;
+
         // LOGIN
         if (PlayerPrefs.HasKey("login"))
             bLogin = PlayerPrefs.GetInt("login") == 1 ? true : false;
@@ -66,6 +74,11 @@ public class SingletonClass : MonoBehaviour
     // login
     public bool bLogin = false;
 
+    // privacy agree
+    public bool bPrivacyAgreement = false;
+
+    // service agree
+    public bool bServiceAgreement = false;
     // 난이도
     public int level = 0;
 
