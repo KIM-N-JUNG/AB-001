@@ -1,9 +1,9 @@
 lastUpgrade=00962
 proj.pluginVersion=0.9.62
-proj.AppId=1018295262979
+proj.AppId=945078896904
 proj.classDir=Assets
 proj.ConstantsClassName=GPGSIds
-and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e1018295262979%3c%2fstring%3e%0d%0a++%3c%21--+package_name+--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.kimnjung.avoid%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+%eb%9e%ad%ed%81%ac%eb%b3%b4%eb%93%9c+--%3e%0d%0a++%3cstring+name%3d%22leaderboard%22+translatable%3d%22false%22%3eCgkIg76CudEdEAIQAQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d
-and.ClientId=1018295262979-efmdsubonqugoj3itsil9knbo3irkepg.apps.googleusercontent.com
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e945078896904%3c%2fstring%3e%0d%0a++%3c%21--+package_name+--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.kimnjung.avoidmeteor%3c%2fstring%3e%0d%0a++%3c%21--+achievement+1%eb%b6%84%ec%9d%84+%eb%b2%84%ed%85%a8%eb%9d%bc+--%3e%0d%0a++%3cstring+name%3d%22achievement_1%22+translatable%3d%22false%22%3eCgkIiJLe2MAbEAIQAQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
+and.ClientId=945078896904-lbnppavkd7h8ngv3h0k1cddj6ihjb23c.apps.googleusercontent.com
 android.SetupDone=true
-and.BundleId=com.kimnjung.avoid
+and.BundleId=com.kimnjung.avoidmeteor

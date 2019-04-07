@@ -9,3 +9,4 @@ Logs
 *.sln
 .DS_Store
 *.meta
+ProjectSettings\ProjectSettings.asset
