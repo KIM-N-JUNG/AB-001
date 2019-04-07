@@ -113,7 +113,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.2
+  bundleVersion: 0.3
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -148,10 +148,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.kimnjung.avoid
+    Android: com.kimnjung.avoidmeteor
     Standalone: com.kimnjung.avoid
   buildNumber: {}
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 26
   AndroidPreferredInstallLocation: 1
@@ -239,7 +239,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: AB001.keystore
+  AndroidKeystoreName: C:/0.Workspace/Unity/AB-001/AB001_new.keystore
   AndroidKeyaliasName: ab001
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
@@ -710,10 +710,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 2
-  cloudProjectId: 59e05c57-1e12-4e3f-94a0-e0e0831caece
+  cloudProjectId: 1b3b0993-54ec-49d9-bbea-471fb7476126
   framebufferDepthMemorylessMode: 0
   projectName: avoid
-  organizationId: jsy7787
+  organizationId: kjmhercules
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

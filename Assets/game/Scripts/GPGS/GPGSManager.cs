@@ -23,19 +23,22 @@ public class GPGSManager : Singleton<GPGSManager>
         Debug.Log("### GPGSManager Start");
         bLogin = false;
 
-#if UNITY_ANDROID
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-             .EnableSavedGames() // 저장된 게임
-             .RequestEmail()
-             .RequestServerAuthCode(false)
-             .RequestIdToken()
-             .Build();
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
-#elif UNITY_IOS
-        GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
-#endif
+        //#if UNITY_ANDROID
+        //        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+        //             //.EnableSavedGames() // 저장된 게임
+        //             .RequestEmail()
+        //             .RequestServerAuthCode(false)
+        //             //.RequestIdToken()
+        //             .Build();
+        //        PlayGamesPlatform.InitializeInstance(config);
+        //        PlayGamesPlatform.DebugLogEnabled = true;
+        //        PlayGamesPlatform.Activate();
+        //#elif UNITY_IOS
+        //                GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
+        //#endif
+
+        // Select the Google Play Games platform as our social platform implementation
+        GooglePlayGames.PlayGamesPlatform.Activate();
     }
 
     /// <summary>
@@ -55,11 +58,21 @@ public class GPGSManager : Singleton<GPGSManager>
         // 로그인이 안되어 있으면
         if (!Social.localUser.authenticated)
         {
-            Debug.Log("### !Social.localUser.authenticated");
-            Social.localUser.Authenticate(LoginCallBackGPGS);
-            //Social.localUser.LoadFriends(success => {
-            //    Debug.Log(success ? "Loaded " + Social.localUser.friends.Length + " friends" : "Loading friends failed");
-            //});
+            //Debug.Log("### !Social.localUser.authenticated");
+            //Social.localUser.Authenticate(LoginCallBackGPGS);
+
+            Social.localUser.Authenticate((bool success) =>
+            {
+                Debug.Log("### Authentication successful");
+                //Debug.Log("Username: " + Social.localUser.userName);
+                Debug.Log("Username: ");
+                Debug.Log("ImageUrl: " + Social.localUser.image);
+                Debug.Log("User ID: " + Social.localUser.id);
+                string email = ((PlayGamesLocalUser)Social.localUser).Email;
+                Debug.Log("Email: " + email);
+                Debug.Log("IsUnderage: " + Social.localUser.underage);
+                Debug.Log("Friends: " + Social.localUser.friends);
+            });
         }
         else
         {
@@ -89,16 +102,15 @@ public class GPGSManager : Singleton<GPGSManager>
 
         if (result)
         {
-            string email = ((PlayGamesLocalUser)Social.localUser).Email;
-
             Debug.Log("### Authentication successful");
-            string userInfo = "Username: " + Social.localUser.userName +
-                "\nUser ID: " + Social.localUser.id +
-                "\nEmail: " + email +
-                "\nIsUnderage: " + Social.localUser.underage +
-                //"\nFriends : " + Social.localUser.friends +
-                "\nImageUrl: " + Social.localUser.image;
-            Debug.Log(userInfo);
+            //Debug.Log("Username: " + Social.localUser.userName);
+            Debug.Log("Username: " );
+            Debug.Log("ImageUrl: " + Social.localUser.image);
+            Debug.Log("User ID: " + Social.localUser.id);
+            string email = ((PlayGamesLocalUser)Social.localUser).Email;
+            Debug.Log("Email: " + email);
+            Debug.Log("IsUnderage: " + Social.localUser.underage);
+            Debug.Log("Friends: " + Social.localUser.friends);
         }
         else
         {
