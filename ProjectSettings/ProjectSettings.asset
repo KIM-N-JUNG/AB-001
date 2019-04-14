@@ -239,7 +239,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: AB001_new.keystore
+  AndroidKeystoreName: C:/0.Workspace/Unity/AB-001/AB001_new.keystore
   AndroidKeyaliasName: ab001
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
@@ -690,7 +690,8 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Collab: 0
+    Build: 1
+    Collab: 1
     UNet: 1
   luminIcon:
     m_Name: 

@@ -18,6 +18,8 @@ public class GPGSManager : Singleton<GPGSManager>
         set;
     }
 
+    int[,] arrArchivement;
+
     void Start()
     {
         Debug.Log("### GPGSManager Start");
@@ -39,6 +41,8 @@ public class GPGSManager : Singleton<GPGSManager>
 
         // Select the Google Play Games platform as our social platform implementation
         GooglePlayGames.PlayGamesPlatform.Activate();
+
+        arrArchivement = new int[,] { {10, 0}, { 30, 0}, { 60, 0}, { 300, 0}, { 600, 0} };
     }
 
     /// <summary>
@@ -64,8 +68,8 @@ public class GPGSManager : Singleton<GPGSManager>
             Social.localUser.Authenticate((bool success) =>
             {
                 Debug.Log("### Authentication successful");
-                //Debug.Log("Username: " + Social.localUser.userName);
-                Debug.Log("Username: ");
+                Debug.Log("Username: " + Social.localUser.userName);
+                //Debug.Log("Username: ");
                 Debug.Log("ImageUrl: " + Social.localUser.image);
                 Debug.Log("User ID: " + Social.localUser.id);
                 string email = ((PlayGamesLocalUser)Social.localUser).Email;
@@ -89,7 +93,7 @@ public class GPGSManager : Singleton<GPGSManager>
 
             //string _IDtoken = PlayGamesPlatform.Instance.GetIdToken();
             //Debug.Log("### _IDtoken : " + _IDtoken);
-            
+
             //유저 토큰 받기 첫번째 방법
             //string _IDtoken = PlayGamesPlatform.Instance.GetIdToken();
             //두번째 방법
@@ -113,7 +117,7 @@ public class GPGSManager : Singleton<GPGSManager>
         {
             Debug.Log("### Authentication successful");
             //Debug.Log("Username: " + Social.localUser.userName);
-            Debug.Log("Username: " );
+            Debug.Log("Username: ");
             Debug.Log("ImageUrl: " + Social.localUser.image);
             Debug.Log("User ID: " + Social.localUser.id);
             string email = ((PlayGamesLocalUser)Social.localUser).Email;
@@ -179,54 +183,169 @@ public class GPGSManager : Singleton<GPGSManager>
     }
 
     // 업적, 리더보드
-    public void UnlockAchievement(int score)
+    public void UnlockAchievement(int time)
     {
-//        if (score >= 100)
-//        {
-//#if UNITY_ANDROID
-//            PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_100, 100f, null);
-//#elif UNITY_IOS
-//            Social.ReportProgress("Score_100", 100f, null);
-//#endif
-//        }
+        String name = "";
+        switch (time)
+        {
+            case 10:
+                name = GPGSIds.achievement_10;
+                break;
+            case 30:
+                name = GPGSIds.achievement_30;
+                break;
+            case 60:
+                name = GPGSIds.achievement_1;
+                break;
+            case 300:
+                name = GPGSIds.achievement_5;
+                break;
+            case 600:
+                name = GPGSIds.achievement_10_2;
+                break;
+        }
+#if UNITY_ANDROID
+        PlayGamesPlatform.Instance.ReportProgress(name, 100f, null);
+#elif UNITY_IOS
+            Social.ReportProgress("Score_100", 100f, null);
+#endif
     }
 
+    public void RevealAchievement(int time, Action<bool> callback) {
+        switch (time)
+        {
+            case 10:
+                name = GPGSIds.achievement_10;
+                break;
+            case 30:
+                name = GPGSIds.achievement_30;
+                break;
+            case 60:
+                name = GPGSIds.achievement_1;
+                break;
+            case 300:
+                name = GPGSIds.achievement_5;
+                break;
+            case 600:
+                name = GPGSIds.achievement_10_2;
+                break;
+        }
+#if UNITY_ANDROID
+        //PlayGamesPlatform.Instance.RevealAchievement(name, 
+        //(bool success) => {
+        //    if (success)
+        //    {
 
-    /// <summary>
-    /// 골드 리더보드를 연다.
-    /// </summary>
-    public void ShowLeaderBoard_Gold()
-    {
-        //if (PlayGamesPlatform.Instance.localUser.authenticated)
-        //{
-        //    ((PlayGamesPlatform)Social.Active).ShowLeaderboardUI(GPGSIds.leaderboard_goldrank);
-        //}
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //});
+        PlayGamesPlatform.Instance.RevealAchievement(name, callback);
+#elif UNITY_IOS
+            Social.ReportProgress("Score_100", 100f, null);
+#endif
     }
+
+    public void ShowAchievementUI()
+    {
+        // Sign In 이 되어있지 않은 상태라면
+        // Sign In 후 업적 UI 표시 요청할 것
+        if (Social.localUser.authenticated == false)
+        {
+            Social.localUser.Authenticate((bool success) =>
+            {
+                if (success)
+                {
+                    // Sign In 성공
+                    // 바로 업적 UI 표시 요청
+                    Social.ShowAchievementsUI();
+                    return;
+                }
+                else
+                {
+                    // Sign In 실패 처리
+                    return;
+                }
+            });
+        }
+
+        Social.ShowAchievementsUI();
+    }
+
 
     /// <summary>
     /// 리더보드에 점수를 등록한다.
     /// </summary>
     public void SubmitToLeaderBorad(int score)
     {
-        //if (PlayGamesPlatform.Instance.localUser.authenticated)
-        //{
-        //    Social.ReportScore(score, GPGSIds.leaderboard_goldrank, (bool success) =>
-        //    {
-        //        if (success)
-        //        {
-        //            Debug.Log("### Update Score Success");
+#if UNITY_ANDROID
+        if (PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            Social.ReportScore(score, GPGSIds.leaderboard, (bool success) =>
+            {
+                if (success)
+                {
+                    Debug.Log("### Update Score Success");
+                }
+                else
+                {
+                    Debug.Log("### Update Score Fail");
+                }
+            });
+        }
+        else
+        {
+            Debug.Log("### Need Log in");
+        }
+#elif UNITY_IOS
+        Social.ReportScore(score, "Leaderboard_ID", (bool success) =>
+            {
+                if (success)
+                {
+                    // Report 성공
+                    // 그에 따른 처리
+                }
+                else
+                {
+                    // Report 실패
+                    // 그에 따른 처리
+                }
+            });
+#endif
+    }
 
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("### Update Score Fail");
-        //        }
-        //    });
-        //}
-        //else
-        //{
-        //    Debug.Log("### Need Log in");
-        //}
+    public void ShowLeaderboardUI()
+    {
+        // Sign In 이 되어있지 않은 상태라면
+        // Sign In 후 리더보드 UI 표시 요청할 것
+        if (Social.localUser.authenticated == false)
+        {
+            Social.localUser.Authenticate((bool success) =>
+            {
+                if (success)
+                {
+                    // Sign In 성공
+                    // 바로 리더보드 UI 표시 요청
+                    Social.ShowLeaderboardUI();
+                    return;
+                }
+                else
+                {
+                    // Sign In 실패 
+                    // 그에 따른 처리
+                    return;
+                }
+            });
+        }
+
+#if UNITY_ANDROID
+        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+#elif UNITY_IOS
+        GameCenterPlatform.ShowLeaderboardUI("Leaderboard_ID", UnityEngine.SocialPlatforms.TimeScope.AllTime);
+#endif
     }
 
     /// <summary>
@@ -251,4 +370,5 @@ public class GPGSManager : Singleton<GPGSManager>
             Debug.Log("### 접속되어있지 않습니다. PlayGamesPlatform.Instance.localUser.authenticated :  fail");
         }
     }
+
 }
