@@ -10,9 +10,20 @@ public class MainMenuConstructor : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Debug.Log("MainMenuConstructor Awake");
+
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             mainMenu.SetActive(true);
+
         }
+    }
+
+    void Start()
+    {
+        Debug.Log("MainMenuConstructor Start");
+
+        Debug.Log("InitializeGPGS");
+        GPGSManager.GetInstance.InitializeGPGS();
     }
 }

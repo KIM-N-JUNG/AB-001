@@ -23,8 +23,6 @@ public class OptionScript : MonoBehaviour
         "CRAZY"
     };
 
-    private const string leaderboard_id = "1018295262979";
-
     void Start()
     {
         var ins = SingletonClass.Instance;
@@ -35,9 +33,6 @@ public class OptionScript : MonoBehaviour
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
         slider_difficult.value = ins.level;
-
-        Debug.Log("InitializeGPGS");
-        GPGSManager.GetInstance.InitializeGPGS();
     }
 
     private bool IsAgreePrivacy()

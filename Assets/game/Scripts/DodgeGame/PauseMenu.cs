@@ -88,6 +88,8 @@ public class PauseMenu : MonoBehaviour {
         text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
 
         paused = true;
+
+        GPGSManager.GetInstance.SubmitToLeaderBorad(s);
     }
 
     public void Quit()

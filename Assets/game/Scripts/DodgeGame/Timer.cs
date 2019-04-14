@@ -11,6 +11,8 @@ public class Timer : MonoBehaviour
 
     private Text uiText;
 
+    private bool bFirst = true;
+
     public void Pause()
     {
         bPause = true;
@@ -46,6 +48,15 @@ public class Timer : MonoBehaviour
 
         float t = (float)System.Math.Truncate(time * 100.0f) / 100.0f;
         uiText.text = "Time : " + t.ToString();
+
+        if (t > 30.0f)
+        {
+            GPGSManager.GetInstance.UnlockAchievement(30);
+        }
+        else if (t > 60.0f)
+        {
+            GPGSManager.GetInstance.UnlockAchievement(60);
+        }
     }
 
     public float GetTime()
