@@ -39,6 +39,12 @@ public class make_bullets : MonoBehaviour
 
     void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            Debug.Log("Not started the game!!!");
+            return;
+        }
+
         timeIter = 0.0f;
         var ins = SingletonClass.Instance;
         MissileArraySize = MissileMaxPool;

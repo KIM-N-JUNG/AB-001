@@ -5,7 +5,7 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
-
+using MySql.Data.MySqlClient;
 
 public class GPGSManager : Singleton<GPGSManager>
 {
@@ -72,6 +72,15 @@ public class GPGSManager : Singleton<GPGSManager>
                 Debug.Log("Email: " + email);
                 Debug.Log("IsUnderage: " + Social.localUser.underage);
                 Debug.Log("Friends: " + Social.localUser.friends);
+
+                MySqlConnector.Instance.DoQuery("select * from `user`", (MySqlDataReader reader) =>
+                {
+                    //data 파싱
+                    string temp = reader["nick_name"].ToString();
+                    Debug.Log("nick_name : " + temp);
+                    temp = reader["email"].ToString();
+                    Debug.Log("email : " + email);
+                });
             });
         }
         else
