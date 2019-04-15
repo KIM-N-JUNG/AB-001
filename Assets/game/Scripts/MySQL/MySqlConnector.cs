@@ -30,7 +30,6 @@ public class MySqlConnector
         }
     }
 
-
     public MySqlConnector()
     {
     }
@@ -57,11 +56,10 @@ public class MySqlConnector
                 {
                     Debug.Log("Exception!");
                     Debug.Log(e);
-                    throw e;
+                    return;
                 }
                 reader = myCommand.ExecuteReader();
                 Debug.Log("execute command - " + sqlQuery);
-
                 while (reader.Read())
                 {
                     readable(reader);

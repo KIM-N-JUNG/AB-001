@@ -57,7 +57,7 @@ public class GPGSManager : Singleton<GPGSManager>
     /// <summary>
     /// GPGS를 로그인 합니다.
     /// </summary>
-    public void LoginGPGS()
+    public void LoginGPGS(AndroidSet androidSet)
     {
         // 로그인이 안되어 있으면
         if (!Social.localUser.authenticated)
@@ -80,17 +80,17 @@ public class GPGSManager : Singleton<GPGSManager>
                 MySqlConnector.Instance.DoQuery("select * from `user`", (MySqlDataReader reader) =>
                 {
                     //data 파싱
-                    string temp = reader["nick_name"].ToString();
-                    Debug.Log("nick_name : " + temp);
-                    temp = reader["email"].ToString();
-                    Debug.Log("email : " + email);
+                    string temp = "nick_name: " + reader["nick_name"].ToString();
+                    temp += "\nemail: " + reader["email"].ToString();
+                    temp += "\ncountry: " + reader["country"].ToString();
+                    Debug.Log(temp);
+                    androidSet.ShowToast(temp, true);
                 });
             });
         }
         else
         {
             Debug.Log("### Social.localUser.authenticated");
-
             //string _IDtoken = PlayGamesPlatform.Instance.GetIdToken();
             //Debug.Log("### _IDtoken : " + _IDtoken);
 
@@ -137,7 +137,6 @@ public class GPGSManager : Singleton<GPGSManager>
     public void LogoutGPGS(bool bForced)
     {
         Debug.Log("### call LogoutGPGS");
-
         // 로그인이 되어 있으면
         if (Social.localUser.authenticated || bForced)
         {
