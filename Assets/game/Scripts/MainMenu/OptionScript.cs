@@ -15,6 +15,7 @@ public class OptionScript : MonoBehaviour
     public GameObject difficultyUI;
     public GameObject optionMenuUI;
     public GameObject privacyBoardUI;
+    public AndroidSet androidSet;
 
     protected readonly string[] DifficultyName = {
         "EASY",
@@ -81,8 +82,9 @@ public class OptionScript : MonoBehaviour
         {
             if (IsAgreePrivacy())
             {
+                GPGSManager.GetInstance.LoginGPGS(androidSet);
                 Debug.Log("LoginGPGS");
-                GPGSManager.GetInstance.LoginGPGS();
+                androidSet.ShowToast("LoginGPGS", false);
             }
             else
             {
@@ -92,10 +94,11 @@ public class OptionScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("LogoutGPGS");
+            androidSet.ShowToast("LogoutGPGS", false);
             AgreePrivacy(false);
             AgreeService(false);
             GPGSManager.GetInstance.LogoutGPGS(false);
+            Debug.Log("LogoutGPGS");
         }
 
         Debug.Log("Login - " + bLogin);
