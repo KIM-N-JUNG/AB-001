@@ -39,6 +39,7 @@ public class MySqlConnector
     {
         string connectionString = "Server=sunyoungj.iptime.org;" +
             "Database=ab001;" +
+            "Port=3306;" +
             "User ID=kim.n.jung82;" +
             "Password= rla&wjd!;" +
             "Pooling=false";

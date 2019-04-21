@@ -63,14 +63,20 @@ public class GPGSManager : Singleton<GPGSManager>
     /// </summary>
     public void InitializeGPGS()
     {
-        bLogin = false;
-
+        if (SingletonClass.Instance.bLogin)
+        {
+            LoginGPGS();
+        }
+        else
+        {
+            Debug.Log("GPGSManager.InitializeGPGS() - not logined");
+        }
     }
 
     /// <summary>
     /// GPGS를 로그인 합니다.
     /// </summary>
-    public void LoginGPGS(AndroidSet androidSet)
+    public void LoginGPGS()
     {
         // 로그인이 안되어 있으면
         if (!Social.localUser.authenticated)
@@ -82,7 +88,6 @@ public class GPGSManager : Singleton<GPGSManager>
             {
                 Debug.Log("### Authentication successful");
                 Debug.Log("Username: " + Social.localUser.userName);
-                //Debug.Log("Username: ");
                 Debug.Log("ImageUrl: " + Social.localUser.image);
                 Debug.Log("User ID: " + Social.localUser.id);
                 string email = ((PlayGamesLocalUser)Social.localUser).Email;
@@ -97,7 +102,6 @@ public class GPGSManager : Singleton<GPGSManager>
                     temp += "\nemail: " + reader["email"].ToString();
                     temp += "\ncountry: " + reader["country"].ToString();
                     Debug.Log(temp);
-                    androidSet.ShowToast(temp, true);
                 });
             });
         }
