@@ -52,12 +52,18 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     public virtual void OnPointerDown(PointerEventData ped)
     {
         OnDrag(ped);
+
+        PlayerPrefs.SetInt("onControl", 1);
+        PlayerPrefs.Save();
     }
 
     public virtual void OnPointerUp(PointerEventData ped)
     {
         inputVector = Vector3.zero;
         joystickImg.rectTransform.anchoredPosition = Vector3.zero;
+
+        PlayerPrefs.SetInt("onControl", 0);
+        PlayerPrefs.Save();
     }
 
     // PlayerController 스크립트에서 inputVector.x 값을 받기 위해 사용될 함수

@@ -57,6 +57,9 @@ public class SingletonClass : MonoBehaviour
         // 진동
         if (PlayerPrefs.HasKey("vibrate"))
             bVibrate = PlayerPrefs.GetInt("vibrate") == 1 ? true : false;
+
+        if (PlayerPrefs.HasKey("onControl"))
+            bMove = PlayerPrefs.GetInt("onControl") == 1 ? true : false;
     }
 
     private void OnApplicationPause(bool pause)
@@ -92,4 +95,6 @@ public class SingletonClass : MonoBehaviour
     // 진동
     public bool bVibrate = true;
 
+    // 움직이는지
+    public bool bMove = false;
 }
