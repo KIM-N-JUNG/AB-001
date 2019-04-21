@@ -78,11 +78,16 @@ public class OptionScript : MonoBehaviour
 
     public void Login(bool bLogin)
     {
+        if (SingletonClass.Instance.bLogin == bLogin)
+        {
+            return;
+        }
+
         if (bLogin)
         {
             if (IsAgreePrivacy())
             {
-                GPGSManager.GetInstance.LoginGPGS(androidSet);
+                GPGSManager.GetInstance.LoginGPGS();
                 Debug.Log("LoginGPGS");
                 androidSet.ShowToast("LoginGPGS", false);
             }
@@ -129,8 +134,6 @@ public class OptionScript : MonoBehaviour
         Debug.Log("bEffectSound : " + flag);
         PlayerPrefs.SetInt("effectSound", flag ? 1 : 0);
         PlayerPrefs.Save();
-
-        Social.ShowLeaderboardUI();
     }
 
     public void OnDifficultLevelChange()
