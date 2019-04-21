@@ -49,13 +49,11 @@ public class Timer : MonoBehaviour
         float t = (float)System.Math.Truncate(time * 100.0f) / 100.0f;
         uiText.text = "Time : " + t.ToString();
 
-        if (t > 30.0f)
+        int archTime = int.Parse(GPGSManager.GetInstance.getAchievementTime());
+        if (t > archTime)
         {
-            GPGSManager.GetInstance.UnlockAchievement(30);
-        }
-        else if (t > 60.0f)
-        {
-            GPGSManager.GetInstance.UnlockAchievement(60);
+            Debug.Log("!! 업적 등록 : " + archTime);
+            GPGSManager.GetInstance.UnlockAchievement();
         }
     }
 

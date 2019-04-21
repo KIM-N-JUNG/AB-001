@@ -18,11 +18,21 @@ public class PauseMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            return;
+        }
+
         PauseUI.SetActive(false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            return;
+        }
+
         if (paused)
         {
             PauseUI.SetActive(true);
@@ -30,7 +40,16 @@ public class PauseMenu : MonoBehaviour {
         } else 
         {
             PauseUI.SetActive(false);
-            Time.timeScale = 1f;
+            //Time.timeScale = 1f;
+
+            int onControl = PlayerPrefs.GetInt("onControl");
+            if (onControl == 1)
+            {
+                Time.timeScale = 1f;
+            } else
+            {
+                Time.timeScale = 0.3f;
+            }
         }
     }
 

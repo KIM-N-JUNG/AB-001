@@ -18,7 +18,10 @@ public class GPGSManager : Singleton<GPGSManager>
         set;
     }
 
-    int[,] arrArchivement;
+    String[,] arrTimeArchivement;
+
+    int curIndexArchievement;
+
 
     void Start()
     {
@@ -39,10 +42,20 @@ public class GPGSManager : Singleton<GPGSManager>
         //                GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
         //#endif
 
+        //PlayGamesClientConfiguration.Builder.RequestEmail()
+
         // Select the Google Play Games platform as our social platform implementation
         GooglePlayGames.PlayGamesPlatform.Activate();
 
-        arrArchivement = new int[,] { {10, 0}, { 30, 0}, { 60, 0}, { 300, 0}, { 600, 0} };
+        arrTimeArchivement
+           = new String[,] {
+                { "10", GPGSIds.achievement_10 },
+                { "30", GPGSIds.achievement_30 },
+                { "60", GPGSIds.achievement_1 },
+                { "300", GPGSIds.achievement_5 },
+                { "600", GPGSIds.achievement_10_2 } };
+
+        curIndexArchievement = 0;
     }
 
     /// <summary>
@@ -181,30 +194,18 @@ public class GPGSManager : Singleton<GPGSManager>
         PlayGamesPlatform.Instance.SignOut();
     }
 
-    // 업적, 리더보드
-    public void UnlockAchievement(int time)
+    public String getAchievementTime()
     {
-        String name = "";
-        switch (time)
-        {
-            case 10:
-                name = GPGSIds.achievement_10;
-                break;
-            case 30:
-                name = GPGSIds.achievement_30;
-                break;
-            case 60:
-                name = GPGSIds.achievement_1;
-                break;
-            case 300:
-                name = GPGSIds.achievement_5;
-                break;
-            case 600:
-                name = GPGSIds.achievement_10_2;
-                break;
-        }
+        return arrTimeArchivement[curIndexArchievement, 0];
+    }
+
+    // 업적, 리더보드
+    public void UnlockAchievement()
+    {
+        String name = arrTimeArchivement[curIndexArchievement, 1];
 #if UNITY_ANDROID
         PlayGamesPlatform.Instance.ReportProgress(name, 100f, null);
+        curIndexArchievement++;
 #elif UNITY_IOS
             Social.ReportProgress("Score_100", 100f, null);
 #endif
