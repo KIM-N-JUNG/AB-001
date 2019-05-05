@@ -5,7 +5,7 @@ public class AndroidSet : MonoBehaviour
 {
     private AndroidJavaObject UnityActivity;
     private AndroidJavaObject UnityInstance;
-
+    private bool isSupport;
     private void Start()
     {
         try
@@ -16,9 +16,11 @@ public class AndroidSet : MonoBehaviour
             AndroidJavaClass ajc2 = new AndroidJavaClass("toastplugin.kimnjung.com.unitytoast.AndroidToast");
             UnityInstance = ajc2.CallStatic<AndroidJavaObject>("instance");
             UnityInstance.Call("setContext", UnityActivity);
+            isSupport = true;
         }
         catch (Exception e)
         {
+            isSupport = false;
             Debug.Log("Error!");
             Debug.Log(e);
         }
@@ -26,6 +28,13 @@ public class AndroidSet : MonoBehaviour
 
     public void ShowToast(string msg, bool isLong)
     {
+        if (isSupport == false)
+        {
+            Debug.Log("Not supported the ShowToast()");
+            Debug.Log(msg);
+            return;
+        }
+
         if (UnityActivity == null)
         {
             Debug.Log("UnityActivity is null!");
