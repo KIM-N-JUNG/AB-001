@@ -5139,6 +5139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1781908238}
+  androidSet: {fileID: 267392273}
 --- !u!4 &992207587
 Transform:
   m_ObjectHideFlags: 0
@@ -6036,6 +6037,7 @@ MonoBehaviour:
   bBGSound: 1
   bEffectSound: 1
   bVibrate: 1
+  bMove: 0
 --- !u!124 &1061655877
 Behaviour:
   m_ObjectHideFlags: 0
