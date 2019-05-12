@@ -14,7 +14,7 @@ public class MainMenuConstructor : MonoBehaviour
     {
         Debug.Log("MainMenuConstructor Awake");
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.MAIN_MENU)
         {
             mainMenu.SetActive(true);
 
