@@ -12,7 +12,7 @@ public class GameConstructor : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.GAME)
         {
             ui.SetActive(true);
             shuttle.SetActive(true);
