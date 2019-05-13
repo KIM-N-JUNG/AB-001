@@ -36,7 +36,8 @@ public class MainMenuConstructor : MonoBehaviour
                 string temp = "nick_name: " + reader["nick_name"].ToString();
                 temp += "\nemail: " + reader["email"].ToString();
                 temp += "\ncountry: " + reader["country"].ToString();
-                androidSet.ShowToast(temp, false);
+                //androidSet.ShowToast(temp, false);
+                Debug.Log(temp);
             });
         };
 
