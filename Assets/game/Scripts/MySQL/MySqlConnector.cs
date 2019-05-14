@@ -34,8 +34,39 @@ public class MySqlConnector
     {
     }
 
+    public int DoNonQuery(string sqlQuery)
+    {
+        int ret = 0;
+        string connectionString = "Server=sunyoungj.iptime.org;" +
+            "Database=ab001;" +
+            "Port=3306;" +
+            "User ID=kim.n.jung82;" +
+            "Password= rla&wjd!;" +
+            "Pooling=false";
+        using (MySqlConnection db = new MySqlConnection(connectionString))
+        {
+            using (MySqlCommand myCommand = new MySqlCommand(sqlQuery, db))
+            {
+                try
+                {
+                    db.Open();
+                    Debug.Log("Connected to database. - " + connectionString);
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Exception!");
+                    Debug.Log(e);
+                    return ret;
+                }
+                ret = myCommand.ExecuteNonQuery();
+                db.Close();
+            }
+        }
+        return ret;
+    }
+
     // MySQL Query
-    public void DoQuery(string sqlQuery, Callback readable)
+    public void DoSelectQuery(string sqlQuery, Callback readable)
     {
         string connectionString = "Server=sunyoungj.iptime.org;" +
             "Database=ab001;" +

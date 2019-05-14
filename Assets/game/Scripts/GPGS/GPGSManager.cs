@@ -7,6 +7,14 @@ using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
 using MySql.Data.MySqlClient;
 
+public class UserInfo
+{
+    public string user_id { get; set; }
+    public string user_email { get; set; }
+    public string user_name { get; set; }
+    public string user_image { get; set; }
+}
+
 public class GPGSManager : Singleton<GPGSManager>
 {
     /// <summary>
@@ -18,7 +26,7 @@ public class GPGSManager : Singleton<GPGSManager>
         set;
     }
 
-    public delegate void OnAuthenticationCb(bool login);
+    public delegate void OnAuthenticationCb(bool login, UserInfo userInfo);
     public delegate void OnSubmissionCb(bool success);
     public delegate void OnrevelationAchievementCb(bool success);
     public delegate void OnShowAchievement(bool success);
@@ -107,9 +115,14 @@ public void LoginGPGS()
             Debug.Log("IsUnderage: " + Social.localUser.underage);
             Debug.Log("Friends: " + Social.localUser.friends);
 
+            UserInfo userInfo = new UserInfo();
+            userInfo.user_id = Social.localUser.id;
+            userInfo.user_email = email;
+            userInfo.user_name = Social.localUser.userName;
+            //userInfo.user_image = Social.localUser.image;
             if (this.Cb.onAuthenticationCb != null)
             {
-                this.Cb.onAuthenticationCb(success);
+                this.Cb.onAuthenticationCb(success, userInfo);
             }
         }));
     }
@@ -127,32 +140,6 @@ public void LoginGPGS()
         //인증코드 받기
         string _authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
         Debug.Log("### authcode : " + _authCode + " / " + "idtoken : " + _IDtoken);
-    }
-}
-
-/// <summary>
-/// GPGS Login Callback
-/// </summary>
-/// <param name="result"> 결과 </param>
-public void LoginCallBackGPGS(bool result)
-{
-    bLogin = result;
-
-    if (result)
-    {
-        Debug.Log("### Authentication successful");
-        //Debug.Log("Username: " + Social.localUser.userName);
-        Debug.Log("Username: ");
-        Debug.Log("ImageUrl: " + Social.localUser.image);
-        Debug.Log("User ID: " + Social.localUser.id);
-        string email = ((PlayGamesLocalUser)Social.localUser).Email;
-        Debug.Log("Email: " + email);
-        Debug.Log("IsUnderage: " + Social.localUser.underage);
-        Debug.Log("Friends: " + Social.localUser.friends);
-    }
-    else
-    {
-        Debug.Log("### Authentication failed");
     }
 }
 
