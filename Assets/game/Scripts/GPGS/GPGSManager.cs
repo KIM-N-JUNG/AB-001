@@ -336,17 +336,19 @@ public void ShowLeaderboardUI()
     // Sign In 후 리더보드 UI 표시 요청할 것
     if (Social.localUser.authenticated == false)
     {
+        Debug.Log("로그인 되어있지 않음");
         Social.localUser.Authenticate((bool success) =>
         {
             if (success)
             {
+                Debug.Log("로그인 완료");
                     // Sign In 성공
                     // 바로 리더보드 UI 표시 요청
                     Social.ShowLeaderboardUI();
             }
         });
     }
-
+    
 #if UNITY_ANDROID
     PlayGamesPlatform.Instance.ShowLeaderboardUI();
 #elif UNITY_IOS

@@ -89,7 +89,7 @@ public class OptionScript : MonoBehaviour
             {
                 GPGSManager.GetInstance.LoginGPGS();
                 Debug.Log("LoginGPGS");
-                androidSet.ShowToast("LoginGPGS", false);
+                // androidSet.ShowToast("LoginGPGS", false);
             }
             else
             {
@@ -99,7 +99,7 @@ public class OptionScript : MonoBehaviour
         }
         else
         {
-            androidSet.ShowToast("LogoutGPGS", false);
+            // androidSet.ShowToast("LogoutGPGS", false);
             AgreePrivacy(false);
             AgreeService(false);
             GPGSManager.GetInstance.LogoutGPGS(false);
