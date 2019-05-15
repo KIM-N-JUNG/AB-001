@@ -6,15 +6,12 @@ using UnityEngine.UI;
 
 public class OptionScript : MonoBehaviour
 {
-    GameObject toggleBackgroundSoundToggle;
-    public Toggle toggle_login;
+
     public Toggle toggle_acc;
     public Toggle toggle_BGSound;
     public Toggle toggle_effectSound;
     public Slider slider_difficult;
     public GameObject difficultyUI;
-    public GameObject optionMenuUI;
-    public GameObject privacyBoardUI;
     public AndroidSet androidSet;
 
     protected readonly string[] DifficultyName = {
@@ -28,88 +25,11 @@ public class OptionScript : MonoBehaviour
     {
         var ins = SingletonClass.Instance;
 
-        toggle_login.isOn = ins.bLogin ? true : false;
         toggle_acc.isOn = ins.acceleration ? true : false;
         toggle_BGSound.isOn = ins.bBGSound ? true : false;
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
         slider_difficult.value = ins.level;
-    }
-
-    private bool IsAgreePrivacy()
-    {
-        bool isAgree = SingletonClass.Instance.bPrivacyAgreement && SingletonClass.Instance.bServiceAgreement;
-        Debug.Log("IsAgreePrivacy? : " + isAgree);
-        return isAgree;
-    }
-
-    private void ShowPrivacyBoard(bool toogleShow)
-    {
-        Debug.Log("ShowPrivacyBoard()");
-        optionMenuUI.SetActive(!toogleShow);
-        privacyBoardUI.SetActive(toogleShow);
-        //toggle_login.isOn = false;
-        Login(!toogleShow);
-    }
-
-    public void AgreePrivacy(bool agree)
-    {
-        Debug.Log("AgreePrivacy(" + agree + ")");
-        SingletonClass.Instance.bPrivacyAgreement = agree;
-        PlayerPrefs.SetInt("privacy", agree ? 1 : 0);
-        PlayerPrefs.Save();
-        if (IsAgreePrivacy())
-        {
-            ShowPrivacyBoard(false);
-        }
-    }
-
-    public void AgreeService(bool agree)
-    {
-        Debug.Log("AgreeService(" + agree + ")");
-        SingletonClass.Instance.bServiceAgreement = agree;
-        PlayerPrefs.SetInt("service", agree ? 1 : 0);
-        PlayerPrefs.Save();
-        if (IsAgreePrivacy())
-        {
-            ShowPrivacyBoard(false);
-        }
-    }
-
-    public void Login(bool bLogin)
-    {
-        if (SingletonClass.Instance.bLogin == bLogin)
-        {
-            return;
-        }
-
-        if (bLogin)
-        {
-            if (IsAgreePrivacy())
-            {
-                GPGSManager.GetInstance.LoginGPGS();
-                Debug.Log("LoginGPGS");
-                // androidSet.ShowToast("LoginGPGS", false);
-            }
-            else
-            {
-                ShowPrivacyBoard(true);
-                return;
-            }
-        }
-        else
-        {
-            // androidSet.ShowToast("LogoutGPGS", false);
-            AgreePrivacy(false);
-            AgreeService(false);
-            GPGSManager.GetInstance.LogoutGPGS(false);
-            Debug.Log("LogoutGPGS");
-        }
-
-        Debug.Log("Login - " + bLogin);
-        SingletonClass.Instance.bLogin = bLogin;
-        PlayerPrefs.SetInt("login", bLogin ? 1 : 0);
-        PlayerPrefs.Save();
     }
 
     public void SetAcceleration(bool flag)
