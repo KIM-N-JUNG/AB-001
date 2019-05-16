@@ -98,12 +98,15 @@ public void InitializeGPGS()
 /// </summary>
 public void LoginGPGS()
 {
+    if (Application.internetReachability == NetworkReachability.NotReachable)
+    {
+        Debug.Log("Disconnected internet");
+        return;
+    }
+
     // 로그인이 안되어 있으면
     if (!Social.localUser.authenticated)
     {
-        //Debug.Log("### !Social.localUser.authenticated");
-        //Social.localUser.Authenticate(LoginCallBackGPGS);
-
         Social.localUser.Authenticate((Action<bool>)((bool success) =>
         {
             Debug.Log("### Authentication successful");

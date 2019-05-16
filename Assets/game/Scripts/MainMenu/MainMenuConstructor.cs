@@ -34,6 +34,15 @@ public class MainMenuConstructor : MonoBehaviour
     {
         Debug.Log("MainMenuConstructor Start");
 
+        // disconnected
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.Log("Disconnected internet");
+            return;
+        }
+
+
+
         Debug.Log("InitializeGPGS");
         GPGSManager gpgsInstance = GPGSManager.GetInstance;
 
