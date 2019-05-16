@@ -13,8 +13,9 @@ public class AdmobManager : MonoBehaviour
     private BannerView bannerView;
     private InterstitialAd interstitialAd;
 
-    private const string APP_ID = "ca-app-pub-1339724987571025~2941971617";
+    private const string APP_ID = "ca-app-pub-1339724987571025~1648266314";
 
+    private const string ANDROID_BANNER_ID = "ca-app-pub-1339724987571025/9830363880";
 
 
 
@@ -30,6 +31,7 @@ public class AdmobManager : MonoBehaviour
 
     public void initAds()
     {
+        Debug.Log("initAds");
 #if UNITY_ANDROID
         string appId = APP_ID;
 #elif UNITY_IPHONE
@@ -44,10 +46,11 @@ public class AdmobManager : MonoBehaviour
 
     public void RequestBannerAd()
     {
+        Debug.Log("RequestBannerAd");
         string adUnitId = string.Empty;
 
 #if UNITY_ANDROID
-        adUnitId = android_banner_id;
+        adUnitId = ANDROID_BANNER_ID;
 #elif UNITY_IOS
         adUnitId = ios_bannerAdUnitId;
 #endif
@@ -60,6 +63,7 @@ public class AdmobManager : MonoBehaviour
 
     private void RequestInterstitialAd()
     {
+        Debug.Log("RequestInterstitialAd");
         string adUnitId = string.Empty;
 
 #if UNITY_ANDROID
@@ -78,7 +82,7 @@ public class AdmobManager : MonoBehaviour
 
     public void HandleOnInterstitialAdClosed(object sender, EventArgs args)
     {
-        print("HandleOnInterstitialAdClosed event received.");
+        Debug.Log("HandleOnInterstitialAdClosed event received.");
 
         interstitialAd.Destroy();
 
@@ -87,11 +91,13 @@ public class AdmobManager : MonoBehaviour
 
     public void ShowBannerAd()
     {
+        Debug.Log("ShowBannerAd");
         bannerView.Show();
     }
 
     public void ShowInterstitialAd()
     {
+        Debug.Log("ShowInterstitialAd");
         if (!interstitialAd.IsLoaded())
         {
             RequestInterstitialAd();

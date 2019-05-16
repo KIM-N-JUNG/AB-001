@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1414ae6feae28ef40851d79cb45da2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  android_banner_id: 
+  android_banner_id: ca-app-pub-1339724987571025/9830363880
   android_interstitial_id: 
 --- !u!4 &138137121
 Transform:
