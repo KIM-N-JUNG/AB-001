@@ -23,15 +23,15 @@ public class AdmobManager : MonoBehaviour
     {
         initAds();
 
-        RequestBannerAd();
-        RequestInterstitialAd();
+        // RequestBannerAd();
+        // RequestInterstitialAd();
 
-        ShowBannerAd();
+        // ShowBannerAd();
     }
 
     public void initAds()
     {
-        Debug.Log("initAds");
+        Debug.Log("AdmobManager initAds");
 #if UNITY_ANDROID
         string appId = APP_ID;
 #elif UNITY_IPHONE
@@ -55,7 +55,7 @@ public class AdmobManager : MonoBehaviour
         adUnitId = ios_bannerAdUnitId;
 #endif
 
-        bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Top);
+        bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
         AdRequest request = new AdRequest.Builder().Build();
 
         bannerView.LoadAd(request);
