@@ -34,18 +34,17 @@ public class MainMenuConstructor : MonoBehaviour
     {
         Debug.Log("MainMenuConstructor Start");
 
-        // disconnected
+        // offline Mode
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Debug.Log("Disconnected internet");
+            Debug.Log("Offline Mode");
             return;
         }
-
-
 
         Debug.Log("InitializeGPGS");
         GPGSManager gpgsInstance = GPGSManager.GetInstance;
 
+        // Login Callback
         gpgsInstance.Cb.onAuthenticationCb = (bool success, UserInfo userInfo) =>
         {
             Debug.Log("onAuthenticationCb! - " + success + ", userInfo " + userInfo);
@@ -53,46 +52,37 @@ public class MainMenuConstructor : MonoBehaviour
             if (true)
             {
                 // userId값으로 db에 query 
-                userInfo.user_id = "asdf";
+                userInfo.user_id = "asdfa";
                 string query = "select * from user where user_id = " + "'" + userInfo.user_id +"'";
 
                 MySqlConnector.Instance.DoSelectQuery(query, (MySqlDataReader reader) =>
                 {
+                    // 데이터 없음
+                    if (reader == null)
+                    {
+                        // 프로필 입력 scene으로 이동
+                        Debug.Log("There is no user -> newbie");
+                        return;
+                    }
+
+                    /////////// for debuging ///////////
                     Debug.Log("Parsing data");
                     List<string> columns = GetDataReaderColumnNames(reader);
                     foreach (string col in columns)
                     {
                         Debug.Log(col);
                     }
+                    /////////// for debuging ///////////
+
                     Debug.Log("reader: " + columns.ToString());
                     string nickName = reader["nick_name"].ToString();
                     int visitCount = int.Parse(reader["visit_count"].ToString());
-                    if (nickName.Length == 0)
-                    {
-                        androidSet.ShowToast("NO NICKNAME", false);
 
-                        // 프로필 입력 scene으로 이동
-                    }
-                    else
-                    {
-                        Debug.Log(nickName + " 유저 방문 횟수 : " + (visitCount+1));
-                        androidSet.ShowToast("환영합니다 " + nickName + "님. " + (visitCount+1) + "번째 방문입니다.", false);
-                        int ret = MySqlConnector.Instance.DoNonQuery("update user set visit_count = " + (visitCount + 1) + " where `user_id` = " + "'" + userInfo.user_id + "'");
-                        Debug.Log("ret is " + ret);
-                    }
+                    Debug.Log(nickName + " 유저 방문 횟수 : " + (visitCount+1));
+                    androidSet.ShowToast("환영합니다 " + nickName + "님. " + (visitCount+1) + "번째 방문입니다.", false);
+                    int ret = MySqlConnector.Instance.DoNonQuery("update user set visit_count = " + (visitCount + 1) + " where `user_id` = " + "'" + userInfo.user_id + "'");
+                    Debug.Log("ret is " + ret);
                 });
-
-                /*
-                MySqlConnector.Instance.DoSelectQuery("select * from `user`", (MySqlDataReader reader) =>
-                {
-                    //data 파싱
-                    string temp = "nick_name: " + reader["nick_name"].ToString();
-                    temp += "\nemail: " + reader["email"].ToString();
-                    temp += "\ncountry: " + reader["country"].ToString();
-                    androidSet.ShowToast("Login Success", false);
-                    Debug.Log(temp);
-                });
-                */
             }
             else
             {

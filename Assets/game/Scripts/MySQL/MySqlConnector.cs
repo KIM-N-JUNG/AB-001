@@ -92,17 +92,25 @@ public class MySqlConnector
                 }
                 reader = myCommand.ExecuteReader();
                 Debug.Log("execute command - " + sqlQuery);
-                while (reader.Read())
+
+                Debug.Log("visibleFieldCount : " + reader.VisibleFieldCount);
+                bool hasRows = reader.HasRows;
+                Debug.Log("has Rows? - " + (hasRows ? "true" : "false"));
+
+                if (reader.HasRows)
                 {
-                    readable(reader);
-                    //Debug.Log(reader);
-                    //Debug.Log(reader.GetString(0));
-                    ////data 파싱
-                    //string temp = reader["nick_name"].ToString();
-                    //Debug.Log("nick_name : " + temp);
-                    //temp = reader["email"].ToString();
-                    //Debug.Log("email : " + temp);
+                    while (reader.Read())
+                    {
+                        if (readable != null)
+                            readable(reader);
+                    }
                 }
+                else
+                {
+                    if (readable != null)
+                        readable(null);
+                }
+
                 reader.Close();
                 db.Close();
             }
