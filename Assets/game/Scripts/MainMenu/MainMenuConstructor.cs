@@ -76,7 +76,7 @@ public class MainMenuConstructor : MonoBehaviour
                     else
                     {
                         Debug.Log(nickName + " 유저 방문 횟수 : " + (visitCount+1));
-                        androidSet.ShowToast(nickName + " 유저 방문 횟수 : " + (visitCount+1), false);
+                        androidSet.ShowToast("환영합니다 " + nickName + "님. " + (visitCount+1) + "번째 방문입니다.", false);
                         int ret = MySqlConnector.Instance.DoNonQuery("update user set visit_count = " + (visitCount + 1) + " where `user_id` = " + "'" + userInfo.user_id + "'");
                         Debug.Log("ret is " + ret);
                     }

@@ -13,6 +13,8 @@ public class Timer : MonoBehaviour
 
     private bool bFirst = true;
 
+    GPGSManager gpgsIns = null;
+
     public void Pause()
     {
         bPause = true;
@@ -34,6 +36,8 @@ public class Timer : MonoBehaviour
         time = 0.00f;
         uiText.text = "Time : " + time.ToString();
         bPause = false;
+
+        gpgsIns = GPGSManager.GetInstance;
     }
 
     // Update is called once per frame
@@ -49,12 +53,17 @@ public class Timer : MonoBehaviour
         float t = (float)System.Math.Truncate(time * 100.0f) / 100.0f;
         uiText.text = "Time : " + t.ToString();
 
-        int archTime = int.Parse(GPGSManager.GetInstance.getAchievementTime());
-        if (t > archTime)
-        {
-            Debug.Log("!! 업적 등록 : " + archTime);
-            GPGSManager.GetInstance.UnlockAchievement();
+        if (gpgsIns != null) {
+            int archTime = int.Parse(gpgsIns.getAchievementTime());
+            if (t > archTime)
+            {
+                Debug.Log("!! 업적 등록 : " + archTime);
+                gpgsIns.UnlockAchievement();
+            }
+        } else {
+            Debug.Log("gpgsIns == null");
         }
+        
     }
 
     public float GetTime()

@@ -15,7 +15,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (instance == null)
                 {
-                    Debug.Log("GetInstance Nothing");
+                    Debug.Log("GetInstance Nothing : " + typeof(T).ToString());
 
                     // Need to create a new GameObject to attach the singleton to.
                     var singletonObject = new GameObject();
@@ -24,6 +24,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                     // Make instance persistent.
                     DontDestroyOnLoad(singletonObject);
+                    DontDestroyOnLoad(instance);
                 }
             }
 

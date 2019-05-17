@@ -22,19 +22,24 @@ public class PauseMenu : MonoBehaviour {
     bool bAdsLoaded = false;
     bool bAdsShow = false;
 
-    private const string BANNER_ID = "ca-app-pub-1339724987571025/6657855346";
+    private const string APP_ID = "ca-app-pub-1339724987571025~1648266314";
+
+    private const string BANNER_ID = "ca-app-pub-1339724987571025/9830363880";
     private const string BANNER_ID_TEST = "ca-app-pub-3940256099942544/6300978111";
 
     // Use this for initialization
     void Start () {
+        Debug.Log("PauseMenu Start");
+
         if (SceneManager.GetActiveScene().buildIndex != 1)
         {
             return;
         }
 
         PauseUI.SetActive(false);
-
-        RequestBanner();
+    
+        // initAds();
+        initBanner();
     }
 	
 	// Update is called once per frame
@@ -88,9 +93,47 @@ public class PauseMenu : MonoBehaviour {
 
         if (bAdsLoaded)
         {
+            Debug.Log("bAdsLoaded : " + bAdsLoaded + ", call bannerView.Show()");
             bannerView.Show();
             bAdsShow = true;
+        } else {
+            bannerView.Show();
+            Debug.Log("bAdsLoaded : " + bAdsLoaded);
         }
+    }
+
+ public void initAds()
+    {
+        Debug.Log("PauseMenu initAds");
+#if UNITY_ANDROID
+        string appId = APP_ID;
+#elif UNITY_IPHONE
+            //string appId = "ca-app-pub-3940256099942544~1458002511";
+#else
+            //string appId = "unexpected_platform";
+#endif
+
+        // Initialize the Google Mobile Ads SDK.
+        MobileAds.Initialize(appId);
+    }
+    
+    private void initBanner() {
+        Debug.Log("initBanner");
+        string adUnitId = string.Empty;
+
+#if UNITY_ANDROID
+        adUnitId = BANNER_ID;
+#elif UNITY_IOS
+        // adUnitId = ios_bannerAdUnitId;
+#endif
+        Debug.Log("initBanner adUnitId : " + adUnitId);
+
+        bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
+        bannerView.OnAdLoaded += HandleOnAdLoaded;
+
+        AdRequest request = new AdRequest.Builder().Build();
+        Debug.Log("bannerView.LoadAd()");
+        bannerView.LoadAd(request);
     }
 
     private void RequestBanner()
@@ -103,6 +146,7 @@ public class PauseMenu : MonoBehaviour {
 #else
             //string adUnitId = "unexpected_platform";
 #endif
+        Debug.Log("RequestBanner adUnitId : " + adUnitId);
 
         // #type1
         // Create a 320x50 banner at the top of the screen.
@@ -224,7 +268,12 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("HandleOnAdLoaded");
         bAdsLoaded = true;
         bAdsShow = false;
-        bannerView.Hide();
+
+        if (paused) {
+            bannerView.Show();
+        } else {
+            bannerView.Hide();
+        }
     }
 
 }
