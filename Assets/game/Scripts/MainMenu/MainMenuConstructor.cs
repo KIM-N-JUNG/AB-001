@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Database.Dto;
+using Database.Service;
 using MySql.Data.MySqlClient;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,14 +24,6 @@ public class MainMenuConstructor : MonoBehaviour
         }
     }
 
-    static List<string> GetDataReaderColumnNames(IDataReader rdr)
-    {
-        var columnNames = new List<string>();
-        for (int i = 0; i < rdr.FieldCount; i++)
-            columnNames.Add(rdr.GetName(i));
-        return columnNames;
-    }
-
     void Start()
     {
         Debug.Log("MainMenuConstructor Start");
@@ -47,42 +41,24 @@ public class MainMenuConstructor : MonoBehaviour
         // Login Callback
         gpgsInstance.Cb.onAuthenticationCb = (bool success, UserInfo userInfo) =>
         {
-            Debug.Log("onAuthenticationCb! - " + success + ", userInfo " + userInfo);
-            //if (success)
-            if (true)
+            Debug.Log("onAuthenticationCb! - " + success + ", userInfo " + userInfo.user_name);
+            if (success)
             {
+                androidSet.ShowToast("Login Success", false);
                 // userId값으로 db에 query 
-                userInfo.user_id = "asdfa";
+                //userInfo.user_id = "asdf";
                 string query = "select * from user where user_id = " + "'" + userInfo.user_id +"'";
-
-                MySqlConnector.Instance.DoSelectQuery(query, (MySqlDataReader reader) =>
+                User user = null;
+                user = UserService.Instance.GetUserByUserId(userInfo.user_id);
+                if (user == null)
                 {
-                    // 데이터 없음
-                    if (reader == null)
-                    {
-                        // 프로필 입력 scene으로 이동
-                        Debug.Log("There is no user -> newbie");
-                        return;
-                    }
+                    androidSet.ShowToast("맙소사.. 유저 정보가 없습니다! 버그 입니다!", false);
+                    return;
+                }
 
-                    /////////// for debuging ///////////
-                    Debug.Log("Parsing data");
-                    List<string> columns = GetDataReaderColumnNames(reader);
-                    foreach (string col in columns)
-                    {
-                        Debug.Log(col);
-                    }
-                    /////////// for debuging ///////////
-
-                    Debug.Log("reader: " + columns.ToString());
-                    string nickName = reader["nick_name"].ToString();
-                    int visitCount = int.Parse(reader["visit_count"].ToString());
-
-                    Debug.Log(nickName + " 유저 방문 횟수 : " + (visitCount+1));
-                    androidSet.ShowToast("환영합니다 " + nickName + "님. " + (visitCount+1) + "번째 방문입니다.", false);
-                    int ret = MySqlConnector.Instance.DoNonQuery("update user set visit_count = " + (visitCount + 1) + " where `user_id` = " + "'" + userInfo.user_id + "'");
-                    Debug.Log("ret is " + ret);
-                });
+                androidSet.ShowToast("환영합니다 " + user.user_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.", false);
+                int ret = UserService.Instance.UpdateUserById(user.id, "visit_count", user.visit_count + 1);
+                Debug.Log("ret is " + ret);
             }
             else
             {

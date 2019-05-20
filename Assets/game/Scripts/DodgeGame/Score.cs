@@ -7,9 +7,9 @@ public class Score : MonoBehaviour
 {
     private static readonly int BASIC_RATIO = 150;
     protected readonly float [] scoreRatios = {
+        BASIC_RATIO * 0.3f, 
         BASIC_RATIO * 0.7f, 
-        BASIC_RATIO * 1.0f, 
-        BASIC_RATIO * 1.3f,
+        BASIC_RATIO * 1.0f,
         BASIC_RATIO * 2.0f
     };
 
