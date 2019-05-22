@@ -51,13 +51,13 @@ public class make_bullets : MonoBehaviour
         switch (ins.level)
         {
             case 0: // Easy
-                MissileArraySize /= 4;
+                MissileArraySize /= 6;
                 break;
             case 1: // Normal
-                MissileArraySize /= 3;
+                MissileArraySize /= 4;
                 break;
             case 2: // Hard
-                MissileArraySize /= 2;
+                MissileArraySize /= 3;
                 break;
             case 3: // Crazy
                 MissileArraySize = 500;
