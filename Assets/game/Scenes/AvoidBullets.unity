@@ -487,6 +487,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1633497862672852842, guid: 0920c0cf5040fb54c914c782de9d4a2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1633497862672852758, guid: 0920c0cf5040fb54c914c782de9d4a2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2934,6 +2939,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarField (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8159891391572724184, guid: 37e71576277242644be1ec1c779c1152,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8159891391572724187, guid: 37e71576277242644be1ec1c779c1152,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2988,6 +2998,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159891391870382211, guid: 37e71576277242644be1ec1c779c1152,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159891391157994393, guid: 37e71576277242644be1ec1c779c1152,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e71576277242644be1ec1c779c1152, type: 3}

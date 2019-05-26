@@ -113,7 +113,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.9.5
+  bundleVersion: 0.9.6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -151,7 +151,7 @@ PlayerSettings:
     Android: com.kimnjung.avoidmeteor
     Standalone: com.kimnjung.avoid
   buildNumber: {}
-  AndroidBundleVersionCode: 13
+  AndroidBundleVersionCode: 14
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 28
   AndroidPreferredInstallLocation: 1
@@ -239,7 +239,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: AB001_new.keystore
+  AndroidKeystoreName: C:/0.Workspace/Unity/AB-001/AB001_new.keystore
   AndroidKeyaliasName: ab001
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
