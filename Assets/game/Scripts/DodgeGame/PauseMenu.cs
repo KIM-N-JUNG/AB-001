@@ -128,7 +128,8 @@ public class PauseMenu : MonoBehaviour {
 #endif
         Debug.Log("initBanner adUnitId : " + adUnitId);
 
-        bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
+        // bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Top);
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
         bannerView.OnAdLoaded += HandleOnAdLoaded;
 
         AdRequest request = new AdRequest.Builder().Build();
@@ -138,6 +139,7 @@ public class PauseMenu : MonoBehaviour {
 
     private void RequestBanner()
     {
+        Debug.Log("RequestBanner");
 #if UNITY_ANDROID
         string adUnitId = BANNER_ID;
         //string adUnitId = BANNER_ID_TEST;
@@ -150,7 +152,8 @@ public class PauseMenu : MonoBehaviour {
 
         // #type1
         // Create a 320x50 banner at the top of the screen.
-        bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
+        // bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
 
         // #type2, 맞춤광고
         //AdSize adSize = new AdSize(250, 250);
@@ -204,6 +207,8 @@ public class PauseMenu : MonoBehaviour {
     public void Resume()
     {
         Debug.Log("Resume");
+        bannerView.Hide();
+        bAdsShow = false;
         paused = false;
         timer.Resume();
         score.Resume();
@@ -212,6 +217,8 @@ public class PauseMenu : MonoBehaviour {
     public void Restart()
     {
         Debug.Log("Restart");
+        bannerView.Hide();
+        bAdsShow = false;
         SceneManager.LoadScene("AvoidBullets");
     }
 
@@ -263,17 +270,19 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
-    private void HandleOnAdLoaded(object sender, System.EventArgs args)
+    public void HandleOnAdLoaded(object sender, EventArgs args)
     {
+        MonoBehaviour.print("HandleAdLoaded event received");
         Debug.Log("HandleOnAdLoaded");
         bAdsLoaded = true;
         bAdsShow = false;
 
         if (paused) {
             bannerView.Show();
+            bAdsShow = true;
         } else {
             bannerView.Hide();
+            bAdsShow = false;
         }
     }
-
 }
