@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PrologueText : MonoBehaviour
+public class EndingText : MonoBehaviour
 {
     public Scrollbar scrollbar;
     public float speed = 0.5f;
@@ -16,12 +16,13 @@ public class PrologueText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.PROLOGUE)
+        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.ENDING)
         {
             Show(false);
         }
         else
         {
+            Debug.Log("Start()");
             replay();
             Show(true);
         }
@@ -40,7 +41,6 @@ public class PrologueText : MonoBehaviour
             // ?? 저절로 0이 되는 경우가 생김.. ㅡㅡ
             return;
         }
-
         if (scrollPos <= 0.01f)
         {
             if (this.onFinishCb != null)
@@ -49,7 +49,6 @@ public class PrologueText : MonoBehaviour
             }
             return;
         }
-
         scrollbar.value -= (float)(0.01f * speed);
         scrollPos -= (float)(0.01f * speed);
     }

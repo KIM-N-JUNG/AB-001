@@ -11,6 +11,7 @@ namespace Database.Service
     {
         internal const string SELECT_ALL = "select * from user";
         internal const string SELECT_BY_USER_ID = "select * from user where user_id = ";
+        internal const string SELECT_BY_USER_NICKNAME = "select * from user where nick_name = ";
         internal const string UPDATE_USER = "update user set ";
         internal const string INSERT_USER = "insert into user values ";
 
@@ -125,6 +126,55 @@ namespace Database.Service
                 };
             });
             Debug.Log("return user"); 
+            return user;
+        }
+
+        public User GetUserByUserNickname(string _nickName)
+        {
+            User user = null;
+            string query = SELECT_BY_USER_NICKNAME + "'" + _nickName + "'";
+            MySqlConnector.Instance.DoSelectQuery(query, (MySqlDataReader reader) =>
+            {
+                // 데이터 없음
+                if (reader == null)
+                {
+                    Debug.Log("No data");
+                    return;
+                }
+
+                /////////// for debuging ///////////
+                Debug.Log("Parsing data");
+                //List<string> columns = GetDataReaderColumnNames(reader);
+                //foreach (string col in columns)
+                //{
+                //    Debug.Log(col);
+                //}
+                //Debug.Log("reader: " + columns.ToString());
+                /////////// for debuging ///////////
+                /// 
+                int id = int.Parse(reader["id"].ToString());
+                string nickName = reader["nick_name"].ToString();
+                string email = reader["email"].ToString();
+                string country = reader["country"].ToString();
+                string user_id = reader["user_id"].ToString();
+                string user_image = reader["user_image"].ToString();
+                int visit_count = int.Parse(reader["visit_count"].ToString());
+                string user_name = reader["user_name"].ToString();
+
+                Debug.Log("Set data on the user");
+                user = new User
+                {
+                    id = id,
+                    nick_name = nickName,
+                    email = email,
+                    country = country,
+                    user_id = user_id,
+                    user_image = user_image,
+                    visit_count = visit_count,
+                    user_name = user_name
+                };
+            });
+            Debug.Log("return user");
             return user;
         }
     }

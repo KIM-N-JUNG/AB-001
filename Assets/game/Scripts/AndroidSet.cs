@@ -21,8 +21,7 @@ public class AndroidSet : MonoBehaviour
         catch (Exception e)
         {
             isSupport = false;
-            Debug.Log("Error!");
-            Debug.Log(e);
+            Debug.Log("Error! - " + e.Message);
         }
     }
 

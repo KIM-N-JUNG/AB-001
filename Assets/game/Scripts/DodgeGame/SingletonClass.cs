@@ -82,6 +82,10 @@ public class SingletonClass : MonoBehaviour
 
     // service agree
     public bool bServiceAgreement = false;
+
+    // register profile
+    public bool bRegisterProfile = false;
+
     // 난이도
     public int level = 0;
 

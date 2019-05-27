@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PrologueConstructor : MonoBehaviour
+public class EndingConstructor : MonoBehaviour
 {
     public GameObject UIObject;
-    public PrologueText prologueText;
+    public EndingText endingText;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.PROLOGUE)
+        if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.ENDING)
         {
-            Debug.Log("Show Prologue UI");
+            Debug.Log("Show Ending UI");
             UIObject.SetActive(true);
 
-            prologueText.onFinishCb = () =>
+            endingText.onFinishCb = () =>
             {
                 HandleOnFinishCb();
             };
-
+            endingText.replay();
         }
         else
         {
@@ -36,14 +36,8 @@ public class PrologueConstructor : MonoBehaviour
 
     private void HandleOnFinishCb()
     {
-        if (SingletonClass.Instance.bRegisterProfile == false)
-        {
-            SceneManager.LoadScene((int)Constant.SceneNumber.PROFILE);
-        }
-        else
-        {
-            SceneManager.LoadScene((int)Constant.SceneNumber.MAIN_MENU);
-        }
+        Debug.Log("HandleOnFinishCb()");
+        SceneManager.LoadScene((int)Constant.SceneNumber.MAIN_MENU);
     }
 
     public void Skip()
