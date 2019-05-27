@@ -8,7 +8,6 @@ public class ProfileInput : MonoBehaviour
 {
     public Text indicateText;
     public InputField inputField;
-    public Text storyMessage;
     private bool isActive;
 
     // Start is called before the first frame update

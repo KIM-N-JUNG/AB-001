@@ -17,15 +17,6 @@ public class UserInfo
 
 public class GPGSManager : Singleton<GPGSManager>
 {
-    /// <summary>
-    /// 현재 로그인 중인지 체크
-    /// </summary>
-    public bool bLogin
-    {
-        get;
-        set;
-    }
-
     public delegate void OnAuthenticationCb(bool login, UserInfo userInfo);
     public delegate void OnSubmissionCb(bool success);
     public delegate void OnrevelationAchievementCb(bool success);
@@ -46,7 +37,6 @@ public class GPGSManager : Singleton<GPGSManager>
 void Start()
 {
     Debug.Log("### GPGSManager Start");
-    bLogin = false;
 
     //#if UNITY_ANDROID
     //        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
@@ -90,6 +80,7 @@ public void InitializeGPGS()
     else
     {
         Debug.Log("GPGSManager.InitializeGPGS() - not logined");
+        LogoutGPGS(true);
     }
 }
 
@@ -155,7 +146,6 @@ public void LogoutGPGS(bool bForced)
     // 로그인이 되어 있으면
     if (Social.localUser.authenticated || bForced)
     {
-        bLogin = false;
         //((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
         PlayGamesPlatform.Instance.SignOut();
 
