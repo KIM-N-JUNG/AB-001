@@ -64,25 +64,38 @@ public class ProfileConstructor : MonoBehaviour
         {
             Debug.Log("사용 가능 한 닉네임(" + nickName + ") 입니다.");
 
-            // user 등록
-            user = new User
+            if (MainMenu.userInfo.is_legacy_user == false)
             {
-                id = 0,
-                country = "Korea",
-                visit_count = 1,
-                user_id = MainMenu.userInfo.user_id,
-                email = MainMenu.userInfo.user_email,
-                user_image = MainMenu.userInfo.user_image,
-                user_name = MainMenu.userInfo.user_name,
-                nick_name = nickName
-            };
+                // 새로운 user 등록
+                user = new User
+                {
+                    id = 0,
+                    country = MainMenu.userInfo.user_country,
+                    visit_count = 1,
+                    user_id = MainMenu.userInfo.user_id,
+                    email = MainMenu.userInfo.user_email,
+                    user_image = MainMenu.userInfo.user_image,
+                    user_name = MainMenu.userInfo.user_name,
+                    nick_name = nickName
+                };
 
-            Debug.Log("insert User");
-            int r = UserService.Instance.InsertUser(user);
-            Debug.Log("ret is " + r);
-            if (r != 1)
+                Debug.Log("insert User");
+                int r = UserService.Instance.InsertUser(user);
+                Debug.Log("ret is " + r);
+                if (r != 1)
+                {
+                    Debug.Log("웁스!! 유저 등록 중 데이터베이스에 문제가 생겼어요! 어쩌지??");
+                }
+            }
+            // 예전에 등록된 기존 유저
+            else
             {
-                androidSet.ShowToast("웁스!! 뭔가 문제가 생겼어요! 어쩌지??", false);
+                // 닉네임만 업데이트 한다
+                int r = UserService.Instance.UpdateUserByUserId(MainMenu.userInfo.user_id, "nick_name", nickName);
+                if (r != 1)
+                {
+                    Debug.Log("웁스!! 유저 수정 중 데이터베이스에 문제가 생겼어요! 어쩌지??");
+                }
             }
 
             inputPanelUI.SetActive(false);

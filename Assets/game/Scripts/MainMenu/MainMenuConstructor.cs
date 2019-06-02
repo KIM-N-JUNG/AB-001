@@ -10,8 +10,6 @@ using UnityEngine.SceneManagement;
 public class MainMenuConstructor : MonoBehaviour
 {
     public GameObject mainMenuUI;
-    public MainMenu mainMenuClass;
-    public AndroidSet androidSet;
 
     // Start is called before the first frame update
     void Awake()

@@ -13,6 +13,8 @@ public class UserInfo
     public string user_email { get; set; }
     public string user_name { get; set; }
     public string user_image { get; set; }
+    public int user_country { get; set; }
+    public bool is_legacy_user { get; set; }
 }
 
 public class GPGSManager : Singleton<GPGSManager>
@@ -92,7 +94,8 @@ public void LoginGPGS()
 {
     if (Application.internetReachability == NetworkReachability.NotReachable)
     {
-        Debug.Log("Disconnected internet");
+        Debug.Log(Properties.GetIndicateOfflineModeMessage());
+        LogoutGPGS(true);
         return;
     }
 
@@ -115,6 +118,7 @@ public void LoginGPGS()
             userInfo.user_email = email;
             userInfo.user_name = Social.localUser.userName;
             //userInfo.user_image = Social.localUser.image;
+            userInfo.user_country = (int)Application.systemLanguage;
             if (this.Cb.onAuthenticationCb != null)
             {
                 this.Cb.onAuthenticationCb(success, userInfo);
