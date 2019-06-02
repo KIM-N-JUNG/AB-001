@@ -22,6 +22,8 @@ public class GPGSManager : Singleton<GPGSManager>
     public delegate void OnrevelationAchievementCb(bool success);
     public delegate void OnShowAchievement(bool success);
 
+    public AndroidSet androidSet;
+
     public class Callback
     {
         public OnAuthenticationCb onAuthenticationCb { get; set; }
@@ -38,24 +40,22 @@ void Start()
 {
     Debug.Log("### GPGSManager Start");
 
-    //#if UNITY_ANDROID
-    //        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-    //             //.EnableSavedGames() // 저장된 게임
-    //             .RequestEmail()
-    //             .RequestServerAuthCode(false)
-    //             //.RequestIdToken()
-    //             .Build();
-    //        PlayGamesPlatform.InitializeInstance(config);
-    //        PlayGamesPlatform.DebugLogEnabled = true;
-    //        PlayGamesPlatform.Activate();
-    //#elif UNITY_IOS
-    //                GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
-    //#endif
-
-    //PlayGamesClientConfiguration.Builder.RequestEmail()
+    #if UNITY_ANDROID
+           PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+                //.EnableSavedGames() // 저장된 게임
+                .RequestEmail()
+                // .RequestServerAuthCode(false)
+                //.RequestIdToken()
+                .Build();
+           GooglePlayGames.PlayGamesPlatform.InitializeInstance(config);
+        //    GooglePlayGames.PlayGamesPlatform.DebugLogEnabled = true;
+           GooglePlayGames.PlayGamesPlatform.Activate();
+    #elif UNITY_IOS
+                //    GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
+    #endif
 
     // Select the Google Play Games platform as our social platform implementation
-    GooglePlayGames.PlayGamesPlatform.Activate();
+    // GooglePlayGames.PlayGamesPlatform.Activate();
 
     arrTimeArchivement
        = new String[,] {
@@ -75,6 +75,7 @@ public void InitializeGPGS()
 {
     if (SingletonClass.Instance.bLogin)
     {
+        Debug.Log("GPGSManager.InitializeGPGS() is logined (SingletonClass.Instance.bLogin : " + SingletonClass.Instance.bLogin + ")");
         LoginGPGS();
     }
     else
@@ -188,23 +189,35 @@ public void SignoutGPGS()
 
 public String getAchievementTime()
 {
-    return arrTimeArchivement[curIndexArchievement, 0];
+    if (Social.localUser.authenticated) {
+        return arrTimeArchivement[curIndexArchievement, 0];
+    } else {
+        return "";
+    }
 }
 
 // 업적, 리더보드
 public void UnlockAchievement()
 {
+    if (!Social.localUser.authenticated) {
+        return;
+    }
+
     String name = arrTimeArchivement[curIndexArchievement, 1];
 #if UNITY_ANDROID
     PlayGamesPlatform.Instance.ReportProgress(name, 100f, null);
     curIndexArchievement++;
 #elif UNITY_IOS
-            Social.ReportProgress("Score_100", 100f, null);
+    Social.ReportProgress("Score_100", 100f, null);
 #endif
 }
 
 public void RevealAchievement(int time, Action<bool> callback)
 {
+    if (!Social.localUser.authenticated) {
+        return;
+    }
+
     switch (time)
     {
         case 10:
@@ -246,23 +259,24 @@ public void ShowAchievementUI()
 {
     // Sign In 이 되어있지 않은 상태라면
     // Sign In 후 업적 UI 표시 요청할 것
-    if (Social.localUser.authenticated == false)
+    if (!Social.localUser.authenticated)
     {
-        Social.localUser.Authenticate((bool success) =>
-        {
-            if (success)
-            {
-                    // Sign In 성공
-                    // 바로 업적 UI 표시 요청
-                    Social.ShowAchievementsUI();
-                return;
-            }
-            else
-            {
-                    // Sign In 실패 처리
-                    return;
-            }
-        });
+        // Social.localUser.Authenticate((bool success) =>
+        // {
+        //     if (success)
+        //     {
+        //             // Sign In 성공
+        //             // 바로 업적 UI 표시 요청
+        //             Social.ShowAchievementsUI();
+        //         return;
+        //     }
+        //     else
+        //     {
+        //             // Sign In 실패 처리
+        //             return;
+        //     }
+        // });
+        return;
     }
 
     Social.ShowAchievementsUI();
@@ -294,39 +308,44 @@ public void SubmitToLeaderBorad(int score)
         Debug.Log("### Need Log in");
     }
 #elif UNITY_IOS
-        Social.ReportScore(score, "Leaderboard_ID", (bool success) =>
+    Social.ReportScore(score, "Leaderboard_ID", (bool success) =>
+        {
+            if (success)
             {
-                if (success)
-                {
-                    // Report 성공
-                    // 그에 따른 처리
-                }
-                else
-                {
-                    // Report 실패
-                    // 그에 따른 처리
-                }
-            });
+                // Report 성공
+                // 그에 따른 처리
+            }
+            else
+            {
+                // Report 실패
+                // 그에 따른 처리
+            }
+        });
 #endif
 }
 
 public void ShowLeaderboardUI()
 {
+    Debug.Log("### ShowLeaderboardUI");
+
     // Sign In 이 되어있지 않은 상태라면
     // Sign In 후 리더보드 UI 표시 요청할 것
-    if (Social.localUser.authenticated == false)
+    if (!Social.localUser.authenticated)
     {
         Debug.Log("로그인 되어있지 않음");
-        Social.localUser.Authenticate((bool success) =>
-        {
-            if (success)
-            {
-                Debug.Log("로그인 완료");
-                    // Sign In 성공
-                    // 바로 리더보드 UI 표시 요청
-                    Social.ShowLeaderboardUI();
-            }
-        });
+        androidSet.ShowToast("로그인 후 확인할 수 있습니다.", false);
+        
+        // Social.localUser.Authenticate((bool success) =>
+        // {
+        //     if (success)
+        //     {
+        //         Debug.Log("로그인 완료");
+        //             // Sign In 성공
+        //             // 바로 리더보드 UI 표시 요청
+        //             Social.ShowLeaderboardUI();
+        //     }
+        // });
+        return;
     }
     
 #if UNITY_ANDROID
@@ -342,6 +361,7 @@ public void ShowLeaderboardUI()
 /// <returns></returns>
 public void PrintTokens()
 {
+    Debug.Log("### PrintTokensPrintTokens");
     if (PlayGamesPlatform.Instance.localUser.authenticated)
     {
         //유저 토큰 받기 첫번째 방법
