@@ -39,7 +39,7 @@ public class make_bullets : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 1)
+        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.GAME)
         {
             Debug.Log("Not started the game!!!");
             return;
@@ -68,12 +68,6 @@ public class make_bullets : MonoBehaviour
         }
         Debug.Log("Level - " + ins.level);
         Debug.Log("Missile array size - " + MissileArraySize);
-        Debug.Log("ActiveScene : " + (SceneManager.GetActiveScene().buildIndex == 0 ? "Main Menu" : "Play Mode"));
-
-        if (SceneManager.GetActiveScene().buildIndex != 1)
-        {
-            return;
-        }
 
         // 처음에 미사일을 발사할 수 있도록 제어변수를 true로 설정
         FireState = true;

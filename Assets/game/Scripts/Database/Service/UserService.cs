@@ -51,17 +51,15 @@ namespace Database.Service
         public int InsertUser(User user)
         {
             int ret = 0;
-            string query = INSERT_USER + "(" + 
-                user.id + ",'" + 
-                user.nick_name + "','" + 
-                user.email + "','" + 
-                user.country + "','" + 
-                user.user_id + "','" + 
-                user.user_image + "'," + 
-                user.visit_count + ",'" + 
-                user.user_name + "')";
-            Debug.Log("Insert query : " + query);
+            string query = "insert into user (nick_name, email, country, user_id, user_image, user_name) values ('" +
+            user.nick_name + "','" +
+            user.email + "'," +
+            user.country + ",'" +
+            user.user_id + "','" +
+            user.user_image + "','" +
+            user.user_name + "')";
             ret = MySqlConnector.Instance.DoNonQuery(query);
+            Debug.Log("InsertUser() ret is " + ret);
             return ret;
         }
 
@@ -69,7 +67,7 @@ namespace Database.Service
         {
             string query = UPDATE_USER + key + " = '" + value + "' where id = " + id;
             int ret = MySqlConnector.Instance.DoNonQuery(query);
-            Debug.Log("ret is " + ret);
+            Debug.Log("UpdateUserById() ret is " + ret);
             return ret;
         }
 
@@ -77,10 +75,18 @@ namespace Database.Service
         {
             string query = UPDATE_USER + key + " = " + value + " where id = " + id;
             int ret = MySqlConnector.Instance.DoNonQuery(query);
-            Debug.Log("ret is " + ret);
+            Debug.Log("UpdateUserById() ret is " + ret);
             return ret;
         }
 
+        public int UpdateUserByUserId(string user_id, string key, string value)
+        {
+            string query = UPDATE_USER + key + " = '" + value + "' where user_id = '" + user_id + "'";
+
+            int ret = MySqlConnector.Instance.DoNonQuery(query);
+            Debug.Log("UpdateUserByUserId() ret is " + ret);
+            return ret;
+        }
         public User GetUserByUserId(string _user_id)
         {
             User user = null;
@@ -107,7 +113,7 @@ namespace Database.Service
                 int id = int.Parse(reader["id"].ToString());
                 string nickName = reader["nick_name"].ToString();
                 string email = reader["email"].ToString();
-                string country = reader["country"].ToString();
+                int country = int.Parse(reader["country"].ToString());
                 string user_id = reader["user_id"].ToString();
                 string user_image = reader["user_image"].ToString();
                 int visit_count = int.Parse(reader["visit_count"].ToString());
@@ -155,7 +161,7 @@ namespace Database.Service
                 int id = int.Parse(reader["id"].ToString());
                 string nickName = reader["nick_name"].ToString();
                 string email = reader["email"].ToString();
-                string country = reader["country"].ToString();
+                int country = int.Parse(reader["country"].ToString());
                 string user_id = reader["user_id"].ToString();
                 string user_image = reader["user_image"].ToString();
                 int visit_count = int.Parse(reader["visit_count"].ToString());

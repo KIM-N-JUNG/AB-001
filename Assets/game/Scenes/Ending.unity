@@ -505,7 +505,7 @@ RectTransform:
   m_Father: {fileID: 255865748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.614645}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -676,7 +676,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollbar: {fileID: 637289803}
-  speed: 0.1
+  speed: 0.001
+  scrollPerSec: 0.03
 --- !u!4 &567534850
 Transform:
   m_ObjectHideFlags: 0
@@ -750,7 +751,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 377302365}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0
+  m_Size: 0.38535497
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -850,8 +851,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: -40.1, y: 1079.5}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0.000030517578}
+  m_SizeDelta: {x: -40.1, y: 677.819}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &750670813
 MonoBehaviour:
@@ -866,7 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 0
+  m_VerticalFit: 2
 --- !u!114 &750670814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,16 +924,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\n\n\n\n\uACB0\uAD6D \uC2DC\uAC04\uC548\uC5D0 \uD0C8\uCD9C\uD558\uC9C0
-    \uBABB\uD55C \uC778\uB958..\n\n\uAC70\uB300 \uD61C\uC131\uC740 \uC608\uC815\uB300\uB85C
-    \uB2EC\uC744 \uC9C0\uB098 \uADF8\uB300\uB85C \uC544\uD504\uB9AC\uCE74 \uB300\uB959\uC744
-    \uD5A5\uD574 \uB3CC\uC9C4 \uD558\uC600\uACE0..\n\n\uC9C0\uAD6C\uC758 \uBAA8\uB4E0
-    \uC0DD\uBA85\uCCB4\uB294 \uB9D0\uC18C \uB418\uC5C8\uB2E4.\n\n\uACE0\uB3C4\uC758
-    \uBB38\uBA85\uC744 \uC774\uB8E9\uD55C \uC778\uB958 \uC600\uC9C0\uB9CC,\n\uC6B0\uC8FC\uC758
-    \uAC70\uB300\uD55C \uD798 \uC55E\uC5D0\uC11C\uB294 \uADF8\uC800 \uBBF8\uC138\uBA3C\uC9C0
-    \uAC19\uC740 \uC874\uC7AC \uC600\uC744 \uBFD0\uC774\uC600\uB2E4.\n(\uACB0\uCF54
-    \uB2D8 \uB54C\uBB38\uC774 \uC544\uB2D8.. \uC5B4\uCC28\uD53C \uB2E4 \uC8FD\uC744
-    \uC608\uC815)"
+  m_Text: "\n\uACB0\uAD6D \uC2DC\uAC04\uC548\uC5D0 \uD0C8\uCD9C\uD558\uC9C0 \uBABB\uD55C
+    \uC778\uB958..\n\n\uAC70\uB300 \uD61C\uC131\uC740 \uC608\uC815\uB300\uB85C \uB2EC\uC744
+    \uC9C0\uB098 \uADF8\uB300\uB85C \uC544\uD504\uB9AC\uCE74 \uB300\uB959\uC744 \uD5A5\uD574
+    \uB3CC\uC9C4 \uD558\uC600\uACE0..\n\n\uC9C0\uAD6C\uC758 \uBAA8\uB4E0 \uC0DD\uBA85\uCCB4\uB294
+    \uB9D0\uC18C \uB418\uC5C8\uB2E4.\n\n\uACE0\uB3C4\uC758 \uBB38\uBA85\uC744 \uC774\uB8E9\uD55C
+    \uC778\uB958 \uC600\uC9C0\uB9CC,\n\uC6B0\uC8FC\uC758 \uAC70\uB300\uD55C \uD798
+    \uC55E\uC5D0\uC11C\uB294 \uADF8\uC800 \uBBF8\uC138\uBA3C\uC9C0 \uAC19\uC740 \uC874\uC7AC
+    \uC600\uC744 \uBFD0\uC774\uC600\uB2E4.\n(\uACB0\uCF54 \uB2D8 \uB54C\uBB38\uC774
+    \uC544\uB2D8.. \uC5B4\uCC28\uD53C \uB2E4 \uC8FD\uC744 \uC608\uC815)\n\n\n\n\n\n\n\n\n\n"
 --- !u!222 &750670816
 CanvasRenderer:
   m_ObjectHideFlags: 0

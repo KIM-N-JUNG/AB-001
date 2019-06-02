@@ -25,15 +25,10 @@ public class plane_move : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("ActiveScene : " + (SceneManager.GetActiveScene().buildIndex == 0 ? "Main Menu" : "Play Mode"));
-
-        if (SceneManager.GetActiveScene().buildIndex != 1)
+        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.GAME)
         {
             return;
         }
-
-        // 매 프레임마다 메소드 호출
-        //MoveKey();
 
         //터치패드 입력 받기
         HandleInput();

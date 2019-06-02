@@ -34,7 +34,13 @@ public class SingletonClass : MonoBehaviour
 
         // LOGIN
         if (PlayerPrefs.HasKey("login"))
-            bLogin = PlayerPrefs.GetInt("login") == 1 ? true : false;
+        {
+            Debug.Log("PlayerPrefs.Login is ??? " + PlayerPrefs.GetInt("login"));
+            //bLogin = PlayerPrefs.GetInt("login") == 1 ? true : false;
+            bLogin = Social.localUser.authenticated;
+            Debug.Log("Social.localUser.authenticated is " + Social.localUser.authenticated);
+        }
+            
 
         // ACCELERATION
         if (PlayerPrefs.HasKey("acceleration"))

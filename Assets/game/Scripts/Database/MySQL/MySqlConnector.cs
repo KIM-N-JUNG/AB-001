@@ -41,7 +41,7 @@ public class MySqlConnector
             "Database=ab001;" +
             "Port=3306;" +
             "User ID=kim.n.jung82;" +
-            "Password= rla&wjd!;" +
+            "Password= dmschdQoal!;" +
             "Pooling=false";
         using (MySqlConnection db = new MySqlConnection(connectionString))
         {
@@ -50,13 +50,15 @@ public class MySqlConnector
                 try
                 {
                     db.Open();
-                    Debug.Log("Connected to database. - " + connectionString);
+                    //Debug.Log("Connected to database. - " + connectionString);
                     ret = myCommand.ExecuteNonQuery();
                 }
                 catch (MySqlException e)
                 {
+                    db.Close();
                     Debug.Log("Exception!");
                     Debug.Log(e.Message);
+                    throw e;
                 }
                 finally
                 {
@@ -76,7 +78,7 @@ public class MySqlConnector
             "Database=ab001;" +
             "Port=3306;" +
             "User ID=kim.n.jung82;" +
-            "Password= rla&wjd!;" +
+            "Password= dmschdQoal!;" +
             "Pooling=false";
         using (MySqlConnection db = new MySqlConnection(connectionString))
         {
@@ -86,14 +88,14 @@ public class MySqlConnector
                 try
                 {
                     db.Open();
-                    Debug.Log("Connected to database. - " + connectionString);
+                    //Debug.Log("Connected to database. - " + connectionString);
 
                     reader = myCommand.ExecuteReader();
-                    Debug.Log("execute command - " + sqlQuery);
+                    //Debug.Log("execute command - " + sqlQuery);
 
-                    Debug.Log("visibleFieldCount : " + reader.VisibleFieldCount);
+                    //Debug.Log("visibleFieldCount : " + reader.VisibleFieldCount);
                     bool hasRows = reader.HasRows;
-                    Debug.Log("has Rows? - " + (hasRows ? "true" : "false"));
+                    //Debug.Log("has Rows? - " + (hasRows ? "true" : "false"));
 
                     if (reader.HasRows)
                     {
@@ -112,8 +114,11 @@ public class MySqlConnector
                 }
                 catch (MySqlException e)
                 {
+                    db.Close();
                     Debug.Log("Exception!");
                     Debug.Log(e.Message);
+                    Debug.Log(e.ToString());
+                    throw new DatabaseConnectionException("can't access database", e);
                 }
                 finally
                 {
