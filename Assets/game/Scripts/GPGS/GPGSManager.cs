@@ -6,7 +6,6 @@ using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine.SocialPlatforms;
 using MySql.Data.MySqlClient;
-public AndroidSet androidSet;
 
 public class UserInfo
 {
@@ -22,6 +21,8 @@ public class GPGSManager : Singleton<GPGSManager>
     public delegate void OnSubmissionCb(bool success);
     public delegate void OnrevelationAchievementCb(bool success);
     public delegate void OnShowAchievement(bool success);
+
+    public AndroidSet androidSet;
 
     public class Callback
     {
@@ -39,24 +40,22 @@ void Start()
 {
     Debug.Log("### GPGSManager Start");
 
-    //#if UNITY_ANDROID
-    //        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-    //             //.EnableSavedGames() // 저장된 게임
-    //             .RequestEmail()
-    //             .RequestServerAuthCode(false)
-    //             //.RequestIdToken()
-    //             .Build();
-    //        PlayGamesPlatform.InitializeInstance(config);
-    //        PlayGamesPlatform.DebugLogEnabled = true;
-    //        PlayGamesPlatform.Activate();
-    //#elif UNITY_IOS
-    //                GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
-    //#endif
-
-    //PlayGamesClientConfiguration.Builder.RequestEmail()
+    #if UNITY_ANDROID
+           PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+                //.EnableSavedGames() // 저장된 게임
+                .RequestEmail()
+                // .RequestServerAuthCode(false)
+                //.RequestIdToken()
+                .Build();
+           GooglePlayGames.PlayGamesPlatform.InitializeInstance(config);
+        //    GooglePlayGames.PlayGamesPlatform.DebugLogEnabled = true;
+           GooglePlayGames.PlayGamesPlatform.Activate();
+    #elif UNITY_IOS
+                //    GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
+    #endif
 
     // Select the Google Play Games platform as our social platform implementation
-    GooglePlayGames.PlayGamesPlatform.Activate();
+    // GooglePlayGames.PlayGamesPlatform.Activate();
 
     arrTimeArchivement
        = new String[,] {
