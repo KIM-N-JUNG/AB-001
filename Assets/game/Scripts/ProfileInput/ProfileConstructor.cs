@@ -58,6 +58,12 @@ public class ProfileConstructor : MonoBehaviour
         string nickName = profileInput.inputField.text;
         Debug.Log("닉네임 : " + nickName);
 
+        if (nickName.Length <= 1)
+        {
+            storyMessage.text = "이름이 없나? 다시 물어보겠어";
+            profileInput.indicateText.text = "2글자 이상 입력 해 주세요";
+            return;
+        }
         User user = null;
         user = UserService.Instance.GetUserByUserNickname(nickName);
         if (user == null)
@@ -69,7 +75,6 @@ public class ProfileConstructor : MonoBehaviour
                 // 새로운 user 등록
                 user = new User
                 {
-                    id = 0,
                     country = MainMenu.userInfo.user_country,
                     visit_count = 1,
                     user_id = MainMenu.userInfo.user_id,
@@ -80,6 +85,7 @@ public class ProfileConstructor : MonoBehaviour
                 };
 
                 Debug.Log("insert User");
+                Debug.Log(user);
                 int r = UserService.Instance.InsertUser(user);
                 Debug.Log("ret is " + r);
                 if (r != 1)
@@ -100,12 +106,13 @@ public class ProfileConstructor : MonoBehaviour
 
             inputPanelUI.SetActive(false);
             imagePanelUI.SetActive(true);
-            storyMessage.text = "인류의 미래는 " + nickName + " 자네의 손가락에 달렸네.. 행운을 비네!! (튜토리얼은 없다네)";
+            storyMessage.text = "인류의 미래는 \"" + nickName + "\" 자네의 손가락에 달렸네.. 행운을 비네!! (튜토리얼은 없다네)";
             Invoke("GoMainMenuScene", 5);
         } else
         {
             // 이미 있는 닉네임...
             Debug.Log("이미 있는 닉네임" + user.user_id);
+            Debug.Log(user);
             storyMessage.text = "다 아는 이름이구먼!";
             profileInput.indicateText.text = "이미 존재하는 닉네임 입니다 다시 입력하세요";
         }

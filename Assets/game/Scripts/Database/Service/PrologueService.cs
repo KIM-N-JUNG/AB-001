@@ -46,10 +46,10 @@ namespace Database.Service
             return columnNames;
         }
 
-        public Prologue GetPrologueById(int _id)
+        public Prologue GetPrologueByContentTypeAndLanguage(string _contentType, int _language)
         {
             Prologue prologue = null;
-            string query = SELECT_BY_ID + _id;
+            string query = "select * from prologue where content_type = '" + _contentType + "' and language = " + _language;
             MySqlConnector.Instance.DoSelectQuery(query, (MySqlDataReader reader) =>
             {
                 // 데이터 없음
@@ -70,15 +70,19 @@ namespace Database.Service
                 /////////// for debuging ///////////
 
                 int id = int.Parse(reader["id"].ToString());
+                string contentType = reader["content_type"].ToString();
                 string content = reader["content"].ToString();
+                int language = int.Parse(reader["language"].ToString());
 
                 Debug.Log("Set data on the prologue");
                 prologue = new Prologue{
                     id = id,
-                    content = content
+                    content_type = contentType,
+                    content = content,
+                    language = language
                 };
             });
-            Debug.Log("return user"); 
+            Debug.Log("return Prologue"); 
             return prologue;
         }
     }

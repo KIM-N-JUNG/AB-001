@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using GoogleMobileAds.Api;
 using System;
+using Database.Service;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -45,7 +46,7 @@ public class PauseMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (SceneManager.GetActiveScene().buildIndex != 1)
+        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.GAME)
         {
             return;
         }
@@ -64,7 +65,7 @@ public class PauseMenu : MonoBehaviour {
             {
                 Time.timeScale = 1f;
             } else
-            {
+            {   
                 Time.timeScale = 0.3f;
             }
 
@@ -223,7 +224,7 @@ public class PauseMenu : MonoBehaviour {
         SceneManager.LoadScene("AvoidBullets");
     }
 
-    public void MainMenu()
+    public void LoadMainMenuScene()
     {
         Debug.Log("MainMenu");
         SceneManager.LoadScene(0);
@@ -247,7 +248,28 @@ public class PauseMenu : MonoBehaviour {
 
         paused = true;
 
-        GPGSManager.GetInstance.SubmitToLeaderBorad(s);
+        // 로그인이 되어있을 때
+        if (SingletonClass.Instance.bLogin == true && 
+            Application.internetReachability != NetworkReachability.NotReachable)
+        {
+            // Insert a new score
+            int ret = ScoreService.Instance.InsertScore(new Database.Dto.Score()
+            {
+                id = 0,
+                user_id = MainMenu.userInfo.user_id,
+                score = s,
+                message = "Not Yet",
+                level = SingletonClass.Instance.level
+            });
+
+            Debug.Log("ret is " + ret);
+            if (ret == 0)
+            {
+                Debug.Log("Insert score Error!");
+            }
+
+            GPGSManager.GetInstance.SubmitToLeaderBorad(s);
+        }
 
         if (bAdsLoaded)
         {
@@ -262,7 +284,7 @@ public class PauseMenu : MonoBehaviour {
         paused = false;
         starField.SetActive(false);
         plane.SetActive(false);
-        MainMenu();
+        LoadMainMenuScene();
 
         if (bAdsLoaded)
         {

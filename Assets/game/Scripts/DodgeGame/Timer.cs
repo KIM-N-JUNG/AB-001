@@ -53,15 +53,15 @@ public class Timer : MonoBehaviour
         float t = (float)System.Math.Truncate(time * 100.0f) / 100.0f;
         uiText.text = "Time : " + t.ToString();
 
-        if (gpgsIns != null) {
-            int archTime = int.Parse(gpgsIns.getAchievementTime());
+        if (gpgsIns != null && SingletonClass.Instance.bLogin == true) {
+            float archTime = float.Parse(gpgsIns.getAchievementTime());
             if (t > archTime)
             {
                 Debug.Log("!! 업적 등록 : " + archTime);
                 gpgsIns.UnlockAchievement();
             }
         } else {
-            Debug.Log("gpgsIns == null");
+            //Debug.Log("gpgsIns == null");
         }
         
     }

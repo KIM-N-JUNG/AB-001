@@ -51,38 +51,29 @@ namespace Database.Service
         public int InsertUser(User user)
         {
             int ret = 0;
-            string query = "insert into user (nick_name, email, country, user_id, user_image, user_name) values ('" +
+            string query = "insert into user (nick_name, email, country, user_id, user_image, user_name, last_date) values ('" +
             user.nick_name + "','" +
             user.email + "'," +
             user.country + ",'" +
             user.user_id + "','" +
             user.user_image + "','" +
-            user.user_name + "')";
+            user.user_name + "','" +
+            user.last_date.ToString("yyyyMMddhhmmss") + "')";
             ret = MySqlConnector.Instance.DoNonQuery(query);
             Debug.Log("InsertUser() ret is " + ret);
             return ret;
         }
 
-        public int UpdateUserById(int id, string key, string value)
-        {
-            string query = UPDATE_USER + key + " = '" + value + "' where id = " + id;
-            int ret = MySqlConnector.Instance.DoNonQuery(query);
-            Debug.Log("UpdateUserById() ret is " + ret);
-            return ret;
-        }
-
-        public int UpdateUserById(int id, string key, int value)
-        {
-            string query = UPDATE_USER + key + " = " + value + " where id = " + id;
-            int ret = MySqlConnector.Instance.DoNonQuery(query);
-            Debug.Log("UpdateUserById() ret is " + ret);
-            return ret;
-        }
-
         public int UpdateUserByUserId(string user_id, string key, string value)
         {
-            string query = UPDATE_USER + key + " = '" + value + "' where user_id = '" + user_id + "'";
-
+            string query = UPDATE_USER + key + " = '" + value + "', last_date = '" + DateTime.Now.ToString("yyyyMMddhhmmss") + "' where user_id = '" + user_id + "'";
+            int ret = MySqlConnector.Instance.DoNonQuery(query);
+            Debug.Log("UpdateUserByUserId() ret is " + ret);
+            return ret;
+        }
+        public int UpdateUserByUserId(string user_id, string key, int value)
+        {
+            string query = UPDATE_USER + key + " = " + value + ", last_date = '" + DateTime.Now.ToString("yyyyMMddhhmmss") + "' where user_id = '" + user_id + "'";
             int ret = MySqlConnector.Instance.DoNonQuery(query);
             Debug.Log("UpdateUserByUserId() ret is " + ret);
             return ret;
@@ -110,7 +101,6 @@ namespace Database.Service
                 //Debug.Log("reader: " + columns.ToString());
                 /////////// for debuging ///////////
                 /// 
-                int id = int.Parse(reader["id"].ToString());
                 string nickName = reader["nick_name"].ToString();
                 string email = reader["email"].ToString();
                 int country = int.Parse(reader["country"].ToString());
@@ -118,17 +108,17 @@ namespace Database.Service
                 string user_image = reader["user_image"].ToString();
                 int visit_count = int.Parse(reader["visit_count"].ToString());
                 string user_name = reader["user_name"].ToString();
-
+                string last_date = reader["last_date"].ToString();
                 Debug.Log("Set data on the user");
-                user = new User{ 
-                    id = id, 
-                    nick_name = nickName, 
-                    email = email, 
-                    country = country, 
-                    user_id = user_id, 
-                    user_image = user_image, 
-                    visit_count = visit_count, 
-                    user_name = user_name 
+                user = new User {
+                    nick_name = nickName,
+                    email = email,
+                    country = country,
+                    user_id = user_id,
+                    user_image = user_image,
+                    visit_count = visit_count,
+                    user_name = user_name,
+                    last_date = Convert.ToDateTime(last_date)
                 };
             });
             Debug.Log("return user"); 
@@ -158,7 +148,6 @@ namespace Database.Service
                 //Debug.Log("reader: " + columns.ToString());
                 /////////// for debuging ///////////
                 /// 
-                int id = int.Parse(reader["id"].ToString());
                 string nickName = reader["nick_name"].ToString();
                 string email = reader["email"].ToString();
                 int country = int.Parse(reader["country"].ToString());
@@ -166,18 +155,19 @@ namespace Database.Service
                 string user_image = reader["user_image"].ToString();
                 int visit_count = int.Parse(reader["visit_count"].ToString());
                 string user_name = reader["user_name"].ToString();
+                string last_date = reader["last_date"].ToString();
 
                 Debug.Log("Set data on the user");
                 user = new User
                 {
-                    id = id,
                     nick_name = nickName,
                     email = email,
                     country = country,
                     user_id = user_id,
                     user_image = user_image,
                     visit_count = visit_count,
-                    user_name = user_name
+                    user_name = user_name,
+                    last_date = Convert.ToDateTime(last_date)
                 };
             });
             Debug.Log("return user");
