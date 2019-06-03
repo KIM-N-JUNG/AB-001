@@ -127,7 +127,7 @@ public void LoginGPGS()
     }
     else
     {
-        Debug.Log("### Social.localUser.authenticated");
+        //Debug.Log("### Social.localUser.authenticated");
         //string _IDtoken = PlayGamesPlatform.Instance.GetIdToken();
         //Debug.Log("### _IDtoken : " + _IDtoken);
 
@@ -138,7 +138,7 @@ public void LoginGPGS()
 
         //인증코드 받기
         string _authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
-        Debug.Log("### authcode : " + _authCode + " / " + "idtoken : " + _IDtoken);
+        //Debug.Log("### authcode : " + _authCode + " / " + "idtoken : " + _IDtoken);
     }
 }
 
@@ -153,12 +153,8 @@ public void LogoutGPGS(bool bForced)
     {
         //((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
         PlayGamesPlatform.Instance.SignOut();
-
-        Debug.Log("### call SignOut 1");
-
+        
         ((PlayGamesPlatform)Social.Active).SignOut();
-
-        Debug.Log("### call SignOut 2");
     }
 }
 
@@ -338,17 +334,6 @@ public void ShowLeaderboardUI()
     {
         Debug.Log("로그인 되어있지 않음");
         androidSet.ShowToast("로그인 후 확인할 수 있습니다.", false);
-        
-        // Social.localUser.Authenticate((bool success) =>
-        // {
-        //     if (success)
-        //     {
-        //         Debug.Log("로그인 완료");
-        //             // Sign In 성공
-        //             // 바로 리더보드 UI 표시 요청
-        //             Social.ShowLeaderboardUI();
-        //     }
-        // });
         return;
     }
     
@@ -375,7 +360,6 @@ public void PrintTokens()
 
         //인증코드 받기
         string _authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
-        Debug.Log("### authcode : " + _authCode + " / " + "idtoken : " + _IDtoken);
     }
     else
     {

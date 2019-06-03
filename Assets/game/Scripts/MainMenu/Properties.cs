@@ -180,7 +180,20 @@ public static class Properties
         /*35*/"Proceed to the prologue","การเข้าสู่ระบบล้มเหลว","Proceed to the prologue","Proceed to the prologue",
         /*39*/"Đăng nhập thất bại","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue"
     };
-
+    // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
+    private static string[] EXIT_POPUP_MESSAGE =
+    {
+        /*00*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
+        /*05*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
+        /*10*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
+        /*15*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
+        /*19*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
+        /*23*/"다시 돌아올거라 믿습니다","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
+        /*27*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","Ошибка входа",
+        /*31*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","error de inicio de sesion",
+        /*35*/"I believe that you will be back soon","การเข้าสู่ระบบล้มเหลว","I believe that you will be back soon","I believe that you will be back soon",
+        /*39*/"Đăng nhập thất bại","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon"
+    };
     public static string GetMainMenuTitle()
     {
         return MAIN_MENU_TITLE[(int)Application.systemLanguage];
@@ -216,6 +229,11 @@ public static class Properties
     public static string GetProceedToPrologueMessage()
     {
         return PROCEED_TO_THE_PROLOGUE_MESSAGE[(int)Application.systemLanguage];
+    }
+
+    public static string GetExitPopupMessage()
+    {
+        return EXIT_POPUP_MESSAGE[(int)Application.systemLanguage];
     }
 }
 

@@ -33,12 +33,11 @@ public class SingletonClass : MonoBehaviour
             bServiceAgreement = PlayerPrefs.GetInt("service") == 1 ? true : false;
 
         // LOGIN
-        if (PlayerPrefs.HasKey("login"))
+        if (PlayerPrefs.HasKey("bLogin"))
         {
-            Debug.Log("PlayerPrefs.Login is ??? " + PlayerPrefs.GetInt("login"));
-            //bLogin = PlayerPrefs.GetInt("login") == 1 ? true : false;
-            bLogin = Social.localUser.authenticated;
-            Debug.Log("Social.localUser.authenticated is " + Social.localUser.authenticated);
+            bLogin = PlayerPrefs.GetInt("bLogin") == 1 ? true : false;
+            //bLogin = Social.localUser.authenticated;
+            //Debug.Log("Social.localUser.authenticated is " + Social.localUser.authenticated);
         }
             
 

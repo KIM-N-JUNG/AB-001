@@ -42,6 +42,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log(SingletonClass.Instance.bLogin);
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
+            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
             Login(false);
             return;
         }
@@ -86,19 +87,18 @@ public class MainMenu : MonoBehaviour
                     SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
                     return;
                 }
-                //androidSet.ShowToast("환영합니다 " + user.user_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.", false);
-                int ret = UserService.Instance.UpdateUserById(user.id, "visit_count", user.visit_count + 1);
+                Debug.Log("환영합니다 " + user.user_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.");
+                int ret = UserService.Instance.UpdateUserByUserId(user.user_id, "visit_count", user.visit_count + 1);
                 Debug.Log("ret is " + ret);
             }
             else
             {
                 androidSet.ShowToast(Properties.GetLoginFailedMessage(), false);
+                Login(false);
             }
         };
 
         GPGSManager.GetInstance.InitializeGPGS();
-        Debug.Log("Start -> Login : " + SingletonClass.Instance.bLogin);
-        //Login(SingletonClass.Instance.bLogin);
         toggle_login.isOn = SingletonClass.Instance.bLogin;
     }
 
@@ -169,7 +169,7 @@ public class MainMenu : MonoBehaviour
             AgreeService(false);
             GPGSManager.GetInstance.LogoutGPGS(false);
             SingletonClass.Instance.bLogin = false;
-            PlayerPrefs.SetInt("login", 0);
+            PlayerPrefs.SetInt("bLogin", 0);
             PlayerPrefs.Save();
             return;
         }
@@ -246,8 +246,7 @@ public class MainMenu : MonoBehaviour
 
                 SingletonClass.Instance.bLogin = bLogin;
                 toggle_login.isOn = SingletonClass.Instance.bLogin;
-                Debug.Log("SingletonClass.Instance.bLogin is " + SingletonClass.Instance.bLogin);
-                PlayerPrefs.SetInt("login", bLogin ? 1 : 0);
+                PlayerPrefs.SetInt("bLogin", bLogin ? 1 : 0);
                 PlayerPrefs.Save();
                 return;
             }
@@ -265,9 +264,9 @@ public class MainMenu : MonoBehaviour
         Debug.Log("LogoutGPGS");
         SingletonClass.Instance.bLogin = bLogin;
         Debug.Log("SingletonClass.Instance.bLogin is " + SingletonClass.Instance.bLogin);
-        PlayerPrefs.SetInt("login", bLogin ? 1 : 0);
+        PlayerPrefs.SetInt("bLogin", bLogin ? 1 : 0);
         PlayerPrefs.Save();
-        PlayerPrefs.DeleteKey("login");
+        PlayerPrefs.DeleteKey("bLogin");
         toggle_login.isOn = SingletonClass.Instance.bLogin;
     }
 }
