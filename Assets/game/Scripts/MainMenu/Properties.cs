@@ -194,6 +194,21 @@ public static class Properties
         /*35*/"I believe that you will be back soon","การเข้าสู่ระบบล้มเหลว","I believe that you will be back soon","I believe that you will be back soon",
         /*39*/"Đăng nhập thất bại","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon"
     };
+    
+    // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
+    private static string[] UPDATE_POPUP_MESSAGE =
+    {
+        /*00*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*05*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*10*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*15*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*19*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*23*/"최신 버전이 존재합니다.\n업데이트 하시겠습니까?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*27*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","TODO",
+        /*31*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","TODO",
+        /*35*/"The latest version exists.\nDo you want to update?","TODO","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
+        /*39*/"TODO","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?"
+    };
     public static string GetMainMenuTitle()
     {
         return MAIN_MENU_TITLE[(int)Application.systemLanguage];
@@ -235,5 +250,11 @@ public static class Properties
     {
         return EXIT_POPUP_MESSAGE[(int)Application.systemLanguage];
     }
+
+    public static string GetUpdatePopupMessage()
+    {
+        return UPDATE_POPUP_MESSAGE[(int)Application.systemLanguage];
+    }
+    
 }
 

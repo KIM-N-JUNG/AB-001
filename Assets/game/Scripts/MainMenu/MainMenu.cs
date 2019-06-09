@@ -112,7 +112,7 @@ public class MainMenu : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Escape))
                 {
-                    mainMenuUI.SetActive(false);
+                    // mainMenuUI.SetActive(false);
                     popupMenuUI.SetActive(true);
                     return;
                 }
@@ -174,7 +174,7 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        Debug.Log("bLogin - " + bLogin);
+        Debug.Log("Login() bLogin - " + bLogin);
         if (bLogin == true && bLogin == SingletonClass.Instance.bLogin)
         {
             return;
@@ -241,6 +241,7 @@ public class MainMenu : MonoBehaviour
                 };
 
                 // DO LOGIN!!!
+                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!! MainMenu.Login() : GPGSManager.GetInstance.LoginGPGS");
                 GPGSManager.GetInstance.LoginGPGS();
                 Debug.Log("LoginGPGS");
 
