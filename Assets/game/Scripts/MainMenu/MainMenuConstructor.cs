@@ -6,10 +6,12 @@ using Database.Service;
 using MySql.Data.MySqlClient;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuConstructor : MonoBehaviour
 {
     public GameObject mainMenuUI;
+    public Text versionText;
 
     // Start is called before the first frame update
     void Awake()

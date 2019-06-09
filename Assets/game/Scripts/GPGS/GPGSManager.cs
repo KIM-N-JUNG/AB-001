@@ -102,6 +102,7 @@ public void LoginGPGS()
     // 로그인이 안되어 있으면
     if (!Social.localUser.authenticated)
     {
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!! GPGSManager.LoginGPGS() : !Social.localUser.authenticated");
         Social.localUser.Authenticate((Action<bool>)((bool success) =>
         {
             Debug.Log("### Authentication successful");
@@ -139,6 +140,8 @@ public void LoginGPGS()
         //인증코드 받기
         string _authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
         //Debug.Log("### authcode : " + _authCode + " / " + "idtoken : " + _IDtoken);
+
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!! GPGSManager.LoginGPGS() : !Social.localUser.authenticated else");
     }
 }
 
