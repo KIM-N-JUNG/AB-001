@@ -21,6 +21,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene((int)Constant.SceneNumber.GAME);
     }
 
+    public void Rankboard()
+    {
+        SceneManager.LoadScene((int)Constant.SceneNumber.RANK_BOARD);
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");
@@ -247,7 +252,7 @@ public class MainMenu : MonoBehaviour
 
                 SingletonClass.Instance.bLogin = bLogin;
                 toggle_login.isOn = SingletonClass.Instance.bLogin;
-                PlayerPrefs.SetInt("bLogin", bLogin ? 1 : 0);
+                PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
                 PlayerPrefs.Save();
                 return;
             }
@@ -265,7 +270,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("LogoutGPGS");
         SingletonClass.Instance.bLogin = bLogin;
         Debug.Log("SingletonClass.Instance.bLogin is " + SingletonClass.Instance.bLogin);
-        PlayerPrefs.SetInt("bLogin", bLogin ? 1 : 0);
+        PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
         PlayerPrefs.Save();
         PlayerPrefs.DeleteKey("bLogin");
         toggle_login.isOn = SingletonClass.Instance.bLogin;
