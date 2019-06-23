@@ -9,6 +9,7 @@ public static class Constant
         GAME = 1,
         PROLOGUE = 2,
         PROFILE = 3,
-        ENDING = 4
+        ENDING = 4,
+        RANK_BOARD = 5
     }
 }

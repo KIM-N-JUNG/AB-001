@@ -78,14 +78,14 @@ public class VersionCheckManager : MonoBehaviour
             if (playStoreVersion.Equals(Application.version))
             {
                 Debug.Log("true : " + playStoreVersion + " : " + Application.version);
-                androidSet.ShowToast("최신 버전을 사용중입니다.", false);
+                //androidSet.ShowToast("최신 버전을 사용중입니다.", false);
 
                 //버전이 같다면, 앱을 넘어가도록 한다.
                 isSamePlayStoreVersion = true;
             } else {
                 //버전이 다르므로, 마켓으로 보낸다.
                 Debug.Log("false : " + playStoreVersion + " : " + Application.version);
-                androidSet.ShowToast("현재 최신 버전은 " + playStoreVersion + "입니다.", false);
+                //androidSet.ShowToast("현재 최신 버전은 " + playStoreVersion + "입니다.", false);
 
                 //업데이트 팝업을 연결한다.
                 if (false) {
