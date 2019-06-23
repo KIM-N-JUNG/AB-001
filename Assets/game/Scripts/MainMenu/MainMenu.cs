@@ -95,11 +95,13 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("환영합니다 " + user.user_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.");
                 int ret = UserService.Instance.UpdateUserByUserId(user.user_id, "visit_count", user.visit_count + 1);
                 Debug.Log("ret is " + ret);
+                return;
             }
             else
             {
                 androidSet.ShowToast(Properties.GetLoginFailedMessage(), false);
                 Login(false);
+                return;
             }
         };
 
@@ -117,7 +119,6 @@ public class MainMenu : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Escape))
                 {
-                    // mainMenuUI.SetActive(false);
                     popupMenuUI.SetActive(true);
                     return;
                 }
@@ -129,13 +130,13 @@ public class MainMenu : MonoBehaviour
     private bool IsAgreePrivacy()
     {
         bool isAgree = SingletonClass.Instance.bPrivacyAgreement && SingletonClass.Instance.bServiceAgreement;
-        Debug.Log("IsAgreePrivacy? : " + isAgree);
+        Debug.Log("IsAgreePrivacy & Service? : " + isAgree);
         return isAgree;
     }
 
     private void ShowPrivacyBoard(bool toogleShow)
     {
-        Debug.Log("ShowPrivacyBoard()");
+        Debug.Log("ShowPrivacyBoard(" + !toogleShow + ")");
         mainMenuUI.SetActive(!toogleShow);
         privacyBoardUI.SetActive(toogleShow);
         Login(!toogleShow);
@@ -176,6 +177,7 @@ public class MainMenu : MonoBehaviour
             SingletonClass.Instance.bLogin = false;
             PlayerPrefs.SetInt("bLogin", 0);
             PlayerPrefs.Save();
+            toggle_login.isOn = false;
             return;
         }
 
@@ -187,92 +189,81 @@ public class MainMenu : MonoBehaviour
 
         if (bLogin)
         {
-            if (IsAgreePrivacy())
-            {
-                GPGSManager.GetInstance.Cb.onAuthenticationCb = (bool success, UserInfo _userInfo) =>
-                {
-                    Debug.Log("onAuthenticationCb! - " + success + ", userInfo " + _userInfo.user_name);
-                    // Test용
-                    //_userInfo.user_id = "1234";
-                    //_userInfo.user_name = "지운파파";
-                    //_userInfo.user_email = "jsy7787@gmail.com";
-                    //_userInfo.user_image = "";
-
-                    MainMenu.userInfo = _userInfo;
-                    if (success)
-                    //if (true)
-                    {
-                        androidSet.ShowToast(Properties.GetLoginSucceedMessage(), false);
-                        // userId값으로 db에 query 
-                        User user = null;
-                        try
-                        {
-                            user = UserService.Instance.GetUserByUserId(MainMenu.userInfo.user_id);
-                        }
-                        catch (DatabaseConnectionException e)
-                        {
-                            Debug.Log("###### Exception #########");
-                            Debug.Log(e.ToString());
-                            androidSet.ShowToast(Properties.GetDatabaseConnectionErrorMessage(), false);
-                            Login(false);
-                            return;
-                        }
-
-                        // 최초 로그인
-                        if (user == null)
-                        {
-                            MainMenu.userInfo.is_legacy_user = false;
-                            SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
-                            return;
-                        }
-                        // 기존 유저, 닉네임이 없음
-                        else if (user.nick_name != null && user.nick_name.Length <= 0)
-                        {
-                            MainMenu.userInfo.is_legacy_user = true;
-                            Debug.Log("기존 유저 입니다. 프롤로그로 이동 합니다");
-                            SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
-                            return;
-                        }
-                        // 이미 등록된 유저
-                        else
-                        {
-                        }
-                    }
-                    else
-                    {
-                        Login(false);
-                        return;
-                    }
-                };
-
-                // DO LOGIN!!!
-                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!! MainMenu.Login() : GPGSManager.GetInstance.LoginGPGS");
-                GPGSManager.GetInstance.LoginGPGS();
-                Debug.Log("LoginGPGS");
-
-                SingletonClass.Instance.bLogin = bLogin;
-                toggle_login.isOn = SingletonClass.Instance.bLogin;
-                PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
-                PlayerPrefs.Save();
-                return;
-            }
-            else
+            if (IsAgreePrivacy() == false)
             {
                 ShowPrivacyBoard(true);
                 return;
             }
-        }
+            GPGSManager.GetInstance.Cb.onAuthenticationCb = (bool success, UserInfo _userInfo) =>
+            {
+                Debug.Log("onAuthenticationCb! - " + success + ", userInfo " + _userInfo.user_name);
+                // Test용
+                //_userInfo.user_id = "1234";
+                //_userInfo.user_name = "지운파파";
+                //_userInfo.user_email = "jsy7787@gmail.com";
+                //_userInfo.user_image = "";
 
-        // Logout
-        AgreePrivacy(false);
-        AgreeService(false);
-        GPGSManager.GetInstance.LogoutGPGS(false);
-        Debug.Log("LogoutGPGS");
-        SingletonClass.Instance.bLogin = bLogin;
-        Debug.Log("SingletonClass.Instance.bLogin is " + SingletonClass.Instance.bLogin);
-        PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
-        PlayerPrefs.Save();
-        PlayerPrefs.DeleteKey("bLogin");
-        toggle_login.isOn = SingletonClass.Instance.bLogin;
+                MainMenu.userInfo = _userInfo;
+                if (success)
+                //if (true)
+                {
+                    // userId값으로 db에 query 
+                    User user = null;
+                    try
+                    {
+                        user = UserService.Instance.GetUserByUserId(MainMenu.userInfo.user_id);
+                    }
+                    catch (DatabaseConnectionException e)
+                    {
+                        Debug.Log("###### Exception #########");
+                        Debug.Log(e.ToString());
+                        androidSet.ShowToast(Properties.GetDatabaseConnectionErrorMessage(), false);
+                        Login(false);
+                        return;
+                    }
+
+                    // 최초 로그인
+                    if (user == null)
+                    {
+                        MainMenu.userInfo.is_legacy_user = false;
+                        SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
+                    }
+                    // 기존 유저, 닉네임이 없음
+                    else if (user.nick_name != null && user.nick_name.Length <= 0)
+                    {
+                        MainMenu.userInfo.is_legacy_user = true;
+                        Debug.Log("기존 유저 입니다. 프롤로그로 이동 합니다");
+                        SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
+                    }
+
+                    SingletonClass.Instance.bLogin = true;
+                    Debug.Log("SingletonClass.Instance.bLogin is " + SingletonClass.Instance.bLogin);
+
+                    toggle_login.isOn = SingletonClass.Instance.bLogin;
+                    PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
+                    PlayerPrefs.Save();
+                    androidSet.ShowToast(Properties.GetLoginSucceedMessage(), false);
+                }
+                else
+                {
+                    Login(false);
+                }
+            };
+            // DO LOGIN!!!
+            GPGSManager.GetInstance.LoginGPGS();
+        }
+        else // Logout
+        {
+            AgreePrivacy(false);
+            AgreeService(false);
+            GPGSManager.GetInstance.LogoutGPGS(false);
+            Debug.Log("LogoutGPGS");
+            SingletonClass.Instance.bLogin = false;
+            Debug.Log("SingletonClass.Instance.bLogin is " + SingletonClass.Instance.bLogin);
+            PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
+            PlayerPrefs.Save();
+            PlayerPrefs.DeleteKey("bLogin");
+            toggle_login.isOn = SingletonClass.Instance.bLogin;
+        }
     }
 }
