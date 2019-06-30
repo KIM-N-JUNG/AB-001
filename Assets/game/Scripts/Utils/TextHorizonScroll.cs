@@ -57,6 +57,7 @@ public class TextHorizonScroll : MonoBehaviour
 
 	public void replay()
 	{
+		Time.timeScale = 1.0f;
         StartCoroutine(DoScrollText());
     }
 }
