@@ -49,6 +49,58 @@ using System;
 */
 
 /*
+ * 국가 코드 
+ * https://eminwon.qia.go.kr/common/CountrySP.jsp
+ */
+/* 
+{
+   { SystemLanguage.Afrikaans, "ZA" },
+   { SystemLanguage.Arabic    , "SA" },
+   { SystemLanguage.Basque    , "US" },
+   { SystemLanguage.Belarusian    , "BY" },
+   { SystemLanguage.Bulgarian    , "BJ" },
+   { SystemLanguage.Catalan    , "ES" },
+   { SystemLanguage.Chinese    , "CN" },
+   { SystemLanguage.Czech    , "HK" },
+   { SystemLanguage.Danish    , "DK" },
+   { SystemLanguage.Dutch    , "BE" },
+   { SystemLanguage.English    , "US" },
+   { SystemLanguage.Estonian    , "EE" },
+   { SystemLanguage.Faroese    , "FU" },
+   { SystemLanguage.Finnish    , "FI" },
+   { SystemLanguage.French    , "FR" },
+   { SystemLanguage.German    , "DE" },
+   { SystemLanguage.Greek    , "JR" },
+   { SystemLanguage.Hebrew    , "IL" },
+   { SystemLanguage.Icelandic    , "IS" },
+   { SystemLanguage.Indonesian    , "ID" },
+   { SystemLanguage.Italian    , "IT" },
+   { SystemLanguage.Japanese    , "JP" },
+   { SystemLanguage.Korean    , "KR" },
+   { SystemLanguage.Latvian    , "LV" },
+   { SystemLanguage.Lithuanian    , "LT" },
+   { SystemLanguage.Norwegian    , "NO" },
+   { SystemLanguage.Polish    , "PL" },
+   { SystemLanguage.Portuguese    , "PT" },
+   { SystemLanguage.Romanian    , "RO" },
+   { SystemLanguage.Russian    , "RU" },
+   { SystemLanguage.SerboCroatian    , "SP" },
+   { SystemLanguage.Slovak    , "SK" },
+   { SystemLanguage.Slovenian    , "SI" },
+   { SystemLanguage.Spanish    , "ES" },
+   { SystemLanguage.Swedish    , "SE" },
+   { SystemLanguage.Thai    , "TH" },
+   { SystemLanguage.Turkish    , "TR" },
+   { SystemLanguage.Ukrainian    , "UA" },
+   { SystemLanguage.Vietnamese    , "VN" },
+   { SystemLanguage.ChineseSimplified    , "CN" },
+   { SystemLanguage.ChineseTraditional    , "CN" },
+   { SystemLanguage.Unknown    , "US" },
+   { SystemLanguage.Hungarian    , "HU" },
+   };
+*/
+
+/*
  * 현재 지원 언어 
  * 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)     
  */
@@ -194,7 +246,7 @@ public static class Properties
         /*35*/"I believe that you will be back soon","การเข้าสู่ระบบล้มเหลว","I believe that you will be back soon","I believe that you will be back soon",
         /*39*/"Đăng nhập thất bại","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon"
     };
-    
+
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] UPDATE_POPUP_MESSAGE =
     {
@@ -255,6 +307,6 @@ public static class Properties
     {
         return UPDATE_POPUP_MESSAGE[(int)Application.systemLanguage];
     }
-    
+
 }
 
