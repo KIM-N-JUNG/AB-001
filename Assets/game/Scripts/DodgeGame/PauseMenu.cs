@@ -227,7 +227,7 @@ public class PauseMenu : MonoBehaviour {
     public void LoadMainMenuScene()
     {
         Debug.Log("MainMenu");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene((int)Constant.SceneNumber.MAIN_MENU);
     }
 
     public void End()

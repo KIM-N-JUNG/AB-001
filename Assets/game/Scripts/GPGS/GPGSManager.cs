@@ -120,10 +120,7 @@ public void LoginGPGS()
             userInfo.user_name = Social.localUser.userName;
             //userInfo.user_image = Social.localUser.image;
             userInfo.user_country = (int)Application.systemLanguage;
-            if (this.Cb.onAuthenticationCb != null)
-            {
-                this.Cb.onAuthenticationCb(success, userInfo);
-            }
+            this.Cb.onAuthenticationCb?.Invoke(success, userInfo);
         }));
     }
     else
