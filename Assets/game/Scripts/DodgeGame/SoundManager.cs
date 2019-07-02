@@ -26,8 +26,7 @@ public class SoundManager : MonoBehaviour
     {
         bool flag = SingletonClass.Instance.bEffectSound;
 
-        if (SceneManager.GetActiveScene().buildIndex == 1
-            && flag)
+        if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.GAME && flag)
         {
             myAudio.PlayOneShot(soundExplosion);
         }
