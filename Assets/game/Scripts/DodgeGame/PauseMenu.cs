@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour {
     void Start () {
         Debug.Log("PauseMenu Start");
 
-        if (SceneManager.GetActiveScene().buildIndex != 1)
+        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.GAME)
         {
             return;
         }

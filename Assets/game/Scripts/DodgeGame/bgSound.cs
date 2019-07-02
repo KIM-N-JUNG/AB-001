@@ -17,8 +17,7 @@ public class bgSound : MonoBehaviour
     {
         bool flag = SingletonClass.Instance.bBGSound;
 
-        if (SceneManager.GetActiveScene().buildIndex == 1 
-            && flag)
+        if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.GAME && flag)
         {
             myAudio = GetComponent<AudioSource>();
             myAudio.clip = sound;
