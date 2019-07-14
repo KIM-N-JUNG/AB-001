@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using GoogleMobileAds.Api;
 using System;
-using Database.Service;
+using Ab001.Database.Service;
+using Ab001.Database.Dto;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class PauseMenu : MonoBehaviour
     // for AdMob
     private BannerView bannerView;
     bool bAdsLoaded = false;
-    bool bAdsShow = false;
 
     private const string APP_ID = "ca-app-pub-1339724987571025~1648266314";
 
@@ -73,21 +73,19 @@ public class PauseMenu : MonoBehaviour
             {
                 Time.timeScale = 0.3f;
             }
-
-            if (bAdsShow)
-            {
-                bannerView.Hide();
-                bAdsShow = false;
-            }
         }
     }
 
     public void Pause()
     {
         Debug.Log("Pause");
+        paused = true;
 
         timer.Pause();
         score.Pause();
+
+        Debug.Log("bAdsLoaded : " + bAdsLoaded + ", call bannerView.Show()");
+        bannerView.Show();
 
         float time = timer.GetTime();
         int s = score.GetScore();
@@ -95,20 +93,6 @@ public class PauseMenu : MonoBehaviour
         GameObject meshText = PauseUI.transform.Find("ScoreMeshText").gameObject;
         TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
         text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
-
-        paused = true;
-
-        if (bAdsLoaded)
-        {
-            Debug.Log("bAdsLoaded : " + bAdsLoaded + ", call bannerView.Show()");
-            bannerView.Show();
-            bAdsShow = true;
-        }
-        else
-        {
-            bannerView.Show();
-            Debug.Log("bAdsLoaded : " + bAdsLoaded);
-        }
     }
 
     public void initAds()
@@ -218,7 +202,6 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Resume");
         bannerView.Hide();
-        bAdsShow = false;
         paused = false;
         timer.Resume();
         score.Resume();
@@ -228,8 +211,7 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Restart");
         bannerView.Hide();
-        bAdsShow = false;
-        SceneManager.LoadScene("AvoidBullets");
+        SceneManager.LoadScene((int)Constant.SceneNumber.GAME);
     }
 
     public void LoadMainMenuScene()
@@ -240,9 +222,19 @@ public class PauseMenu : MonoBehaviour
 
     public void End()
     {
+        paused = true;
+
+        // 광고 배너
+        if (bAdsLoaded)
+        {
+            bannerView.Show();
+        }
+
+        // 점수 기록
         float time = timer.GetTime();
         int s = score.GetScore();
 
+        // DISPLAY UI
         GameObject obj = PauseUI.transform.Find("PauseText").gameObject;
         TextMeshProUGUI pauseText = obj.GetComponent<TextMeshProUGUI>();
         pauseText.SetText("Game Over");
@@ -254,35 +246,46 @@ public class PauseMenu : MonoBehaviour
         TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
         text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
 
-        paused = true;
 
         // 로그인이 되어있을 때
-        if (SingletonClass.Instance.bLogin == true &&
-            Application.internetReachability != NetworkReachability.NotReachable)
+        if (SingletonClass.Instance.bLogin == false)
         {
-            // Insert a new score
-            int ret = ScoreService.Instance.InsertScore(new Database.Dto.Score()
-            {
-                id = 0,
-                user_id = MainMenu.userInfo.user_id,
-                score = s,
-                message = "Not Yet",
-                level = SingletonClass.Instance.level
-            });
-
-            Debug.Log("ret is " + ret);
-            if (ret == 0)
-            {
-                Debug.Log("Insert score Error!");
-            }
-
-            GPGSManager.GetInstance.SubmitToLeaderBorad(s);
+            return;
         }
 
-        if (bAdsLoaded)
+        // 1. search score
+        Ab001Score gameScore = null;
+        try
         {
-            bannerView.Show();
-            bAdsShow = true;
+            if (gameScore == null)
+            {
+                // insert a new score for today
+                // Display Message 
+            }
+            else
+            {
+                // compare who are bigger score
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Exception!! : " + e.Message);
+        }
+        
+        // Insert a new score
+        int ret = ScoreService.Instance.InsertScore(new Ab001Score()
+        {
+            id = 0,
+            user_id = MainMenu.userInfo.user_id,
+            score = s,
+            message = "Not Yet",
+            level = SingletonClass.Instance.level
+        });
+
+        Debug.Log("ret is " + ret);
+        if (ret == 0)
+        {
+            Debug.Log("Insert score Error!");
         }
     }
 
@@ -297,7 +300,6 @@ public class PauseMenu : MonoBehaviour
         if (bAdsLoaded)
         {
             bannerView.Hide();
-            bAdsShow = false;
         }
     }
 
@@ -306,17 +308,12 @@ public class PauseMenu : MonoBehaviour
         MonoBehaviour.print("HandleAdLoaded event received");
         Debug.Log("HandleOnAdLoaded");
         bAdsLoaded = true;
-        bAdsShow = false;
 
         if (paused)
         {
             bannerView.Show();
-            bAdsShow = true;
-        }
-        else
-        {
+        } else {
             bannerView.Hide();
-            bAdsShow = false;
         }
     }
 }

@@ -7,26 +7,28 @@ using UnityEngine;
 
 namespace Ab001.Database.Service
 {
-    public class PrologueService
+    public class GameService
     {
-        internal const string SELECT_ALL = "select * from prologue";
-        internal const string SELECT_BY_ID = "select * from prologue where id = ";
-
+        internal const string SELECT_ALL = "select * from user";
+        internal const string SELECT_BY_USER_ID = "select * from user where user_id = ";
+        internal const string SELECT_BY_USER_NICKNAME = "select * from user where nick_name = ";
+        internal const string UPDATE_USER = "update user set ";
+        internal const string INSERT_USER = "insert into user values ";
 
         // Global variables
-        private static PrologueService instance = null;
+        private static GameService instance = null;
 
-        public static PrologueService Instance
+        public static GameService Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    lock (typeof(PrologueService))
+                    lock (typeof(GameService))
                     {
                         if (instance == null)
                         {
-                            instance = new PrologueService();
+                            instance = new GameService();
                         }
                     }
                 }
@@ -34,7 +36,7 @@ namespace Ab001.Database.Service
             }
         }
 
-        private PrologueService()
+        private GameService()
         {
         }
 
@@ -46,10 +48,10 @@ namespace Ab001.Database.Service
             return columnNames;
         }
 
-        public Prologue GetPrologueByContentTypeAndLanguage(string _contentType, int _language)
+        public Game GetGameByCode(string _code)
         {
-            Prologue prologue = null;
-            string query = "select * from prologue where content_type = '" + _contentType + "' and language = " + _language;
+            Game game = null;
+            string query = String.Format("select * from {0} where code = '{1}'", "game", _code);
             MySqlConnector.Instance.DoSelectQuery(query, (MySqlDataReader reader) =>
             {
                 // 데이터 없음
@@ -68,22 +70,17 @@ namespace Ab001.Database.Service
                 //}
                 //Debug.Log("reader: " + columns.ToString());
                 /////////// for debuging ///////////
-
-                int id = int.Parse(reader["id"].ToString());
-                string contentType = reader["content_type"].ToString();
-                string content = reader["content"].ToString();
-                int language = int.Parse(reader["language"].ToString());
-
-                Debug.Log("Set data on the prologue");
-                prologue = new Prologue{
-                    id = id,
-                    content_type = contentType,
-                    content = content,
-                    language = language
+                /// 
+                string code = reader["code"].ToString();
+                string version = reader["version"].ToString();
+                string updated_date = reader["updated_date"].ToString();
+                game = new Game {
+                    code = code,
+                    version = version,
+                    updated_date = Convert.ToDateTime(updated_date)
                 };
             });
-            Debug.Log("return Prologue"); 
-            return prologue;
+            return game;
         }
     }
 }

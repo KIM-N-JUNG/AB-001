@@ -10,11 +10,18 @@ using MySql.Data.MySqlClient;
 public class UserInfo
 {
     public string user_id { get; set; }
-    public string user_email { get; set; }
+    public string auth { get; set; }
     public string user_name { get; set; }
+    public string nick_name { get; set; }
+    public string user_email { get; set; }
     public string user_image { get; set; }
     public int user_country { get; set; }
-    public bool is_legacy_user { get; set; }
+
+	public override string ToString()
+	{
+		return String.Format("GPGSManager.UserInfo [user_id: {0}, auth: {1}, user_name: {2}, nick_name: {3}, user_email: {4}, user_country: {5}"
+			, user_id, auth, user_name, nick_name, user_email, user_country);
+	}
 }
 
 public class GPGSManager : Singleton<GPGSManager>
@@ -119,6 +126,8 @@ public void LoginGPGS()
             userInfo.user_email = email;
             userInfo.user_name = Social.localUser.userName;
             //userInfo.user_image = Social.localUser.image;
+            userInfo.auth = "google";
+            // TODO: needs to find country correctly
             userInfo.user_country = (int)Application.systemLanguage;
             this.Cb.onAuthenticationCb?.Invoke(success, userInfo);
         }));

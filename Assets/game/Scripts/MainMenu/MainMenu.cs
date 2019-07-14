@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Database.Dto;
-using Database.Service;
+using Ab001.Database.Dto;
+using Ab001.Database.Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -51,6 +51,7 @@ public class MainMenu : MonoBehaviour
 
         toggle_login.isOn = SingletonClass.Instance.bLogin;
         loginManager.callback = new LoginManager.Callback();
+        loginManager.callback.onUserNotExisted = OnUserNotExisted;
         loginManager.callback.onLogin = OnLogin;
         loginManager.callback.onLogout = OnLogout;
         loginManager.callback.onShowPrivacyBoard = OnShowPrivacyBoard;
@@ -74,10 +75,34 @@ public class MainMenu : MonoBehaviour
 #endif
     }
 
+    private void OnUserNotExisted()
+    {
+        Debug.Log("OnUserNotExisted() - Do register newbie");
+        SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
+    }
+
     private void OnLogin(User user)
     {
+        R_UserGame userGame = null;
+        try
+        {
+            Debug.Log("OnLogin() - MainMenu.userInfo check");
+            Debug.Log(MainMenu.userInfo);
+            Debug.Log(MainMenu.userInfo.user_id);
+            userGame = R_UserGameService.Instance.GetUserGameByUserIdAndGameCode(user.user_id, Constant.GAME_CODE);
+        }
+        catch (DatabaseConnectionException e)
+        {
+            Debug.Log("###### Exception #########");
+            Debug.Log(e.ToString());
+            Debug.Log(Properties.GetDatabaseConnectionErrorMessage());
+            Login(false);
+            return;
+        }
+
+        userInfo.nick_name = userGame.nick_name;
         toggle_login.isOn = true;
-        androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + user.nick_name + ")", false);
+        androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + userInfo.nick_name + ")", false);
     }
 
     private void OnLogout()

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Database.Dto
+namespace Ab001.Database.Dto
 {
     public class Prologue
     {

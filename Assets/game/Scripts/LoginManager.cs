@@ -1,10 +1,11 @@
-﻿using Database.Dto;
-using Database.Service;
+﻿using Ab001.Database.Dto;
+using Ab001.Database.Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoginManager
 {
+    public delegate void OnUserNotExisted();
     public delegate void OnLogin(User user);
     public delegate void OnLogout();
     public delegate void OnShowPrivacyBoard(bool show);
@@ -12,6 +13,8 @@ public class LoginManager
     public class Callback
     {
         public object data;
+
+        public OnUserNotExisted onUserNotExisted = null;
         public OnLogin onLogin = null;
         public OnLogout onLogout = null;
         public OnShowPrivacyBoard onShowPrivacyBoard = null;
@@ -83,6 +86,9 @@ public class LoginManager
                     User user = null;
                     try
                     {
+                        Debug.Log("MainMenu.userInfo check");
+                        Debug.Log(MainMenu.userInfo);
+                        Debug.Log(MainMenu.userInfo.user_id);
                         user = UserService.Instance.GetUserByUserId(MainMenu.userInfo.user_id);
                     }
                     catch (DatabaseConnectionException e)
@@ -97,11 +103,10 @@ public class LoginManager
                     // 최초 로그인
                     if (user == null)
                     {
-                        MainMenu.userInfo.is_legacy_user = false;
-                        SceneManager.LoadScene((int)Constant.SceneNumber.PROLOGUE);
+                        callback.onUserNotExisted?.Invoke();
+                        return;
                     }
 
-                    Debug.Log("User nickName : " + user.nick_name);
                     SingletonClass.Instance.bLogin = true;
                     PlayerPrefs.SetInt("bLogin", SingletonClass.Instance.bLogin ? 1 : 0);
                     PlayerPrefs.Save();
