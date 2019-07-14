@@ -17,6 +17,7 @@ public class AdmobManager : MonoBehaviour
 
     private const string ANDROID_BANNER_ID = "ca-app-pub-1339724987571025/9830363880";
 
+    bool bAdsLoaded = false;
 
 
     public void Start()
@@ -37,7 +38,7 @@ public class AdmobManager : MonoBehaviour
 #elif UNITY_IPHONE
             //string appId = "ca-app-pub-3940256099942544~1458002511";
 #else
-            //string appId = "unexpected_platform";
+        //string appId = "unexpected_platform";
 #endif
 
         // Initialize the Google Mobile Ads SDK.
@@ -55,7 +56,9 @@ public class AdmobManager : MonoBehaviour
         adUnitId = ios_bannerAdUnitId;
 #endif
 
-        bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
+        // bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+        bannerView.OnAdLoaded += HandleOnAdLoaded;
         AdRequest request = new AdRequest.Builder().Build();
 
         bannerView.LoadAd(request);
@@ -107,4 +110,15 @@ public class AdmobManager : MonoBehaviour
         interstitialAd.Show();
     }
 
+    public void HandleOnAdLoaded(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleAdLoaded event received");
+        Debug.Log("HandleOnAdLoaded");
+        bAdsLoaded = true;
+    }
+
+    public Boolean IsLoaded()
+    {
+        return bAdsLoaded;
+    }
 }

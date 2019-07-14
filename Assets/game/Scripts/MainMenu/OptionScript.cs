@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GoogleMobileAds.Api;
+using System;
+using Database.Service;
 
 public class OptionScript : MonoBehaviour
 {
@@ -14,12 +17,19 @@ public class OptionScript : MonoBehaviour
     public GameObject difficultyUI;
     public AndroidSet androidSet;
 
+    // for AdMob
+    private BannerView bannerView;
+    bool bAdsLoaded = false;
+
     protected readonly string[] DifficultyName = {
         "EASY",
         "NORMAL",
         "HARD",
         "CRAZY"
     };
+    private const string APP_ID = "ca-app-pub-1339724987571025~1648266314";
+
+    private const string BANNER_ID = "ca-app-pub-1339724987571025/3803064438";
 
     void Start()
     {
@@ -30,6 +40,8 @@ public class OptionScript : MonoBehaviour
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
         slider_difficult.value = ins.level;
+
+        initBanner();
     }
 
     public void SetAcceleration(bool flag)
@@ -67,5 +79,44 @@ public class OptionScript : MonoBehaviour
 
         PlayerPrefs.SetInt("level", SingletonClass.Instance.level);
         PlayerPrefs.Save();
+    }
+
+    public void Quit()
+    {
+        Debug.Log("Quit");
+
+        if (bAdsLoaded)
+        {
+            bannerView.Hide();
+        }
+    }
+
+    private void initBanner()
+    {
+        Debug.Log("initBanner");
+        string adUnitId = string.Empty;
+
+#if UNITY_ANDROID
+        adUnitId = BANNER_ID;
+#elif UNITY_IOS
+        // adUnitId = ios_bannerAdUnitId;
+#endif
+        Debug.Log("initBanner adUnitId : " + adUnitId);
+
+        // bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Top);
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+        bannerView.OnAdLoaded += HandleOnAdLoaded;
+
+        AdRequest request = new AdRequest.Builder().Build();
+        Debug.Log("bannerView.LoadAd()");
+        bannerView.LoadAd(request);
+    }
+
+    public void HandleOnAdLoaded(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleAdLoaded event received");
+        Debug.Log("HandleOnAdLoaded");
+        bAdsLoaded = true;
+        bannerView.Show();
     }
 }

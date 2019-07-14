@@ -8,7 +8,8 @@ using GoogleMobileAds.Api;
 using System;
 using Database.Service;
 
-public class PauseMenu : MonoBehaviour {
+public class PauseMenu : MonoBehaviour
+{
 
     public GameObject PauseUI;
     public Timer timer;
@@ -18,7 +19,7 @@ public class PauseMenu : MonoBehaviour {
     public GameObject plane;
 
     private bool paused = false;
-    
+
     // for AdMob
     private BannerView bannerView;
     bool bAdsLoaded = false;
@@ -30,7 +31,8 @@ public class PauseMenu : MonoBehaviour {
     private const string BANNER_ID_TEST = "ca-app-pub-3940256099942544/6300978111";
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         Debug.Log("PauseMenu Start");
 
         if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.GAME)
@@ -39,13 +41,14 @@ public class PauseMenu : MonoBehaviour {
         }
 
         PauseUI.SetActive(false);
-    
+
         // initAds();
         initBanner();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.GAME)
         {
             return;
@@ -55,7 +58,8 @@ public class PauseMenu : MonoBehaviour {
         {
             PauseUI.SetActive(true);
             Time.timeScale = 0;
-        } else 
+        }
+        else
         {
             PauseUI.SetActive(false);
             //Time.timeScale = 1f;
@@ -64,8 +68,9 @@ public class PauseMenu : MonoBehaviour {
             if (onControl == 1)
             {
                 Time.timeScale = 1f;
-            } else
-            {   
+            }
+            else
+            {
                 Time.timeScale = 0.3f;
             }
 
@@ -98,13 +103,15 @@ public class PauseMenu : MonoBehaviour {
             Debug.Log("bAdsLoaded : " + bAdsLoaded + ", call bannerView.Show()");
             bannerView.Show();
             bAdsShow = true;
-        } else {
+        }
+        else
+        {
             bannerView.Show();
             Debug.Log("bAdsLoaded : " + bAdsLoaded);
         }
     }
 
- public void initAds()
+    public void initAds()
     {
         Debug.Log("PauseMenu initAds");
 #if UNITY_ANDROID
@@ -112,14 +119,15 @@ public class PauseMenu : MonoBehaviour {
 #elif UNITY_IPHONE
             //string appId = "ca-app-pub-3940256099942544~1458002511";
 #else
-            //string appId = "unexpected_platform";
+        //string appId = "unexpected_platform";
 #endif
 
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(appId);
     }
-    
-    private void initBanner() {
+
+    private void initBanner()
+    {
         Debug.Log("initBanner");
         string adUnitId = string.Empty;
 
@@ -148,7 +156,7 @@ public class PauseMenu : MonoBehaviour {
 #elif UNITY_IPHONE
             //string adUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-            //string adUnitId = "unexpected_platform";
+        //string adUnitId = "unexpected_platform";
 #endif
         Debug.Log("RequestBanner adUnitId : " + adUnitId);
 
@@ -249,7 +257,7 @@ public class PauseMenu : MonoBehaviour {
         paused = true;
 
         // 로그인이 되어있을 때
-        if (SingletonClass.Instance.bLogin == true && 
+        if (SingletonClass.Instance.bLogin == true &&
             Application.internetReachability != NetworkReachability.NotReachable)
         {
             // Insert a new score
@@ -300,10 +308,13 @@ public class PauseMenu : MonoBehaviour {
         bAdsLoaded = true;
         bAdsShow = false;
 
-        if (paused) {
+        if (paused)
+        {
             bannerView.Show();
             bAdsShow = true;
-        } else {
+        }
+        else
+        {
             bannerView.Hide();
             bAdsShow = false;
         }
