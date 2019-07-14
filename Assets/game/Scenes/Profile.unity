@@ -723,11 +723,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -950,11 +950,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1454,7 +1454,7 @@ GameObject:
   - component: {fileID: 1059949043}
   - component: {fileID: 1059949042}
   m_Layer: 0
-  m_Name: InputFormClass
+  m_Name: ProfileInputClass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1474,6 +1474,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicateText: {fileID: 852127346}
   inputField: {fileID: 1919175700}
+  inputPanelUI: {fileID: 87668821}
+  imagePanelUI: {fileID: 1860417063}
+  androidSet: {fileID: 177239071}
+  storyMessage: {fileID: 133166190}
 --- !u!4 &1059949043
 Transform:
   m_ObjectHideFlags: 0
@@ -1656,7 +1660,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1881115065}
+      - m_Target: {fileID: 1059949042}
         m_MethodName: HandleOK
         m_Mode: 1
         m_Arguments:
@@ -1941,7 +1945,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1881115065}
+      - m_Target: {fileID: 1059949042}
         m_MethodName: HandleCancel
         m_Mode: 1
         m_Arguments:
@@ -2165,11 +2169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIObject: {fileID: 2102952263}
-  inputPanelUI: {fileID: 87668821}
-  imagePanelUI: {fileID: 1860417063}
-  profileInput: {fileID: 1059949042}
-  androidSet: {fileID: 177239071}
-  storyMessage: {fileID: 133166190}
 --- !u!4 &1881115066
 Transform:
   m_ObjectHideFlags: 0

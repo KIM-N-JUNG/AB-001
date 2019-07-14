@@ -1,6 +1,8 @@
-﻿using System.Collections;
-using Database.Dto;
-using Database.Service;
+﻿using System;
+using System.Collections;
+using Ab001.Database.Dto;
+using Ab001.Database.Service;
+using Ab001.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,8 +23,23 @@ public class InitConstructor : MonoBehaviour
 
     private void OnLogin(User user)
     {
-        androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + user.nick_name + ")", false);
-        Debug.Log("환영합니다 " + user.nick_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.");
+        R_UserGame userGame = null;
+        try
+        {
+            Debug.Log("OnLogin() - MainMenu.userInfo check");
+            Debug.Log(MainMenu.userInfo);
+            userGame = R_UserGameService.Instance.GetUserGameByUserIdAndGameCode(user.user_id, Constant.GAME_CODE);
+        }
+        catch (DatabaseConnectionException e)
+        {
+            Debug.Log("###### Exception #########");
+            Debug.Log(e.ToString());
+            Debug.Log(Properties.GetDatabaseConnectionErrorMessage());
+            return;
+        }
+
+        androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + userGame.nick_name + ")", false);
+        Debug.Log("환영합니다 " + userGame.nick_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.");
         int ret = UserService.Instance.UpdateUserByUserId(user.user_id, "visit_count", user.visit_count + 1);
         Debug.Log("ret is " + ret);
 
@@ -34,6 +51,14 @@ public class InitConstructor : MonoBehaviour
         // Unreachable
         androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
         loginFinish = true;
+    }
+
+    private void OnUserNotExisted()
+    {
+        // Logined but user is null
+        // 로그인 되어있지만 유저정보가 사라진 상황
+        Debug.Log("There is no user but logined.. go to logout");
+        loginManager.Login(false);
     }
 
     // Start is called before the first frame update
@@ -49,6 +74,7 @@ public class InitConstructor : MonoBehaviour
         loginManager.callback = new LoginManager.Callback();
         loginManager.callback.onLogin = OnLogin;
         loginManager.callback.onLogout = OnLogout;
+        loginManager.callback.onUserNotExisted = OnUserNotExisted;
         StartCoroutine(DoLogin());
     }
 

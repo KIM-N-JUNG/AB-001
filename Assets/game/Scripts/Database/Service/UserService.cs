@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Database.Dto;
+using Ab001.Database.Dto;
+using Ab001.Util;
 using MySql.Data.MySqlClient;
 using UnityEngine;
 
-namespace Database.Service
+namespace Ab001.Database.Service
 {
     public class UserService
     {
@@ -51,8 +52,8 @@ namespace Database.Service
         public int InsertUser(User user)
         {
             int ret = 0;
-            string query = "insert into user (nick_name, email, country, user_id, user_image, user_name, last_date) values ('" +
-            user.nick_name + "','" +
+            string query = "insert into user (auth, email, country, user_id, user_image, user_name, last_date) values ('" +
+            user.auth + "','" +
             user.email + "'," +
             user.country + ",'" +
             user.user_id + "','" +
@@ -66,14 +67,14 @@ namespace Database.Service
 
         public int UpdateUserByUserId(string user_id, string key, string value)
         {
-            string query = UPDATE_USER + key + " = '" + value + "', last_date = '" + DateTime.Now.ToString("yyyyMMddhhmmss") + "' where user_id = '" + user_id + "'";
-            int ret = MySqlConnector.Instance.DoNonQuery(query);
+            string query = UPDATE_USER + key + " = '" + value + "', last_date = '" + DateTimeManager.Instance.getKoreaTimeFromUTCNow().ToString("yyyyMMddhhmmss") + "' where user_id = '" + user_id + "'";
+			int ret = MySqlConnector.Instance.DoNonQuery(query);
             Debug.Log("UpdateUserByUserId() ret is " + ret);
             return ret;
         }
         public int UpdateUserByUserId(string user_id, string key, int value)
         {
-            string query = UPDATE_USER + key + " = " + value + ", last_date = '" + DateTime.Now.ToString("yyyyMMddhhmmss") + "' where user_id = '" + user_id + "'";
+            string query = UPDATE_USER + key + " = " + value + ", last_date = '" + DateTimeManager.Instance.getKoreaTimeFromUTCNow().ToString("yyyyMMddhhmmss") + "' where user_id = '" + user_id + "'";
             int ret = MySqlConnector.Instance.DoNonQuery(query);
             Debug.Log("UpdateUserByUserId() ret is " + ret);
             return ret;
@@ -93,15 +94,15 @@ namespace Database.Service
 
                 /////////// for debuging ///////////
                 Debug.Log("Parsing data");
-                //List<string> columns = GetDataReaderColumnNames(reader);
-                //foreach (string col in columns)
-                //{
-                //    Debug.Log(col);
-                //}
-                //Debug.Log("reader: " + columns.ToString());
-                /////////// for debuging ///////////
-                /// 
-                string nickName = reader["nick_name"].ToString();
+				//List<string> columns = GetDataReaderColumnNames(reader);
+				//foreach (string col in columns)
+				//{
+				//    Debug.Log(col);
+				//}
+				//Debug.Log("reader: " + columns.ToString());
+				/////////// for debuging ///////////
+				///
+				string auth = reader["auth"].ToString();
                 string email = reader["email"].ToString();
                 int country = int.Parse(reader["country"].ToString());
                 string user_id = reader["user_id"].ToString();
@@ -111,13 +112,13 @@ namespace Database.Service
                 string last_date = reader["last_date"].ToString();
                 Debug.Log("Set data on the user");
                 user = new User {
-                    nick_name = nickName,
+					user_id = user_id,
+					auth = auth,
+					user_name = user_name,
                     email = email,
                     country = country,
-                    user_id = user_id,
                     user_image = user_image,
                     visit_count = visit_count,
-                    user_name = user_name,
                     last_date = Convert.ToDateTime(last_date)
                 };
             });
@@ -125,53 +126,12 @@ namespace Database.Service
             return user;
         }
 
-        public User GetUserByUserNickname(string _nickName)
+        public int deleteUser(User user)
         {
-            User user = null;
-            string query = SELECT_BY_USER_NICKNAME + "'" + _nickName + "'";
-            MySqlConnector.Instance.DoSelectQuery(query, (MySqlDataReader reader) =>
-            {
-                // 데이터 없음
-                if (reader == null)
-                {
-                    Debug.Log("No data");
-                    return;
-                }
-
-                /////////// for debuging ///////////
-                Debug.Log("Parsing data");
-                //List<string> columns = GetDataReaderColumnNames(reader);
-                //foreach (string col in columns)
-                //{
-                //    Debug.Log(col);
-                //}
-                //Debug.Log("reader: " + columns.ToString());
-                /////////// for debuging ///////////
-                /// 
-                string nickName = reader["nick_name"].ToString();
-                string email = reader["email"].ToString();
-                int country = int.Parse(reader["country"].ToString());
-                string user_id = reader["user_id"].ToString();
-                string user_image = reader["user_image"].ToString();
-                int visit_count = int.Parse(reader["visit_count"].ToString());
-                string user_name = reader["user_name"].ToString();
-                string last_date = reader["last_date"].ToString();
-
-                Debug.Log("Set data on the user");
-                user = new User
-                {
-                    nick_name = nickName,
-                    email = email,
-                    country = country,
-                    user_id = user_id,
-                    user_image = user_image,
-                    visit_count = visit_count,
-                    user_name = user_name,
-                    last_date = Convert.ToDateTime(last_date)
-                };
-            });
-            Debug.Log("return user");
-            return user;
+            string query = String.Format("delete from user where user_id = '{0}'", user.user_id);
+            int ret = MySqlConnector.Instance.DoNonQuery(query);
+            Debug.Log("deleteUser() ret is " + ret);
+            return ret;
         }
     }
 }

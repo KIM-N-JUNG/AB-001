@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class Constant
 {
+    public static readonly string GAME_CODE = "ab001";
     public enum SceneNumber {
         INIT = 0,
         MAIN_MENU,
