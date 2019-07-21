@@ -116,7 +116,6 @@ namespace Ab001.Database.Service
 
         public List<R_UserGame> GetUserGameByUserId(string user_id)
         {
-            Debug.Log(String.Format("GetUserGameByUserId()"));
             string query = String.Format("select * from r_user_game where user_id = '{0}'", user_id);
             return GetUserGameList(query);
         }
@@ -131,28 +130,24 @@ namespace Ab001.Database.Service
         }
         public List<R_UserGame> GetUserGameByUserIdContains(List<string> user_ids)
         {
-            Debug.Log(String.Format("GetUserGameByUserIdContains()"));
             string query = String.Format("select * from r_user_game where user_id in ({0})", ListToString(user_ids));
             return GetUserGameList(query);
         }
 
         public List<R_UserGame> GetUserGameByGameCode(string game_code)
         {
-            Debug.Log(String.Format("GetUserGameByGameCode()"));
             string query = String.Format("select * from r_user_game where game_code = '{0}'", game_code);
             return GetUserGameList(query);
         }
 
         public List<R_UserGame> GetUserGameByNickName(string nick_name)
         {
-            Debug.Log(String.Format("GetUserGameByNickName()"));
             string query = String.Format("select * from r_user_game where nick_name = '{0}'", nick_name);
             return GetUserGameList(query);
         }
 
         public R_UserGame GetUserGameByUserIdAndGameCode(string user_id, string game_code)
         {
-            Debug.Log(String.Format("GetUserGameByUserIdAndGameCode()"));
             string query = String.Format("select * from r_user_game where user_id = '{0}' and game_code = '{1}'", user_id, game_code);
             List<R_UserGame> list = GetUserGameList(query);
             if (list.Count == 0)
@@ -171,7 +166,6 @@ namespace Ab001.Database.Service
 
         public R_UserGame GetUserGameByNickNameAndGameCode(string nick_name, string game_code)
         {
-            Debug.Log(String.Format("GetUserGameByNickNameAndGameCode()"));
             string query = String.Format("select * from r_user_game where nick_name = '{0}' and game_code = '{1}'", nick_name, game_code);
             List<R_UserGame> list = GetUserGameList(query);
             if (list.Count == 0)

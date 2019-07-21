@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     public Text PanelText;
     public GameObject starField;
     public GameObject plane;
+    public ScoreUploader scoreUploader;
 
     private bool paused = false;
 
@@ -149,47 +150,8 @@ public class PauseMenu : MonoBehaviour
         // bannerView = new BannerView(adUnitId, AdSize.MediumRectangle, AdPosition.Bottom);
         bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
 
-        // #type2, 맞춤광고
-        //AdSize adSize = new AdSize(250, 250);
-        //BannerView bannerView = new BannerView(adUnitId, adSize, AdPosition.Bottom);
-
         // Called when an ad request has successfully loaded.
         bannerView.OnAdLoaded += HandleOnAdLoaded;
-
-        // 핸들러 지정
-        if (false)
-        {
-            //// Called when an ad request failed to load.
-            //bannerView.OnAdFailedToLoad += HandleOnAdFailedToLoad;
-            //// Called when an ad is clicked.
-            //bannerView.OnAdOpening += HandleOnAdOpened;
-            //// Called when the user returned from the app after an ad click.
-            //bannerView.OnAdClosed += HandleOnAdClosed;
-            //// Called when the ad click caused the user to leave the application.
-            //bannerView.OnAdLeavingApplication += HandleOnAdLeavingApplication;
-
-            // 실제 핸들러
-            //public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
-            //{
-            //    MonoBehaviour.print("HandleFailedToReceiveAd event received with message: "
-            //                        + args.Message);
-            //}
-
-            //public void HandleOnAdOpened(object sender, EventArgs args)
-            //{
-            //    MonoBehaviour.print("HandleAdOpened event received");
-            //}
-
-            //public void HandleOnAdClosed(object sender, EventArgs args)
-            //{
-            //    MonoBehaviour.print("HandleAdClosed event received");
-            //}
-
-            //public void HandleOnAdLeavingApplication(object sender, EventArgs args)
-            //{
-            //    MonoBehaviour.print("HandleAdLeavingApplication event received");
-            //}
-        }
 
         // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
@@ -230,7 +192,6 @@ public class PauseMenu : MonoBehaviour
             bannerView.Show();
         }
 
-        // 점수 기록
         float time = timer.GetTime();
         int s = score.GetScore();
 
@@ -247,46 +208,8 @@ public class PauseMenu : MonoBehaviour
         text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
 
 
-        // 로그인이 되어있을 때
-        if (SingletonClass.Instance.bLogin == false)
-        {
-            return;
-        }
-
-        // 1. search score
-        Ab001Score gameScore = null;
-        try
-        {
-            if (gameScore == null)
-            {
-                // insert a new score for today
-                // Display Message 
-            }
-            else
-            {
-                // compare who are bigger score
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Exception!! : " + e.Message);
-        }
-        
-        // Insert a new score
-        int ret = ScoreService.Instance.InsertScore(new Ab001Score()
-        {
-            id = 0,
-            user_id = MainMenu.userInfo.user_id,
-            score = s,
-            message = "Not Yet",
-            level = SingletonClass.Instance.level
-        });
-
-        Debug.Log("ret is " + ret);
-        if (ret == 0)
-        {
-            Debug.Log("Insert score Error!");
-        }
+        // 점수 기록
+        scoreUploader.RegisterScore();
     }
 
     public void Quit()

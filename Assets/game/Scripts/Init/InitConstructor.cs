@@ -27,10 +27,9 @@ public class InitConstructor : MonoBehaviour
         try
         {
             Debug.Log("OnLogin() - MainMenu.userInfo check");
-            Debug.Log(MainMenu.userInfo);
             userGame = R_UserGameService.Instance.GetUserGameByUserIdAndGameCode(user.user_id, Constant.GAME_CODE);
         }
-        catch (DatabaseConnectionException e)
+        catch (NotReachableSceneException e)
         {
             Debug.Log("###### Exception #########");
             Debug.Log(e.ToString());
@@ -38,10 +37,17 @@ public class InitConstructor : MonoBehaviour
             return;
         }
 
-        androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + userGame.nick_name + ")", false);
-        Debug.Log("환영합니다 " + userGame.nick_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.");
+        MainMenu.userInfo.nick_name = userGame.nick_name;
+        androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + MainMenu.userInfo.nick_name + ")", false);
+        Debug.Log("환영합니다 " + MainMenu.userInfo.nick_name + "님. " + (user.visit_count + 1) + "번째 방문입니다.");
         int ret = UserService.Instance.UpdateUserByUserId(user.user_id, "visit_count", user.visit_count + 1);
         Debug.Log("ret is " + ret);
+
+        Ab001Score myBestScore = ScoreService.Instance.FindScoreByScoreDateInCurrentWeekAndUserId(MainMenu.userInfo.user_id);
+
+        // Load my best score
+        MainMenu.myRankInfo.nick_name = MainMenu.userInfo.nick_name;
+        MainMenu.myRankInfo.score = myBestScore;
 
         loginFinish = true;
     }
@@ -121,7 +127,7 @@ public class InitConstructor : MonoBehaviour
             }
         }
         titleUI.text = "COMPLETE!";
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1.2f);
         oper.allowSceneActivation = true;
     }
 

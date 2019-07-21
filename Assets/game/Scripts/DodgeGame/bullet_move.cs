@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class bullet_move : MonoBehaviour {
-
     private float MoveSpeed;     // 미사일이 날라가는 속도
     public readonly float[] MinSpeed = {
         0.3f,

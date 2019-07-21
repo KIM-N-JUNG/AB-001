@@ -14,7 +14,10 @@ public class MainMenu : MonoBehaviour
     public GameObject popupMenuUI;
     public Toggle toggle_login;
     public AndroidSet androidSet;
+
     public static UserInfo userInfo;
+    public static RankInfo myRankInfo = new RankInfo();
+
     private LoginManager loginManager = LoginManager.GetInstance;
 
     public void PlayGame()
@@ -24,6 +27,25 @@ public class MainMenu : MonoBehaviour
 
     public void Rankboard()
     {
+        try
+        {
+            Checker.checkSceneAndLoginAndInternetStatus((int)Constant.SceneNumber.MAIN_MENU);
+        }
+        catch (NotReachableSceneException e) 
+        {
+            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            return;
+        }
+        catch (NotReachableInternetException e)
+        {
+            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            return;
+        }
+        catch (NotLoginException e)
+        {
+            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            return;
+        }
         SceneManager.LoadScene((int)Constant.SceneNumber.RANK_BOARD);
     }
 
@@ -86,12 +108,10 @@ public class MainMenu : MonoBehaviour
         R_UserGame userGame = null;
         try
         {
-            Debug.Log("OnLogin() - MainMenu.userInfo check");
-            Debug.Log(MainMenu.userInfo);
-            Debug.Log(MainMenu.userInfo.user_id);
+            Debug.Log("MainMenu.cs : OnLogin() - MainMenu.userInfo check");
             userGame = R_UserGameService.Instance.GetUserGameByUserIdAndGameCode(user.user_id, Constant.GAME_CODE);
         }
-        catch (DatabaseConnectionException e)
+        catch (NotReachableSceneException e)
         {
             Debug.Log("###### Exception #########");
             Debug.Log(e.ToString());
@@ -100,7 +120,7 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        userInfo.nick_name = userGame.nick_name;
+        MainMenu.userInfo.nick_name = userGame.nick_name;
         toggle_login.isOn = true;
         androidSet.ShowToast(Properties.GetLoginSucceedMessage() + " (" + userInfo.nick_name + ")", false);
     }

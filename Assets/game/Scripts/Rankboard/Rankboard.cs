@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Ab001.Database.Dto;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -7,11 +6,19 @@ using System;
 using Ab001.Util;
 using Ab001.Database.Service;
 using System.Linq;
+using UnityEngine.UI;
+using System.Collections;
 
-class RankInfo
+public class RankInfo
 {
 	public string nick_name { get; set; }
 	public Ab001Score score { get; set; }
+
+    public RankInfo()
+	{
+		nick_name = "";
+		score = null;
+	}
 
 	public override string ToString()
 	{
@@ -19,13 +26,15 @@ class RankInfo
 	}
 }
 
-public class RankboardList : MonoBehaviour
+public class Rankboard : MonoBehaviour
 {
 	public GameObject rankItemObject;
     public Transform Content;
+    public Text TimeRemaining;
+    public Text notiText;
 
-    List<RankInfo> rankInfoList = new List<RankInfo>();
-    private string[] LEVEL = { "EASY", "NORMAL", "HARD", "CRAZY" };
+    private List<RankInfo> rankInfoList = new List<RankInfo>();
+    
 
     // Use this for initialization
     void Start()
@@ -35,10 +44,36 @@ public class RankboardList : MonoBehaviour
         {
             return;
         }
+
+        // Calculate time remaining
+        StartCoroutine(UpdateRemainingTime());
+
+        // Load list
         LoadRankList();
     }
 
-    public void LoadRankList()
+    private IEnumerator UpdateRemainingTime()
+    {
+        Debug.Log("UpdateRemainingTime");
+        DateTime today = DateTimeManager.Instance.getKoreaTimeFromUTCNow();
+        int week = DateTimeManager.Instance.GetWeeksOfYear(today);
+        DateTime begin = DateTimeManager.Instance.GetFirstDateOfWeek(today.Year, week - 1);
+        begin = begin.AddDays(-1);
+        DateTime end = begin.AddDays(7);
+
+        TimeSpan ts = end - today;
+
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(1.0f);
+            today = today.AddSeconds(1.0f);
+            ts = end - today;
+
+			TimeRemaining.text = String.Format("다음 시즌까지 {0}일 {1}시간 {2}분 {3}초 남았습니다", ts.Days, ts.Hours, ts.Minutes, ts.Seconds);
+        }
+    }
+
+    private void LoadRankList()
 	{
 
 		DateTime begin = DateTimeManager.Instance.getKoreaTimeFromUTCNow();
@@ -48,7 +83,7 @@ public class RankboardList : MonoBehaviour
 		DateTime end = begin.AddDays(7);
 
         // score
-        List<Ab001Score> scoreList = ScoreService.Instance.FindScoreByScoreDateContain(begin, end);
+        List<Ab001Score> scoreList = ScoreService.Instance.FindAllScoreByScoreDateInCurrentWeek(100);
 
         List<string> user_ids = new List<string>();
         for (int i=0; i<scoreList.Count; i++)
@@ -86,17 +121,19 @@ public class RankboardList : MonoBehaviour
     public void Binding()
     {
         Debug.Log("Binding()");
-        for (int i=0; i<rankInfoList.Count; i++)
+        int i=0;
+        for (i=0; i<rankInfoList.Count; i++)
         {
             GameObject tempRankItemObject = Instantiate(this.rankItemObject) as GameObject;
             RankItemObject tempItemObject = tempRankItemObject.GetComponent<RankItemObject>();
-            tempItemObject.score.text = rankInfoList[i].score.score.ToString();
-            tempItemObject.time.text = rankInfoList[i].score.time.ToString();
-            tempItemObject.message.text = rankInfoList[i].score.message;
-            tempItemObject.level.text = LEVEL[rankInfoList[i].score.level];
-			tempItemObject.rank.text = (i + 1).ToString();
-            tempItemObject.nickName.text = rankInfoList[i].nick_name;
-            // 1등
+            tempItemObject.score.text     = String.Format("{0:#,###}", rankInfoList[i].score.score);
+            tempItemObject.time.text      = String.Format("{0:#,#.##}", rankInfoList[i].score.time) + "\"";
+            tempItemObject.message.text   = rankInfoList[i].score.message;
+            tempItemObject.level.text     = Constant.LEVEL[rankInfoList[i].score.level];
+            tempItemObject.level.color    = Constant.COLOR[rankInfoList[i].score.level];
+            tempItemObject.rank.text      = String.Format("{0:#,###}", (i + 1));
+            tempItemObject.nickName.text  = rankInfoList[i].nick_name;
+
             if (i == 0)
             {
                 tempItemObject.ribbon.sprite = Resources.Load<Sprite>("Image/rankboard/ribbon_1st");
@@ -118,6 +155,10 @@ public class RankboardList : MonoBehaviour
             // add rank item on the list
             tempRankItemObject.transform.SetParent(this.Content);
             tempRankItemObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        }   
+        }
+
+        if (i > 0) {
+            notiText.text = "";
+        }
     }
 }
