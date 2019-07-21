@@ -19,7 +19,7 @@ public class UserInfo
 
 	public override string ToString()
 	{
-		return String.Format("GPGSManager.UserInfo [user_id: {0}, auth: {1}, user_name: {2}, nick_name: {3}, user_email: {4}, user_country: {5}"
+		return String.Format("[user_id: {0}, auth: {1}, user_name: {2}, nick_name: {3}, user_email: {4}, user_country: {5}]"
 			, user_id, auth, user_name, nick_name, user_email, user_country);
 	}
 }
@@ -112,15 +112,7 @@ public void LoginGPGS()
         Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!! GPGSManager.LoginGPGS() : !Social.localUser.authenticated");
         Social.localUser.Authenticate((Action<bool>)((bool success) =>
         {
-            Debug.Log("### Authentication successful");
-            Debug.Log("Username: " + Social.localUser.userName);
-            Debug.Log("ImageUrl: " + Social.localUser.image);
-            Debug.Log("User ID: " + Social.localUser.id);
             string email = ((PlayGamesLocalUser)Social.localUser).Email;
-            Debug.Log("Email: " + email);
-            Debug.Log("IsUnderage: " + Social.localUser.underage);
-            Debug.Log("Friends: " + Social.localUser.friends);
-
             UserInfo userInfo = new UserInfo();
             userInfo.user_id = Social.localUser.id;
             userInfo.user_email = email;

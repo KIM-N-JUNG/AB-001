@@ -84,10 +84,7 @@ public class ProfileInput : MonoBehaviour
                 user_name = MainMenu.userInfo.user_name
             };
 
-            Debug.Log("insert User");
-            Debug.Log(user);
             int r = UserService.Instance.InsertUser(user);
-            Debug.Log("insert ret is " + r);
             if (r != 1)
             {
                 throw new InvalidOperationException("Failed to insert user record");
@@ -101,10 +98,7 @@ public class ProfileInput : MonoBehaviour
                 nick_name = MainMenu.userInfo.nick_name,
                 create_date = DateTimeManager.Instance.getKoreaTimeFromUTCNow()
             };
-            Debug.Log("insert UserGame");
-            Debug.Log(newUserGame);
             r = R_UserGameService.Instance.InsertR_UserGame(newUserGame);
-            Debug.Log("insert ret is " + r);
             if (r != 1)
             {
                 throw new InvalidOperationException("Failed to insert userGame record");
@@ -120,7 +114,6 @@ public class ProfileInput : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Exception!! insert User || UserGroup");
             Debug.Log(e.Message);
             storyMessage.text = "치지직.. 통신 불량.. 유저 등록 실패..";
             UserService.Instance.deleteUser(user);

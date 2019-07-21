@@ -71,7 +71,7 @@ public class LoginManager
 
             GPGSManager.GetInstance.Cb.onAuthenticationCb = (bool success, UserInfo _userInfo) =>
             {
-                Debug.Log("onAuthenticationCb! - " + success + ", userInfo " + _userInfo.user_name);
+                Debug.Log("onAuthenticationCb! - " + success);
                 // Test용
                 //_userInfo.user_id = "1234";
                 //_userInfo.user_name = "asdfasdf";
@@ -87,11 +87,9 @@ public class LoginManager
                     try
                     {
                         Debug.Log("MainMenu.userInfo check");
-                        Debug.Log(MainMenu.userInfo);
-                        Debug.Log(MainMenu.userInfo.user_id);
                         user = UserService.Instance.GetUserByUserId(MainMenu.userInfo.user_id);
                     }
-                    catch (DatabaseConnectionException e)
+                    catch (NotReachableSceneException e)
                     {
                         Debug.Log("###### Exception #########");
                         Debug.Log(e.ToString());

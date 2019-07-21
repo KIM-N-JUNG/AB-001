@@ -11,7 +11,7 @@ namespace Ab001.Database.Dto
         public string message { get; set; }
         public int level { get; set; }
         public DateTime score_date { get; set; }
-        public int time { get; set; }
+        public float time { get; set; }
         public Ab001Score()
         {
             id = 0;

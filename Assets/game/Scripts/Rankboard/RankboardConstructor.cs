@@ -8,8 +8,6 @@ using Ab001.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
-using System;
-using Ab001.Database.Service;
 
 public class RankboardConstructor : MonoBehaviour
 {
@@ -17,7 +15,6 @@ public class RankboardConstructor : MonoBehaviour
 
     // for AdMob
     private BannerView bannerView;
-    bool bAdsLoaded = false;
 
     private const string APP_ID = "ca-app-pub-1339724987571025~1648266314";
 
@@ -30,9 +27,8 @@ public class RankboardConstructor : MonoBehaviour
         Debug.Log("RankboardConstructor Awake");
         if (SceneManager.GetActiveScene().buildIndex == (int)Constant.SceneNumber.RANK_BOARD)
         {
-            ui.SetActive(true);
-
             initBanner();
+            ui.SetActive(true);
         }
     }
 
@@ -62,12 +58,8 @@ public class RankboardConstructor : MonoBehaviour
 
     public void Quit()
     {
+        bannerView.Hide();
         Debug.Log("Quit");
-
-        if (bAdsLoaded)
-        {
-            bannerView.Hide();
-        }
     }
 
     private void initBanner()
@@ -93,9 +85,8 @@ public class RankboardConstructor : MonoBehaviour
 
     public void HandleOnAdLoaded(object sender, EventArgs args)
     {
+        bannerView.Show();
         MonoBehaviour.print("HandleAdLoaded event received");
         Debug.Log("HandleOnAdLoaded");
-        bAdsLoaded = true;
-        bannerView.Show();
     }
 }
