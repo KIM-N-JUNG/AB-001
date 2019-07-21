@@ -120,19 +120,27 @@ public static class Properties
         /*39*/"Vietnamese"   , "ChineseSimplified", "ChineseTraditional", "Unknown"
     };
 
+    private static string[] SUPPORT_LANGUAGE =
+    {
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "Korean",
+        "English",
+        "Russian",
+        "Vietnamese",
+        "Thai",
+        "Spanish",
+    };
+
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] MAIN_MENU_TITLE =
     {
-        /*00*/"Avoid meteorites!","Tránh thiên thạch!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!",
-        /*05*/"Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!",
-        /*10*/"Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!",
-        /*15*/"Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!",
-        /*19*/"Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!",
-        /*23*/"운석을 피해라!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!",
-        /*27*/"Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","Избегайте метеоритов!",
-        /*31*/"Avoid meteorites!","Avoid meteorites!","Avoid meteorites!","¡Evita los meteoritos!",
-        /*35*/"Avoid meteorites!","หลีกเลี่ยงอุกกาบาต!","Avoid meteorites!","Avoid meteorites!",
-        /*39*/"Tránh các thiên thạch!","Avoid meteorites!","Avoid meteorites!","Avoid meteorites!"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "운석을 피해라!",
+        "Avoid meteorites!",
+        "Избегайте метеоритов!",
+        "Tránh thiên thạch!",
+        "หลีกเลี่ยงอุกกาบาต!",
+        "¡Evita los meteoritos!",
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] MAIN_MENU_TITLE_FONT =
@@ -165,148 +173,145 @@ public static class Properties
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] INDICATE_OFFLINE_MODE_MESSAGE =
     {
-        /*00*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet",
-        /*05*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet",
-        /*10*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet",
-        /*15*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet",
-        /*19*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Disconnected the internet",
-        /*23*/"인터넷에 연결되어 있지 않습니다","Disconnected the internet","Disconnected the internet","Disconnected the internet",
-        /*27*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Вы не подключены к Интернету",
-        /*31*/"Disconnected the internet","Disconnected the internet","Disconnected the internet","Usted no está conectado a Internet",
-        /*35*/"Disconnected the internet","คุณไม่ได้เชื่อมต่อกับอินเทอร์เน็ต","Disconnected the internet","Disconnected the internet",
-        /*39*/"Bạn không được kết nối với Internet","Disconnected the internet","Disconnected the internet","Disconnected the internet"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "인터넷에 연결되어 있지 않습니다",
+        "Disconnected the internet",
+        "Вы не подключены к Интернету",
+        "Bạn không được kết nối với Internet",
+        "คุณไม่ได้เชื่อมต่อกับอินเทอร์เน็ต",
+        "Usted no está conectado a Internet",
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] DATABASE_CONNECTION_ERROR_MESSAGE =
     {
-        /*00*/"Checking Server","Checking Server","Checking Server","Checking Server","Checking Server",
-        /*05*/"Checking Server","Checking Server","Checking Server","Checking Server","Checking Server",
-        /*10*/"Checking Server","Checking Server","Checking Server","Checking Server","Checking Server",
-        /*15*/"Checking Server","Checking Server","Checking Server","Checking Server",
-        /*19*/"Checking Server","Checking Server","Checking Server","Checking Server",
-        /*23*/"서버 문제로 로그인을 할 수 없습니다","Checking Server","Checking Server","Checking Server",
-        /*27*/"Checking Server","Checking Server","Checking Server","Проверка сервера",
-        /*31*/"Checking Server","Checking Server","Checking Server","Comprobar servidor",
-        /*35*/"Checking Server","กำลังตรวจสอบเซิร์ฟเวอร์","Checking Server","Checking Server",
-        /*39*/"Kiểm tra máy chủ","Checking Server","Checking Server","Checking Server"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "서버 문제로 로그인을 할 수 없습니다",
+        "Checking Server",
+        "Проверка сервера",
+        "Kiểm tra máy chủ",
+        "กำลังตรวจสอบเซิร์ฟเวอร์",
+        "Comprobar servidor",
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] LOGIN_SUCCESS_MESSAGE =
     {
-        /*00*/"Login Succeed","Login Succeed","Login Succeed","Login Succeed","Login Succeed",
-        /*05*/"Login Succeed","Login Succeed","Login Succeed","Login Succeed","Login Succeed",
-        /*10*/"Login Succeed","Login Succeed","Login Succeed","Login Succeed","Login Succeed",
-        /*15*/"Login Succeed","Login Succeed","Login Succeed","Login Succeed",
-        /*19*/"Login Succeed","Login Succeed","Login Succeed","Login Succeed",
-        /*23*/"로그인 성공","Login Succeed","Login Succeed","Login Succeed",
-        /*27*/"Login Succeed","Login Succeed","Login Succeed","Успешный вход в систему",
-        /*31*/"Login Succeed","Login Succeed","Login Succeed","Inicia sesión con éxito",
-        /*35*/"Login Succeed","เข้าสู่ระบบสำเร็จ","Login Succeed","Login Succeed",
-        /*39*/"Đăng nhập thành công","Login Succeed","Login Succeed","Login Succeed"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "로그인 성공",
+        "Login Succeed",
+        "Успешный вход в систему",
+        "Đăng nhập thành công",
+        "เข้าสู่ระบบสำเร็จ",
+        "Inicia sesión con éxito",
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] LOGIN_FAIL_MESSAGE =
     {
-        /*00*/"Login Failed","Login Failed","Login Failed","Login Failed","Login Failed",
-        /*05*/"Login Failed","Login Failed","Login Failed","Login Failed","Login Failed",
-        /*10*/"Login Failed","Login Failed","Login Failed","Login Failed","Login Failed",
-        /*15*/"Login Failed","Login Failed","Login Failed","Login Failed",
-        /*19*/"Login Failed","Login Failed","Login Failed","Login Failed",
-        /*23*/"로그인 실패","Login Failed","Login Failed","Login Failed",
-        /*27*/"Login Failed","Login Failed","Login Failed","Ошибка входа",
-        /*31*/"Login Failed","Login Failed","Login Failed","error de inicio de sesion",
-        /*35*/"Login Failed","การเข้าสู่ระบบล้มเหลว","Login Failed","Login Failed",
-        /*39*/"Đăng nhập thất bại","Login Failed","Login Failed","Login Failed"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "로그인 실패",
+        "Login Failed",
+        "Ошибка входа",
+        "Đăng nhập thất bại",
+        "การเข้าสู่ระบบล้มเหลว",
+        "error de inicio de sesion",
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] PROCEED_TO_THE_PROLOGUE_MESSAGE =
     {
-        /*00*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue",
-        /*05*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue",
-        /*10*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue",
-        /*15*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue",
-        /*19*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue",
-        /*23*/"프롤로그로 진행 합니다","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue",
-        /*27*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","Ошибка входа",
-        /*31*/"Proceed to the prologue","Proceed to the prologue","Proceed to the prologue","error de inicio de sesion",
-        /*35*/"Proceed to the prologue","การเข้าสู่ระบบล้มเหลว","Proceed to the prologue","Proceed to the prologue",
-        /*39*/"Đăng nhập thất bại","Proceed to the prologue","Proceed to the prologue","Proceed to the prologue"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "프롤로그로 진행 합니다",
+        "Proceed to the prologue",
+        "Ошибка входа",
+        "Đăng nhập thất bại",
+        "การเข้าสู่ระบบล้มเหลว",
+        "error de inicio de sesion",
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] EXIT_POPUP_MESSAGE =
     {
-        /*00*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
-        /*05*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
-        /*10*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
-        /*15*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
-        /*19*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
-        /*23*/"다시 돌아올거라 믿습니다","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon",
-        /*27*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","Ошибка входа",
-        /*31*/"I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon","error de inicio de sesion",
-        /*35*/"I believe that you will be back soon","การเข้าสู่ระบบล้มเหลว","I believe that you will be back soon","I believe that you will be back soon",
-        /*39*/"Đăng nhập thất bại","I believe that you will be back soon","I believe that you will be back soon","I believe that you will be back soon"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "다시 돌아올거라 믿습니다",
+        "I believe that you will be back soon",
+        "Ошибка входа",
+        "Đăng nhập thất bại",
+        "การเข้าสู่ระบบล้มเหลว",
+        "error de inicio de sesion",
     };
 
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] UPDATE_POPUP_MESSAGE =
     {
-        /*00*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*05*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*10*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*15*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*19*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*23*/"최신 버전이 존재합니다.\n업데이트 하시겠습니까?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*27*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","TODO",
-        /*31*/"The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","TODO",
-        /*35*/"The latest version exists.\nDo you want to update?","TODO","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?",
-        /*39*/"TODO","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?","The latest version exists.\nDo you want to update?"
+        // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
+        "최신 버전이 존재합니다.\n업데이트 하시겠습니까?",
+        "The latest version exists.\nDo you want to update?",
+        "TODO",
+        "TODO",
+        "TODO",
+        "TODO",
     };
+
     public static string GetMainMenuTitle()
     {
-        return MAIN_MENU_TITLE[(int)Application.systemLanguage];
+        return MAIN_MENU_TITLE[GetCurrentLanguageIndex()];
     }
     public static string GetMainMenuTitleFont()
     {
-        return MAIN_MENU_TITLE_FONT[(int)Application.systemLanguage];
+        return MAIN_MENU_TITLE_FONT[GetCurrentLanguageIndex()];
     }
     public static int GetMainMenuTitleFontSize()
     {
-        return MAIN_MENU_TITLE_FONTSIZE[(int)Application.systemLanguage];
+        return MAIN_MENU_TITLE_FONTSIZE[GetCurrentLanguageIndex()];
     }
     public static string GetIndicateOfflineModeMessage()
     {
-        return INDICATE_OFFLINE_MODE_MESSAGE[(int)Application.systemLanguage];
+        return INDICATE_OFFLINE_MODE_MESSAGE[GetCurrentLanguageIndex()];
     }
 
     public static string GetDatabaseConnectionErrorMessage()
     {
-        return DATABASE_CONNECTION_ERROR_MESSAGE[(int)Application.systemLanguage];
+        return DATABASE_CONNECTION_ERROR_MESSAGE[GetCurrentLanguageIndex()];
     }
 
     public static string GetLoginSucceedMessage()
     {
-        return LOGIN_SUCCESS_MESSAGE[(int)Application.systemLanguage];
+        return LOGIN_SUCCESS_MESSAGE[GetCurrentLanguageIndex()];
     }
 
     public static string GetLoginFailedMessage()
     {
-        return LOGIN_FAIL_MESSAGE[(int)Application.systemLanguage];
+        return LOGIN_FAIL_MESSAGE[GetCurrentLanguageIndex()];
     }
 
     public static string GetProceedToPrologueMessage()
     {
-        return PROCEED_TO_THE_PROLOGUE_MESSAGE[(int)Application.systemLanguage];
+        return PROCEED_TO_THE_PROLOGUE_MESSAGE[GetCurrentLanguageIndex()];
     }
 
     public static string GetExitPopupMessage()
     {
-        return EXIT_POPUP_MESSAGE[(int)Application.systemLanguage];
+        return EXIT_POPUP_MESSAGE[GetCurrentLanguageIndex()];
     }
 
     public static string GetUpdatePopupMessage()
     {
-        return UPDATE_POPUP_MESSAGE[(int)Application.systemLanguage];
+        return UPDATE_POPUP_MESSAGE[GetCurrentLanguageIndex()];
     }
 
+    public static int GetCurrentLanguageIndex()
+    {
+        int retVal = 1; // default
+        SystemLanguage sysLang = Application.systemLanguage;
+        string curLang = sysLang.ToString();
+        int i;
+        for (i = 0; i < SUPPORT_LANGUAGE.Length; i++)
+        {
+            if (curLang == SUPPORT_LANGUAGE[i])
+            {
+                retVal = i;
+                break;
+            }
+        }
+        Debug.Log("GetCurrentLanguageIndex (curLang : " + curLang + ", index : " + i + ")");
+        return i;
+    }
 }
 
