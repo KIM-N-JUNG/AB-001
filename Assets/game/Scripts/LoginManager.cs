@@ -89,7 +89,7 @@ public class LoginManager
                         Debug.Log("MainMenu.userInfo check");
                         user = UserService.Instance.GetUserByUserId(MainMenu.userInfo.user_id);
                     }
-                    catch (NotReachableSceneException e)
+                    catch (DatabaseConnectionException e)
                     {
                         Debug.Log("###### Exception #########");
                         Debug.Log(e.ToString());

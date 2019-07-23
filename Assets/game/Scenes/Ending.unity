@@ -505,7 +505,7 @@ RectTransform:
   m_Father: {fileID: 255865748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.648787}
+  m_AnchorMin: {x: 0, y: 0.6310346}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 377302365}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.35121298
+  m_Size: 0.36896536
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -852,7 +852,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: -40.1, y: 837.0364}
+  m_SizeDelta: {x: -40.1, y: 728.03357}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &750670813
 MonoBehaviour:
@@ -912,8 +912,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0bf513bda7017d94abffd272e581e73d, type: 3}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: 2b2204205d5714f0c9c154a05ff3c6c1, type: 3}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1072,8 +1072,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0bf513bda7017d94abffd272e581e73d, type: 3}
-    m_FontSize: 120
+    m_Font: {fileID: 12800000, guid: 2b2204205d5714f0c9c154a05ff3c6c1, type: 3}
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1441,7 +1441,7 @@ RectTransform:
   m_Father: {fileID: 201134608}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.000000059604645, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -2123,8 +2123,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1400924275}
   m_HandleRect: {fileID: 1400924274}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

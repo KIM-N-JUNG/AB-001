@@ -120,7 +120,7 @@ public class MySqlConnector
                     Debug.Log("Exception!");
                     Debug.Log(e.Message);
                     Debug.Log(e.ToString());
-                    throw new NotReachableSceneException("can't access database", e);
+                    throw new DatabaseConnectionException("can't access database", e);
                 }
                 finally
                 {

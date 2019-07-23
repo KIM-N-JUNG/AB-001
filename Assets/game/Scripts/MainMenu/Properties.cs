@@ -100,6 +100,23 @@ using System;
    };
 */
 
+public class TextFontInfo
+{
+    public string Text { get; }
+    public Font Font { get; }
+    public int FontSize { get; }
+
+    private TextFontInfo()
+    { }
+
+    public TextFontInfo(string text, string fontName, int fontSize)
+    {
+        Text = text;
+        Font = (Font)Resources.Load(fontName);
+        FontSize = fontSize;
+    }
+};
+
 /*
  * 현재 지원 언어 
  * 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)     
@@ -145,30 +162,30 @@ public static class Properties
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] MAIN_MENU_TITLE_FONT =
     {
-        /*00*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*05*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*10*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*15*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*19*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*23*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*27*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*31*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*35*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush",
-        /*39*/"fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush","fonts/NanumBrush"
+        /*00*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*05*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*10*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*15*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*19*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*23*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*27*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*31*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*35*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF",
+        /*39*/"fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF","fonts/JalnanOTF"
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static int[] MAIN_MENU_TITLE_FONTSIZE =
     {
-        /*00*/100,100,100,100,100,
-        /*05*/100,100,100,100,100,
-        /*10*/100,100,100,100,100,
-        /*15*/100,100,100,100,
-        /*19*/100,100,100,100,
-        /*23*/130,100,100,100,
-        /*27*/100,100,100,090,
-        /*31*/100,100,100,100,
-        /*35*/100,076,100,100,
-        /*39*/120,100,100,100
+        /*00*/80,80,80,80,80,
+        /*05*/80,80,80,80,80,
+        /*10*/80,80,80,80,80,
+        /*15*/80,80,80,80,
+        /*19*/80,80,80,80,
+        /*23*/80,80,80,80,
+        /*27*/80,80,80,80,
+        /*31*/80,80,80,80,
+        /*35*/80,80,80,80,
+        /*39*/80,80,80,80
     };
     // 한국어(23), 영어(10), 러시아어(30), 베트남어(39), 태국어(36), 스페인어(34)
     private static string[] INDICATE_OFFLINE_MODE_MESSAGE =
@@ -229,7 +246,7 @@ public static class Properties
     private static string[] EXIT_POPUP_MESSAGE =
     {
         // 한국어, 영어, 러시아어, 베트남어, 태국어, 스페인어
-        "다시 돌아올거라 믿습니다",
+        "다시 돌아올거라 믿습니다!",
         "I believe that you will be back soon",
         "Ошибка входа",
         "Đăng nhập thất bại",
@@ -249,21 +266,18 @@ public static class Properties
         "TODO",
     };
 
-    public static string GetMainMenuTitle()
+    public static TextFontInfo GetMainMenuTitleText()
     {
-        return MAIN_MENU_TITLE[GetCurrentLanguageIndex()];
+        int idx = GetCurrentLanguageIndex();
+        TextFontInfo tfi = new TextFontInfo(MAIN_MENU_TITLE[idx], MAIN_MENU_TITLE_FONT[idx], MAIN_MENU_TITLE_FONTSIZE[idx]);
+        return tfi;
     }
-    public static string GetMainMenuTitleFont()
+
+    public static TextFontInfo GetIndicateOfflineModeMessageText()
     {
-        return MAIN_MENU_TITLE_FONT[GetCurrentLanguageIndex()];
-    }
-    public static int GetMainMenuTitleFontSize()
-    {
-        return MAIN_MENU_TITLE_FONTSIZE[GetCurrentLanguageIndex()];
-    }
-    public static string GetIndicateOfflineModeMessage()
-    {
-        return INDICATE_OFFLINE_MODE_MESSAGE[GetCurrentLanguageIndex()];
+        int idx = GetCurrentLanguageIndex();
+        TextFontInfo tfi = new TextFontInfo(INDICATE_OFFLINE_MODE_MESSAGE[idx], MAIN_MENU_TITLE_FONT[idx], MAIN_MENU_TITLE_FONTSIZE[idx]);
+        return tfi;
     }
 
     public static string GetDatabaseConnectionErrorMessage()
@@ -304,7 +318,7 @@ public static class Properties
         int i;
         for (i = 0; i < SUPPORT_LANGUAGE.Length; i++)
         {
-            if (curLang == SUPPORT_LANGUAGE[i])
+            if (curLang.Equals(SUPPORT_LANGUAGE[i]))
             {
                 retVal = i;
                 break;

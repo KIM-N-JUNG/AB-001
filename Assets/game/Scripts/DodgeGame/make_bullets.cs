@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Ab001.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -44,6 +45,9 @@ public class make_bullets : MonoBehaviour
             Debug.Log("Not started the game!!!");
             return;
         }
+
+        DateTime now = DateTimeManager.Instance.getKoreaTimeFromUTCNow();
+        int seed = now.Year + now.Month + now.Day + now.Hour + now.Minute + now.Second;
 
         timeIter = 0.0f;
         var ins = SingletonClass.Instance;

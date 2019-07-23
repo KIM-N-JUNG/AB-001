@@ -85,6 +85,10 @@ public class RankboardConstructor : MonoBehaviour
 
     public void HandleOnAdLoaded(object sender, EventArgs args)
     {
+        if (SceneManager.GetActiveScene().buildIndex != (int)Constant.SceneNumber.RANK_BOARD)
+        {
+            return;
+        }
         bannerView.Show();
         MonoBehaviour.print("HandleAdLoaded event received");
         Debug.Log("HandleOnAdLoaded");
