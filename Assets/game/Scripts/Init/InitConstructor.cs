@@ -29,7 +29,7 @@ public class InitConstructor : MonoBehaviour
             Debug.Log("OnLogin() - MainMenu.userInfo check");
             userGame = R_UserGameService.Instance.GetUserGameByUserIdAndGameCode(user.user_id, Constant.GAME_CODE);
         }
-        catch (NotReachableSceneException e)
+        catch (DatabaseConnectionException e)
         {
             Debug.Log("###### Exception #########");
             Debug.Log(e.ToString());
@@ -43,19 +43,13 @@ public class InitConstructor : MonoBehaviour
         int ret = UserService.Instance.UpdateUserByUserId(user.user_id, "visit_count", user.visit_count + 1);
         Debug.Log("ret is " + ret);
 
-        Ab001Score myBestScore = ScoreService.Instance.FindScoreByScoreDateInCurrentWeekAndUserId(MainMenu.userInfo.user_id);
-
-        // Load my best score
-        MainMenu.myRankInfo.nick_name = MainMenu.userInfo.nick_name;
-        MainMenu.myRankInfo.score = myBestScore;
-
         loginFinish = true;
     }
 
     private void OnLogout()
     {
         // Unreachable
-        androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+        androidSet.ShowToast("offline mode", false);
         loginFinish = true;
     }
 
@@ -100,7 +94,7 @@ public class InitConstructor : MonoBehaviour
 
         while (loadingValue <= 70)
         {
-            yield return new WaitForSecondsRealtime(0.01f);
+            yield return null;
             loadingValue++;
         }
         yield return new WaitUntil(() => loginFinish == true);
@@ -127,7 +121,7 @@ public class InitConstructor : MonoBehaviour
             }
         }
         titleUI.text = "COMPLETE!";
-        yield return new WaitForSecondsRealtime(1.2f);
+        yield return new WaitForSecondsRealtime(1.0f);
         oper.allowSceneActivation = true;
     }
 

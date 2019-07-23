@@ -54,7 +54,7 @@ public class Score : MonoBehaviour
         float time = timer.GetTime();
         score = (int)(time * scoreRatios[ins.level]);
 
-        uiText.text = "Score : " + score.ToString();
+        uiText.text = string.Format("Score : {0:#,###}", score);
     }
 
     public int GetScore()

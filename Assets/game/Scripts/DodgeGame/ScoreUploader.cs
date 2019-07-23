@@ -21,7 +21,7 @@ public class ScoreUploader : MonoBehaviour
         }
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Debug.Log(Properties.GetIndicateOfflineModeMessage());
+            Debug.Log("offline mode");
             return false;
         }
         // 로그인이 안되어있을 때 종료
@@ -86,9 +86,20 @@ public class ScoreUploader : MonoBehaviour
         float time = timer.GetTime();
         int myScore = _score.GetScore();
 
+        if (MainMenu.myRankInfo == null)
+        {
+            Ab001Score myBestScore = ScoreService.Instance.FindScoreByScoreDateInCurrentWeekAndUserId(MainMenu.userInfo.user_id);
+
+            // Load my best score
+            MainMenu.myRankInfo = new RankInfo();
+            MainMenu.myRankInfo.nick_name = MainMenu.userInfo.nick_name;
+            MainMenu.myRankInfo.score = myBestScore;
+        }
         if (MainMenu.myRankInfo.score != null)
         {
             // compare who are bigger score
+            Debug.Log("myScore : " + myScore);
+            Debug.Log("bestScore : " + MainMenu.myRankInfo.score.score);
             if (myScore <= MainMenu.myRankInfo.score.score) // 최고점수 아님. 무시한다.
             {
                 Debug.Log("score is not higher");

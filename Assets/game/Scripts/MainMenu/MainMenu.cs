@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     public AndroidSet androidSet;
 
     public static UserInfo userInfo;
-    public static RankInfo myRankInfo = new RankInfo();
+    public static RankInfo myRankInfo = null;
 
     private LoginManager loginManager = LoginManager.GetInstance;
 
@@ -33,17 +33,17 @@ public class MainMenu : MonoBehaviour
         }
         catch (NotReachableSceneException e) 
         {
-            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            androidSet.ShowToast(e.Message, false);
             return;
         }
         catch (NotReachableInternetException e)
         {
-            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            androidSet.ShowToast(e.Message, false);
             return;
         }
         catch (NotLoginException e)
         {
-            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            androidSet.ShowToast(e.Message, false);
             return;
         }
         SceneManager.LoadScene((int)Constant.SceneNumber.RANK_BOARD);
@@ -58,9 +58,14 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         // Font 설정
-        mainMenuTitleUI.text = Properties.GetMainMenuTitle();
-        mainMenuTitleUI.font = (Font)Resources.Load((string)Properties.GetMainMenuTitleFont());
-        mainMenuTitleUI.fontSize = Properties.GetMainMenuTitleFontSize();
+        //mainMenuTitleUI.text = Properties.GetMainMenuTitle();
+        //mainMenuTitleUI.font = (Font)Resources.Load((string)Properties.GetMainMenuTitleFont());
+        //mainMenuTitleUI.fontSize = Properties.GetMainMenuTitleFontSize();
+
+        TextFontInfo tfi = Properties.GetMainMenuTitleText();
+        mainMenuTitleUI.text = tfi.Text;
+        mainMenuTitleUI.font = tfi.Font;
+        mainMenuTitleUI.fontSize = tfi.FontSize;
     }
 
     // Start is called before the first frame update
@@ -111,7 +116,7 @@ public class MainMenu : MonoBehaviour
             Debug.Log("MainMenu.cs : OnLogin() - MainMenu.userInfo check");
             userGame = R_UserGameService.Instance.GetUserGameByUserIdAndGameCode(user.user_id, Constant.GAME_CODE);
         }
-        catch (NotReachableSceneException e)
+        catch (DatabaseConnectionException e)
         {
             Debug.Log("###### Exception #########");
             Debug.Log(e.ToString());
@@ -128,6 +133,9 @@ public class MainMenu : MonoBehaviour
     private void OnLogout()
     {
         toggle_login.isOn = false;
+
+        // reset myBestRankInfo
+        MainMenu.myRankInfo = null;
     }
 
     private void OnShowPrivacyBoard(bool show)

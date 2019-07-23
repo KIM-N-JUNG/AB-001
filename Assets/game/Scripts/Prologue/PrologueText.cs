@@ -23,7 +23,7 @@ public class PrologueText : MonoBehaviour
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            androidSet.ShowToast(Properties.GetIndicateOfflineModeMessage(), false);
+            androidSet.ShowToast("offline mode", false);
             return;
         }
 

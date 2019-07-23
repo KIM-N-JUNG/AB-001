@@ -85,7 +85,6 @@ public class PauseMenu : MonoBehaviour
         timer.Pause();
         score.Pause();
 
-        Debug.Log("bAdsLoaded : " + bAdsLoaded + ", call bannerView.Show()");
         bannerView.Show();
 
         float time = timer.GetTime();
@@ -93,7 +92,7 @@ public class PauseMenu : MonoBehaviour
 
         GameObject meshText = PauseUI.transform.Find("ScoreMeshText").gameObject;
         TextMeshProUGUI text = meshText.GetComponent<TextMeshProUGUI>();
-        text.SetText("Time: {0:2} \r\nScore: {1:0}", time, s);
+        text.SetText(string.Format("Time: {0:#,0.##} \r\nScore: {1:#,###}", time, s));
     }
 
     public void initAds()
@@ -171,14 +170,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        Debug.Log("Restart");
         bannerView.Hide();
         SceneManager.LoadScene((int)Constant.SceneNumber.GAME);
     }
 
     public void LoadMainMenuScene()
     {
-        Debug.Log("MainMenu");
         SceneManager.LoadScene((int)Constant.SceneNumber.MAIN_MENU);
     }
 

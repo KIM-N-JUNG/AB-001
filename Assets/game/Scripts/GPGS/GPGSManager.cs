@@ -101,7 +101,7 @@ public void LoginGPGS()
 {
     if (Application.internetReachability == NetworkReachability.NotReachable)
     {
-        Debug.Log(Properties.GetIndicateOfflineModeMessage());
+        Debug.Log("offline mode");
         LogoutGPGS(true);
         return;
     }

@@ -44,7 +44,7 @@ public class MyRank : MonoBehaviour
         int i = 0;
         for (i = 0; i < list.Count; i++)
         {
-            if (list[i].user_id == MainMenu.userInfo.user_id)
+            if (list[i].user_id.Equals(MainMenu.userInfo.user_id))
             {
                 break;
             }

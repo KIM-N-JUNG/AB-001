@@ -19,7 +19,6 @@ public class OptionScript : MonoBehaviour
 
     // for AdMob
     private BannerView bannerView;
-    bool bAdsLoaded = false;
 
     protected readonly string[] DifficultyName = {
         "EASY",
@@ -33,6 +32,8 @@ public class OptionScript : MonoBehaviour
 
     void Start()
     {
+        initBanner();
+
         var ins = SingletonClass.Instance;
 
         toggle_acc.isOn = ins.acceleration ? true : false;
@@ -40,8 +41,6 @@ public class OptionScript : MonoBehaviour
         toggle_effectSound.isOn = ins.bEffectSound ? true : false;
         slider_difficult.onValueChanged.AddListener(delegate { OnDifficultLevelChange(); });
         slider_difficult.value = ins.level;
-
-        initBanner();
     }
 
     public void SetAcceleration(bool flag)
@@ -83,12 +82,7 @@ public class OptionScript : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Quit");
-
-        if (bAdsLoaded)
-        {
-            bannerView.Hide();
-        }
+        bannerView.Hide();
     }
 
     private void initBanner()
@@ -116,7 +110,6 @@ public class OptionScript : MonoBehaviour
     {
         MonoBehaviour.print("HandleAdLoaded event received");
         Debug.Log("HandleOnAdLoaded");
-        bAdsLoaded = true;
         bannerView.Show();
     }
 }
